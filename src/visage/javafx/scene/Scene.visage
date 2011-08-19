@@ -44,6 +44,8 @@ public class Scene {
     public-init var height:Double;
     public default var content:Parent;
     public var fill:Color on replace {
-        wrappedScene.setFill(VConvert.color(fill));
+        if (isInitialized(this) or fill != null) {
+            wrappedScene.setFill(VConvert.color(fill));
+        }
     }
 }

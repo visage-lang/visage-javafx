@@ -4,3 +4,5 @@
 \.rej$
 \.conflict\~$
 nbproject/private
+build
+dist

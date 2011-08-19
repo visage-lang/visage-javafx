@@ -27,9 +27,9 @@
  */
 package org.visage.javafx.animation;
 
-import com.sun.visage.animation.Clip;
-import com.sun.visage.animation.Interpolator;
-import com.sun.visage.animation.TimingTarget;
+import org.visage.animation.Clip;
+import org.visage.animation.Interpolator;
+import org.visage.animation.TimingTarget;
 import java.util.Timer;
 import java.util.TimerTask;
 

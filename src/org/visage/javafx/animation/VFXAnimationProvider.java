@@ -27,12 +27,12 @@
  */
 package org.visage.javafx.animation;
 
-import com.sun.visage.animation.AnimationProvider;
-import com.sun.visage.animation.Clip;
-import com.sun.visage.animation.ClipFactory;
-import com.sun.visage.animation.Interpolator;
-import com.sun.visage.animation.InterpolatorFactory;
-import com.sun.visage.animation.TimingTarget;
+import org.visage.animation.AnimationProvider;
+import org.visage.animation.Clip;
+import org.visage.animation.ClipFactory;
+import org.visage.animation.Interpolator;
+import org.visage.animation.InterpolatorFactory;
+import org.visage.animation.TimingTarget;
 
 /**
  * @author Stephen Chin <steveonjava@gmail.com>

@@ -27,15 +27,13 @@
  */
 package org.visage.javafx.runtime;
 
-import com.sun.visage.runtime.FXExit;
-import com.sun.visage.runtime.RuntimeProvider;
-import com.sun.visage.runtime.TypeInfo;
-import com.sun.visage.runtime.sequence.Sequences;
+import org.visage.runtime.FXExit;
+import org.visage.runtime.RuntimeProvider;
+import org.visage.runtime.TypeInfo;
+import org.visage.runtime.sequence.Sequences;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import javafx.application.Application;
 import javafx.application.Platform;
-import visage.lang.FX;
 
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
