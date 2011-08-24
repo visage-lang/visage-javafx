@@ -84,7 +84,8 @@
             <fileset dir="${src.dir}" includes="**/*.visage"/>
         </path>
         <pathconvert refid="visage.sources" property="visagesources" pathsep=" "/>
-        <exec executable="${visagehome}/bin/visagec${binary.extension}" failonerror="true" logerror="true">
+        <property name="visagec" location="${visagehome}/bin/visagec${binary.extension}" /> <!-- this is needed to do path expansion on windows -->
+        <exec executable="${visagec}" failonerror="true" logerror="true">
             <arg value="-d"/>
             <arg value="${build.dir}/classes"/>
             <arg value="-cp"/>
