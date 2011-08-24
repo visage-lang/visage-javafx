@@ -27,7 +27,7 @@
  */
 package org.visage.javafx.runtime;
 
-import org.visage.runtime.FXExit;
+import org.visage.runtime.VisageExit;
 import org.visage.runtime.RuntimeProvider;
 import org.visage.runtime.TypeInfo;
 import org.visage.runtime.sequence.Sequences;
@@ -50,7 +50,7 @@ public class VFXRuntimeProvider implements RuntimeProvider {
         } catch (InvocationTargetException ite) {
             Throwable cause = ite.getCause();
             // todo - check what really gets thrown...
-            if (cause instanceof FXExit) { // explicit exit
+            if (cause instanceof VisageExit) { // explicit exit
                 return null;
             }
             throw cause;

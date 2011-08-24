@@ -32,7 +32,7 @@ package visage.javafx.scene;
  */
 public class Node {
     public-read protected var wrappedNode:javafx.scene.Node;
-    public var layoutX:Double on replace oldVal=newVal {
+    public var layoutX:Double on replace {
         if (isInitialized(this) or layoutX != 0) {
             wrappedNode.setLayoutX(layoutX);
         }

@@ -37,7 +37,7 @@ public var mainStage:Stage;
 public function initialize(stage:Stage) {
     if (mainStage == null) {
         mainStage = stage;
-        launch(Application.class, FX.getArguments());
+        launch(Application.class, Visage.getArguments());
     }
 }
 
