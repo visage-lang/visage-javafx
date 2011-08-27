@@ -35,7 +35,7 @@ import javafx.beans.value.ObservableValue;
 /**
  * <p>The Image class represents graphical images and is used for loading images from a specified URL.</p>
  * <p>Images can be resized as they are loaded (for example to reduce the amount of memory consumed by the image). The application can specify the quality of filtering used when scaling, and whether or not to preserve the original image's aspect ratio.</p>
- * <p>Use <code>ImageView</code> for displaying images loaded with this class. The same <code>Image</code> instance can be displayed by multiple <code>ImageView</code>s.</p>
+ * <p>Use <code>{@link ImageView}</code> for displaying images loaded with this class. The same <code>Image</code> instance can be displayed by multiple <code>ImageView</code>s.</p>
  * <p>Example code for loading images:</p>
  * <pre>
  * import visage.javafx.scene.image.Image;

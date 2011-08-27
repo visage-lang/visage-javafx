@@ -1,0 +1,147 @@
+/*
+ * Copyright (c) 2010-2011, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.geometry;
+
+/**
+ * A 2D rectangle used to describe the bounds of an object. It is defined by a location (minX, minY) and dimension (width x height).
+ * @author Alain Béarez <A@cua.li>
+ */
+public class Rectangle2D {
+    public-read var wrappedRectangle2D:javafx.geometry.Rectangle2D;
+    /**
+     * The x coordinate of the upper-left corner of this <code>Rectangle2D</code>.
+     */
+    public-init var minX :Double;
+    /**
+     * The y coordinate of the upper-left corner of this <code>Rectangle2D</code>.
+     */
+    public-init var minY :Double;
+    /**
+     * The width of this <code>Rectangle2D</code>.
+     */
+    public-init var width :Double;
+    /**
+     * The height of this <code>Rectangle2D</code>.
+     */
+    public-init var height :Double;
+    /**
+     * The x coordinate of the lower-right corner of this <code>Rectangle2D</code>.
+     */
+    public-read var maxX :Double = bind minX + width;
+    /**
+     * The y coordinate of the lower-right corner of this <code>Rectangle2D</code>.
+     */
+    public-read var maxY :Double = bind minY + height;
+
+    init {
+        wrappedRectangle2D = new javafx.geometry.Rectangle2D(minX, minY, width, height)
+    }
+
+    /**
+     * Tests if the specified point is inside the boundary of this <code>Rectangle2D</code>.
+     * @param point the specified point to be tested.
+     * @return <code>true</code> if the specified point is inside the boundary of this <code>Rectangle2D</code>; <code>false</code> otherwise.
+     */
+    public function contains(point :Point2D) :Boolean {
+        wrappedRectangle2D.contains(point.wrappedPoint2D)
+    }
+    /**
+     * Tests if the specified <code>(x, y)</code> coordinates are inside the boundary of <code>Rectangle2D</code>.
+     * @param x the specified x coordinate to be tested.
+     * @param y the specified y coordinate to be tested.
+     * @return <code>true</code> if the specified <code>(x, y)</code> coordinates are inside the boundary of this <code>Rectangle2D</code>; <code>false</code> otherwise.
+     */
+    public function contains(x :Double, y :Double) :Boolean {
+        wrappedRectangle2D.contains(x, y)
+    }
+    /**
+     * Tests if the interior of this <code>Rectangle2D</code> entirely contains the specified <code>Rectangle2D</code>.
+     * @param rectangle the specified <code>Rectangle2D</code> to be tested.
+     * @return <code>true</code> if the specified <code>rectangle</code> is inside the boundary of this <code>Rectangle2D</code>; <code>false</code> otherwise.
+     */
+    public function contains(rectangle :Rectangle2D) :Boolean {
+        wrappedRectangle2D.contains(rectangle.wrappedRectangle2D)
+    }
+    /**
+     * Tests if the interior of this <code>Rectangle2D</code> entirely contains the specified rectangular area.
+     * @param x the x coordinate of the upper-left corner of the specified rectangular area.
+     * @param y the y coordinate of the upper-left corner of the specified rectangular area.
+     * @param w the width of the specified rectangular area.
+     * @param h the height of the specified rectangular area.
+     * @return <code>true</code> if the interior of this <code>Rectangle2D</code> entirely contains the specified rectangular area; <code>false</code> otherwise.
+     */
+    public function contains(x :Double, y :Double, w :Double, h :Double) :Boolean {
+        wrappedRectangle2D.contains(x, y, w, h)
+    }
+    /**
+     * Tests if the interior of this <code>Rectangle2D</code> intersects the interior of a specified <code>Rectangle2D</code>.
+     * @param rectangle the specified <code>Rectangle2D</code> to be tested.
+     * @return <code>true</code> if the interior of the specified <code>rectangle</code> and the interior of this <code>Rectangle2D</code> intersect; <code>false</code> otherwise.
+     */
+    public function intersects(rectangle :Rectangle2D) :Boolean {
+        wrappedRectangle2D.intersects(rectangle.wrappedRectangle2D)
+    }
+    /**
+     * Tests if the interior of this <code>Rectangle2D</code> intersects the interior of a specified rectangular area.
+     * @param x the x coordinate of the upper-left corner of the specified rectangular area.
+     * @param y the y coordinate of the upper-left corner of the specified rectangular area.
+     * @param w the width of the specified rectangular area.
+     * @param h the height of the specified rectangular area.
+     * @return <code>true</code> if the interior of this <code>Rectangle2D</code> and the interior of the specified rectangular area intersect; <code>false</code> otherwise.
+     */
+    public function intersects(x :Double, y :Double, w :Double, h :Double) :Boolean {
+        wrappedRectangle2D.intersects(x, y, w, h)
+    }
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * @param object the reference object with which to compare.
+     * @return <code>true</code> if this rectangle is the same as the <code>object</code> argument; <code>false</code> otherwise
+     */
+    override function equals(object :Object) :Boolean {
+        if (object instanceof Rectangle2D)
+        then wrappedRectangle2D.equals((object as Rectangle2D).wrappedRectangle2D)
+        else false
+    }
+    /**
+     * Returns a hash code value for the rectangle.
+     * @return a hash code value for the rectangle.
+     */
+    override function hashCode() :Integer {
+        17 + 31 * wrappedRectangle2D.hashCode()
+    }
+    /**
+     * <p>Returns a string representation of this <code>Rectangle2D</code>. This method is intended to be used only for informational purposes. 
+     * The content and format of the returned string might vary between implementations. The returned string might be empty but cannot be <code>null</code>.</p>
+     */
+    override function toString() :String {
+        wrappedRectangle2D.toString()
+    }
+}
+
+/** An empty <code>Rectangle2D</code> instance (with all coordinates equal to zero). */
+def EMTPY = Rectangle2D { }

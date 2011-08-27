@@ -27,10 +27,11 @@
  */
 package visage.javafx.scene.image;
 
+import visage.javafx.geometry.Rectangle2D;
 import visage.javafx.scene.Node;
 
 /**
- * <p>The <code>ImageView</code> is a <code>Node</code> used for painting images loaded with <code>Image</code> class.</p>
+ * <p>The <code>ImageView</code> is a <code>{@link Node}</code> used for painting images loaded with <code>{@link Image}</code> class.</p>
  * <p>This class allows resizing the displayed image (with or without preserving the original aspect ratio) and specifying a viewport into the source image for restricting the pixels displayed by this <code>ImageView</code>.</p>
  * <p>Example code for displaying images:</p>
  * <pre> 
@@ -71,12 +72,91 @@ import visage.javafx.scene.Node;
  * </pre>
  * The code above produces the following: <img src="http://download.oracle.com/javafx/2.0/api/javafx/scene/image/doc-files/imageview.png" />
  * @author Alain Béarez <A@cua.li>
- */ // TODO produce an image with the bird instead of the flower, once the HBox class gets ready
+ */ // TODO produce an image with the bird instead of the flower, once the HBox class and the rotate method in Node get ready
 public class ImageView extends Node {
     override def wrappedNode = javafx.scene.image.ImageView {}
     public-read def wrappedImageView = bind wrappedNode as javafx.scene.image.ImageView;
 
-    public default var image :Image on replace {
-        wrappedImageView.setImage(image.wrappedImage)
-    };
+    /**
+     * The <code>Image</code> to be painted by this <code>ImageView</code>.
+     */
+    public default var image :Image on replace oldValue {
+        if ((isInitialized(this) and (oldValue != image)) or (null != image)) {
+            wrappedImageView.setImage(image.wrappedImage)
+        }
+    }
+    /**
+     * The current x coordinate of the <code>ImageView</code> origin.
+     */
+    public var x :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != x)) or (0 != x)) {
+            wrappedImageView.setX(x)
+        }
+    }
+    /**
+     * The current y coordinate of the <code>ImageView</code> origin.
+     */
+    public var y :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != y)) or (0 != y)) {
+            wrappedImageView.setY(y)
+        }
+    }
+    /**
+     * <p>The width of the bounding box within which the source image is resized as necessary to fit. If set to a value <= 0, then the intrinsic width of the image will be used as the <code>fitWidth</code>.</p>
+     * <p>See <code>preserveRatio</code> for information on interaction between image view's <code>fitWidth</code>, <code>fitHeight</code> and <code>preserveRatio</code> attributes.</p>
+     */
+    public var fitWidth :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != fitWidth)) or (0 != fitWidth)) {
+            wrappedImageView.setFitWidth(fitWidth)
+        }
+    }
+    /**
+     * <p>The height of the bounding box within which the source image is resized as necessary to fit. If set to a value <= 0, then the intrinsic height of the image will be used as the <code>fitHeight</code>.</p>
+     * <p>See <code>preserveRatio</code> for information on interaction between image view's <code>fitWidth</code>, <code>fitHeight</code> and <code>preserveRatio</code> attributes.</p>
+     */
+    public var fitHeight :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != fitHeight)) or (0 != fitHeight)) {
+            wrappedImageView.setFitHeight(fitHeight)
+        }
+    }
+    /**
+     * <p>Indicates whether to preserve the aspect ratio of the source image when scaling to fit the image within the fitting bounding box.</p>
+     * <p>If set to <code>true</code>, it affects the dimensions of this <code>ImageView</code> in the following way:</p>
+     * <ul>
+     * <li>If only <code>fitWidth</code> is set, height is scaled to preserve ratio
+     * <li>If only <code>fitHeight</code> is set, width is scaled to preserve ratio
+     * <li>If both are set, they both may be scaled to get the best fit in a width by height rectangle while preserving the original aspect ratio</li>
+     * </ul>
+     * <p>If unset or set to <code>false</code>, it affects the dimensions of this <code>ImageView</code> in the following way:</p>
+     * <ul>
+     * <li>If only <code>fitWidth</code> is set, image's view width is scaled to match and height is unchanged;</li>
+     * <li>If only <code>fitHeight</code> is set, image's view height is scaled to match and height is unchanged;</li>
+     * <li>If both are set, the image view is scaled to match both.</li>
+     * </ul>
+     * <p>Note that the dimensions of this node as reported by the node's bounds will be equal to the size of the scaled image and is guaranteed to be contained within <code>fitWidth x fitHeight</code> bounding box.</p>
+     */
+    public var preserveRatio :Boolean on replace oldValue {
+        if ((isInitialized(this) and (oldValue != preserveRatio)) or preserveRatio) {
+            wrappedImageView.setPreserveRatio(preserveRatio)
+        }
+    }
+    /**
+     * <p>Indicates whether to use a better quality filtering algorithm or a faster one when transforming or scaling the source image to fit within the bounding box provided by <code>fitWidth</code> and <code>fitHeight</code>.</p>
+     * <p>If set to <code>true</code> a better quality filtering will be used, if set to <code>false</code> a faster but lesser quality filtering will be used.</p>
+     * <p>The default value depends on platform configuration.</p>
+     */
+    public var smooth :Boolean on replace oldValue {
+        if ((isInitialized(this) and (oldValue != smooth)) or smooth) {
+            wrappedImageView.setSmooth(smooth)
+        }
+    }
+    /**
+     * <p>The rectangular viewport into the image. The viewport is specified in the coordinates of the image, prior to scaling or any other transformations.</p>
+     * <p>If <code>viewport</code> is <code>null</code>, the entire image is displayed. If <code>viewport</code> is non-<code>null</code>, only the portion of the image which falls within the viewport will be displayed. If the image does not fully cover the viewport then any remaining area of the viewport will be empty.
+     */
+    public var viewport :Rectangle2D on replace oldValue {
+        if ((isInitialized(this) and (oldValue != viewport)) or (null != viewport)) {
+            wrappedImageView.setViewport(viewport.wrappedRectangle2D)
+        }
+    }
 }
