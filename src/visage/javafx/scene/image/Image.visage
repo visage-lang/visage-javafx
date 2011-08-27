@@ -1,0 +1,184 @@
+/*
+ * Copyright (c) 2010-2011, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.scene.image;
+
+import java.io.InputStream;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
+/**
+ * <p>The Image class represents graphical images and is used for loading images from a specified URL.</p>
+ * <p>Images can be resized as they are loaded (for example to reduce the amount of memory consumed by the image). The application can specify the quality of filtering used when scaling, and whether or not to preserve the original image's aspect ratio.</p>
+ * <p>Use <code>ImageView</code> for displaying images loaded with this class. The same <code>Image</code> instance can be displayed by multiple <code>ImageView</code>s.</p>
+ * <p>Example code for loading images:</p>
+ * <pre>
+ * import visage.javafx.scene.image.Image;
+ * 
+ * // load an image in background, displaying a placeholder while it's loading
+ * // (assuming there's an ImageView node somewhere displaying this image)
+ * image1 = Image { url: "Turdus-rufiventris.jpg" backgroundLoading: true }
+ * 
+ * // load an image and resize it to 100x150 without preserving its original
+ * // aspect ratio
+ * image2 = Image { url: "Turdus-rufiventris.jpg", requestedWidth: 100, requestedHeight: 150 }
+ * 
+ * // load an image and resize it to width of 100 while preserving its
+ * // original aspect ratio
+ * image3 = Image { url: "Turdus-rufiventris.jpg", requestedWidth: 100, requestedHeight: 0, preserveRatio: true }
+ * 
+ * // load an image and resize it only in one dimension, to the height of 100 and
+ * // the original width, without preserving original aspect ratio, using better quality filtering method
+ * image4 = Image { url: "Turdus-rufiventris.jpg", requestedWidth: 0, requestedHeight: 100, smooth: true }
+ * </pre>
+ * @author Alain Béarez <A@cua.li>
+ */
+public class Image {
+    public-read protected var wrappedImage:javafx.scene.image.Image;
+    /**
+     * The requested image's bounding box height.
+     */
+    public-init var requestedHeight :Double;
+    /**
+     * The requested image's bounding box width.
+     */
+    public-init var requestedWidth :Double;
+    /**
+     * Indicates whether to preserve the aspect ratio of the original image when scaling to fit the image within the specified bounding box.
+     */
+    public-init var preserveRatio :Boolean;
+    /**
+     * Indicates whether to use a better quality filtering algorithm or a faster one when scaling this image to fit within the specified bounding box.
+     */
+    public-init var smooth :Boolean;
+    /**
+     * The stream from which to load the image.
+     */
+    public-init var is :InputStream;
+    /**
+     * Indicates whether the image is being loaded in the background.
+     */
+    public-init var backgroundLoading :Boolean;
+    /**
+     * The string representing the URL to use in fetching the pixel data.
+     */
+    public-init var url :String;
+    /**
+     * Indicates whether an error was detected while loading an image.
+     */
+    public-read var error :Boolean;
+    /**
+     * The image height or <code>0</code> if the image loading fails.
+     * While the image is being loaded it is set to <code>0</code>.
+     */
+     public-read var height :Double;
+     /**
+      * The image width or <code>0</code> if the image loading fails.
+      * While the image is being loaded it is set to <code>0</code>.
+      */
+     public-read var width :Double;
+     /**
+      * The underlying platform representation of this Image object.
+      */
+     public-read var platformImage :Object;
+     /**
+      * The approximate percentage of image's loading that has been completed. 
+      * A positive value between 0 and 1 where 0 is 0% and 1 is 100%.
+      */
+     public-read var progress :Double;
+
+     init {
+        if (null == is) {
+            if ("" == url) {
+                // FIXME we got a problem: there should be either an URL or an ImputStream to build an Image
+            } else {
+                if ((0 == requestedHeight) and (0 == requestedWidth)) {
+                    wrappedImage = new javafx.scene.image.Image(url, backgroundLoading)
+                } else {
+                    wrappedImage = new javafx.scene.image.Image(url, requestedWidth, requestedHeight, preserveRatio, smooth, backgroundLoading)
+                }
+            }
+        } else {
+            if ((0 == requestedHeight) and (0 == requestedWidth)) {
+                wrappedImage = new javafx.scene.image.Image(is)
+            } else {
+                wrappedImage = new javafx.scene.image.Image(is, requestedWidth, requestedHeight, preserveRatio, smooth)
+            }
+        }
+        wrappedImage.errorProperty().addListener(
+            ValueChangeListener {
+                setValue: function(newValue) :Void {
+                    error = newValue as Boolean
+                }
+            }
+        );
+        wrappedImage.platformImageProperty().addListener(
+            ValueChangeListener {
+                setValue: function(newValue) :Void {
+                    platformImage = newValue
+                }
+            }
+        );
+        wrappedImage.progressProperty().addListener(
+            ValueChangeListener {
+                setValue: function(newValue) :Void {
+                    progress = newValue as Double
+                }
+            }
+        );
+        wrappedImage.heightProperty().addListener(
+            ValueChangeListener {
+                setValue: function(newValue) :Void {
+                    height = newValue as Double
+                }
+            }
+        );
+        wrappedImage.widthProperty().addListener(
+            ValueChangeListener {
+                setValue: function(newValue) :Void {
+                    width = newValue as Double
+                }
+            }
+        )
+     }
+
+     /**
+      * <p>Cancels the background loading of this image.</p>
+      * <p>Has no effect if this image isn't loaded in background or if loading has already completed.</p>
+      */
+     public function cancel() :Void {
+        wrappedImage.cancel()
+     }
+}
+
+class ValueChangeListener extends ChangeListener {
+    override function changed (observable :ObservableValue, oldValue, newValue) :Void {
+        setValue(newValue)
+    }
+    public var setValue :function(newValue :Object) :Void;
+}

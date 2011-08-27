@@ -1,0 +1,82 @@
+/*
+ * Copyright (c) 2010-2011, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.scene.image;
+
+import visage.javafx.scene.Node;
+
+/**
+ * <p>The <code>ImageView</code> is a <code>Node</code> used for painting images loaded with <code>Image</code> class.</p>
+ * <p>This class allows resizing the displayed image (with or without preserving the original aspect ratio) and specifying a viewport into the source image for restricting the pixels displayed by this <code>ImageView</code>.</p>
+ * <p>Example code for displaying images:</p>
+ * <pre> 
+ * import visage.javafx.geometry.Rectangle2D;
+ * import visage.javafx.scene.image.Image;
+ * import visage.javafx.scene.image.ImageView;
+ * import visage.javafx.scene.layout.HBox;
+ * import visage.javafx.scene.Scene;
+ * import visage.javafx.stage.Stage;
+ *
+ * Stage {
+ *     title: "ImageView example"
+ *     width: 415
+ *     height: 200
+ *     Scene {
+ *         fill: Color.BLACK
+ *
+ * // load the image
+ * def image = Image { url: "Turdus-rufiventris.jpg" }
+ *
+ * // simple ImageView displays the image as is
+ * def iv1 = ImageView { image }
+ *
+ * // resizes the image to have width of 100 while preserving the ratio and using
+ * // higher quality filtering method; this ImageView is also cached to
+ * // improve performance
+ * def iv2 = ImageView { image, fitWidth: 100, preserveRatio: true, smooth: true, cache: true }
+ *
+ * // defines a viewport into the source image (achieving a "zoom" effect) and
+ * // displays it rotated
+ * def iv3 = ImageView { image, viewport: Rectangle2D {minX: 40, minY: 35, width: 110, height: 110}, rotate: 90 }
+ *
+ *         HBox {
+ *             [ iv1, iv2, iv3 ]
+ *         }
+ *     }
+ * }
+ * </pre>
+ * The code above produces the following: <img src="http://download.oracle.com/javafx/2.0/api/javafx/scene/image/doc-files/imageview.png" />
+ * @author Alain Béarez <A@cua.li>
+ */ // TODO produce an image with the bird instead of the flower, once the HBox class gets ready
+public class ImageView extends Node {
+    override def wrappedNode = javafx.scene.image.ImageView {}
+    public-read def wrappedImageView = bind wrappedNode as javafx.scene.image.ImageView;
+
+    public default var image :Image on replace {
+        wrappedImageView.setImage(image.wrappedImage)
+    };
+}

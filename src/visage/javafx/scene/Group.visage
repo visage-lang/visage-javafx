@@ -33,9 +33,9 @@ package visage.javafx.scene;
 public class Group extends Parent {
     override def wrappedNode = javafx.scene.Group {}
     public-read def wrappedGroup = bind wrappedNode as javafx.scene.Group;
-    public default var content:Parent[] on replace {
-        if (isInitialized(this) or content != []) {
-            wrappedGroup.getChildren().setAll(for (c in content) {c.wrappedParent});
+    public default var children:Node[] on replace {
+        if (isInitialized(this) or children != []) {
+            wrappedGroup.getChildren().setAll(for (child in children) {child.wrappedNode});
         }
     }
 }
