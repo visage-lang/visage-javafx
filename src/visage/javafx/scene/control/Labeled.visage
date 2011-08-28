@@ -26,10 +26,111 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 package visage.javafx.scene.control;
+import org.visage.javafx.util.VConvert;
+import javafx.geometry.Pos;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.control.OverrunStyle;
+import visage.javafx.scene.text.Font;
+import javafx.scene.control.ContentDisplay;
+import visage.javafx.geometry.Insets;
+import visage.javafx.scene.Node;
 
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
  */
 public class Labeled extends Control {
     public-read def wrappedLabeled = bind wrappedNode as javafx.scene.control.Labeled;
+     /**
+      * <p>If a run of text exceeds the width of the Labeled, then this variable indicates whether the text should wrap onto another line.</p>
+      */    
+    public var wrapText:Boolean on replace{
+        if (isInitialized(this)    or wrapText)
+            wrappedLabeled.setWrapText(wrapText);
+    }
+     /**
+      * <p>Whether all text should be underlined.</p>
+      */
+    public var underline:Boolean = false on replace{
+        if (isInitialized(this)    or underline)    
+            wrappedLabeled.setUnderline(underline);
+    }
+     /**    
+      * <p>Text color.</p>
+      */    
+    public var textFill:Color on replace{
+        wrappedLabeled.setTextFill(VConvert.color(textFill));
+    }
+    
+    /**    
+      * <p>Specifies how the text and graphic within the Labeled should be aligned when there is empty space within the Labeled.</p>
+      */   
+    public var alignment:Pos = Pos.CENTER on replace{
+        if (isInitialized(this) or alignment!= Pos.CENTER)    
+            wrappedLabeled.setAlignment(alignment);            
+    }
+    
+    /**    
+      * <p>Specifies the behavior for lines of text when <i>text is multiline</i> Unlike vpos which affects the graphic and text, this setting only affects multiple lines of text relative to the text bounds.</p>
+      */
+    
+    public var textAlignment:TextAlignment = TextAlignment.RIGHT on replace{
+        if (isInitialized(this) or textAlignment!= TextAlignment.RIGHT)
+            wrappedLabeled.setTextAlignment(textAlignment);
+    }
+    
+    /*
+     * <p>Specifies the behavior to use if the text of the Labeled exceeds the available space for rendering the text.</p>
+     */
+    public var textOverrun:OverrunStyle = OverrunStyle.CLIP on replace{
+        if (isInitialized(this) or textOverrun!= OverrunStyle.CLIP)
+            wrappedLabeled.setTextOverrun(textOverrun);
+    }
+    
+    /*
+     * <p>The default font to use for text in the Labeled. If the Label's text is rich text then this font may or may not be used depending on the font information embedded in the rich text, but in any case where a default font is required, this font will be used.</p>
+     */
+    
+    public var font:Font on replace{
+        if (isInitialized(this) or font != null)
+            wrappedLabeled.setFont(font.wrappedFont);
+    }
+    /*
+     * <p>An optional icon for the Labeled. This can be positioned relative to the text by using the graphicHPos and graphicVPos variables. The node specified for this variable cannot appear elsewhere in the scene graph, otherwise the IllegalArgumentException is thrown. See the class description of Node for more detail.</p>
+     */    
+    public var graphic:Node on replace{
+        if (isInitialized(this) or graphic != null)
+            wrappedLabeled.setGraphic(graphic.wrappedNode);
+    }
+    
+    /*
+     * <p>Specifies the positioning of the graphic relative to the text.</p>
+     */    
+    public var contentDisplay:ContentDisplay = ContentDisplay.RIGHT on replace{
+        if (isInitialized(this) or contentDisplay != ContentDisplay.RIGHT )
+            wrappedLabeled.setContentDisplay(contentDisplay);
+    }
+
+    /*
+     
+    public var labelPadding:Insets on replace{
+        if (isInitialized(this) or labelPadding != null)
+            wrappedLabeled.setLabelPadding(labelPadding.wrappedInsets);
+    }*/
+    /*
+     * <p>The amount of space between the graphic and text.</p>
+     */    
+    public var graphicTextGap:Double on replace{
+        if (isInitialized(this) or graphicTextGap != 0)
+            wrappedLabeled.setGraphicTextGap(graphicTextGap);
+    }
+    
+    /*
+     *<p>MnemonicParsing property to enable/disable text parsing the defaut value for Label is false.</p>
+    */
+    public var mnemonicParsing:Boolean on replace{
+        if (isInitialized(this) or mnemonicParsing)
+            wrappedLabeled.setMnemonicParsing(mnemonicParsing);
+    }
 }
+
+

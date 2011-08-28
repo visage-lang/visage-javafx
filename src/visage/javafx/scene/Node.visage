@@ -41,5 +41,5 @@ public class Node {
         if (isInitialized(this) or layoutY != 0) {
             wrappedNode.setLayoutY(layoutY);
         }
-    }
+    }  
 }
