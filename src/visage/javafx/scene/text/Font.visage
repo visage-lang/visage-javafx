@@ -26,12 +26,146 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 package visage.javafx.scene.text;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * @author William Antônio <william.a.siqueira@gmail.com>
  */
 public class Font {
-    public-read var wrappedFont:javafx.scene.text.Font;
+    public-init var wrappedFont:javafx.scene.text.Font;   
     
+    /*
+     * <p>The family of this font.</p>
+    */
+    public def family:String = bind wrappedFont.getFamily();
     
+    /*
+    * <p>The full font name.</p>
+    */
+    public def name:String = bind wrappedFont.getName();   
+    
+    /*
+     * <p>The point size for this font.</p>
+    */
+    public def size:Double = bind wrappedFont.getSize();   
+    
+    /*
+     * <p> The font specified string describing the style within the font family.</o>
+    */
+    public def style:String = bind wrappedFont.getStyle();        
+    
+    /*
+    * <p>Returns a hash code for this Font object.</p>
+    */
+    override function hashCode():Integer{
+        17 + 31 * wrappedFont.hashCode();
+    }     
+    
+    /*
+    * <p> Converts this Font object to a String representation.</p>
+    */
+    override function toString():String{
+        wrappedFont.toString();
+    }
+    
+    /*
+     * <p> Indicates whether some other object is "equal to" this one.</p>
+    */
+    override function equals(obj:java.lang.Object){
+        if(obj instanceof Font){
+            wrappedFont.equals((obj as Font).wrappedFont);
+        }
+        else{
+            wrappedFont.equals(obj);
+        }
+    }                  
+} 
+
+/*
+ * <p> Searches for an appropriate font based on the font family name and size.</p>
+*/
+public function font(family:String, size:Double):Font{
+    Font{
+        wrappedFont: javafx.scene.text.Font.font(family, size);
+    }
 }
+
+/*
+*<p>Searches for an appropriate font based on the font family name and posture style.<p>
+*/
+public function font(family:String,  posture:FontPosture, size:Double):Font{
+    Font{
+        wrappedFont: javafx.scene.text.Font.font(family,posture, size);
+    }
+}
+
+/*
+*<p>Searches for an appropriate font based on the font family name and weight style.<p>
+*/
+public function font(family:String, weight:FontWeight, size:Double):Font{
+    Font{
+        wrappedFont: javafx.scene.text.Font.font(family,weight, size);
+    }
+}
+
+/*
+*<p>Searches for an appropriate font based on the font family name and weight and posture style.<p>
+*/
+public function font(family:String, weight:FontWeight,posture:FontPosture, size:Double):Font{
+    Font{
+        wrappedFont: javafx.scene.text.Font.font(family,weight,posture, size);
+    }
+}      
+/*
+*<p>Gets the default font which will be from the family "System", and typically the style "Regular", and be of a size consistent with the user's desktop environment, to the extent that can be determined.<p>
+*/
+public function getDefault():Font{
+    Font{
+        wrappedFont: javafx.scene.text.Font.getDefault();
+    }
+}      
+
+/*
+* <p>Loads a font resource from the specified input stream.</p>
+*/
+public function loadFont(in:InputStream, size:Double):Font{
+      Font{
+        wrappedFont: javafx.scene.text.Font.loadFont(in, size);
+    }
+} 
+
+/*
+* <p>Loads a font resource from the specified URL</p>
+*/
+public function loadFont(urlStr:String, size:Double):Font{
+      Font{
+        wrappedFont: javafx.scene.text.Font.loadFont(urlStr, size);
+    }
+} 
+/*
+* <p>Gets all the font families installed on the user's system, including any application fonts or SDK fonts.</p>
+*/
+public function families():String[]{
+    var families:List = javafx.scene.text.Font.getFamilies();
+    for(family in families) family as String;
+}
+/*
+* <p>Gets the names of all fonts that are installed on the users system, including any application fonts and SDK fonts.</p>
+*/
+public function fontNames():String[]{
+    var fontsNames:List = javafx.scene.text.Font.getFontNames();
+    for(fontName in fontsNames) fontName as String;
+}
+/*
+* <p>Gets the names of all fonts in the specified font family that are installed on the users system, including any application fonts and SDK fonts.</p>
+*/
+
+public function fontNames(family:String):String[]{
+    var fontNames:List = javafx.scene.text.Font.getFontNames(family);
+    for(fontName in fontNames) fontName as String;
+}
+
+

@@ -36,7 +36,7 @@ import visage.javafx.geometry.Insets;
 import visage.javafx.scene.Node;
 
 /**
- * @author Stephen Chin <steveonjava@gmail.com>
+ * @author William Antônio <william.a.siqueira@gmail.com>
  */
 public class Labeled extends Control {
     public-read def wrappedLabeled = bind wrappedNode as javafx.scene.control.Labeled;
@@ -73,8 +73,8 @@ public class Labeled extends Control {
       * <p>Specifies the behavior for lines of text when <i>text is multiline</i> Unlike vpos which affects the graphic and text, this setting only affects multiple lines of text relative to the text bounds.</p>
       */
     
-    public var textAlignment:TextAlignment = TextAlignment.RIGHT on replace{
-        if (isInitialized(this) or textAlignment!= TextAlignment.RIGHT)
+    public var textAlignment:TextAlignment = TextAlignment.LEFT on replace{
+        if (isInitialized(this) or textAlignment!= TextAlignment.LEFT)
             wrappedLabeled.setTextAlignment(textAlignment);
     }
     
@@ -105,8 +105,8 @@ public class Labeled extends Control {
     /*
      * <p>Specifies the positioning of the graphic relative to the text.</p>
      */    
-    public var contentDisplay:ContentDisplay = ContentDisplay.RIGHT on replace{
-        if (isInitialized(this) or contentDisplay != ContentDisplay.RIGHT )
+    public var contentDisplay:ContentDisplay = ContentDisplay.LEFT on replace{
+        if (isInitialized(this) or contentDisplay != ContentDisplay.LEFT )
             wrappedLabeled.setContentDisplay(contentDisplay);
     }
 

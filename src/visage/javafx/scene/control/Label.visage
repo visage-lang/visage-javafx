@@ -27,6 +27,10 @@
  */
 package visage.javafx.scene.control;
 
+/**
+ * @author William Antônio <william.a.siqueira@gmail.com>
+ */
+
 public class Label extends Labeled {
     override def wrappedNode = javafx.scene.control.Label {}
     public-read def wrappedLabel = bind wrappedNode as javafx.scene.control.Label;
