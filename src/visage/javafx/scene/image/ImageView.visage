@@ -159,4 +159,5 @@ public class ImageView extends Node {
             wrappedImageView.setViewport(viewport.wrappedRectangle2D)
         }
     }
+    //FIXME instantiate all the properties' listeners
 }

@@ -25,18 +25,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package visage.javafx.scene;
+package visage.javafx.scene.paint;
 
 /**
- * @author Stephen Chin <steveonjava@gmail.com>
+ * Base class for a color or gradients used to fill shapes and backgrounds when rendering the scene graph.
  * @author Alain Béarez <A@cua.li>
  */
-public class Group extends Parent {
-    override def wrappedNode = javafx.scene.Group {}
-    public-read def wrappedGroup = bind wrappedNode as javafx.scene.Group;
-    public default var children:Node[] on replace {
-        if (isInitialized(this) or children != []) {
-            wrappedGroup.getChildren().setAll(for (child in children) {child.wrappedNode});
-        }
-    }
+public abstract class Paint {
+    public-read var wrappedPaint :javafx.scene.paint.Paint;
 }

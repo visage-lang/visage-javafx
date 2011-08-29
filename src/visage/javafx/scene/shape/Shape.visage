@@ -1,0 +1,135 @@
+/*
+ * Copyright (c) 2010-2011, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.scene.shape;
+
+import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.shape.StrokeLineJoin;
+import javafx.scene.shape.StrokeType;
+
+import visage.javafx.scene.Node;
+import visage.javafx.scene.paint.Paint;
+
+/**
+ * <p>The <code>Shape</code> class provides definitions of common properties for objects that represent some form of geometric shape. These properties include:</p>
+ * <ul>
+ * <li>The <code>{@link Paint}</code> to be applied to the fillable interior of the shape (see <code>{@link #setFill(Paint)}</code>).</li>
+ * <li>The <code>{@link Paint}</code> to be applied to stroke the outline of the shape (see <code>{@link #setStroke(Paint)}</code>).</li>
+ * <li>The decorative properties of the stroke, including:<ul>
+ * <li>The width of the border stroke.<li>
+ * <li>Whether the border is drawn as an exterior padding to the edges of the shape, as an interior edging that follows the inside of the border, or as a wide path that follows along the border straddling it equally both inside and outside (see <code>{@link StrokeType}</code>).</li>
+ * <li>Decoration styles for the joins between path segments and the unclosed ends of paths.</li>
+ * <li>Dashing attributes.</li>
+ * </ul></ul>
+ * <p><strong>Interaction with coordinate systems</strong></p>
+ * <p>Most nodes tend to have only integer translations applied to them and quite often they are defined using integer coordinates as well. For this common case, fills of shapes with straight line edges tend to be crisp since they line up with the cracks between pixels that fall on integer device coordinates and thus tend to naturally cover entire pixels.</p>
+ * <p>On the other hand, stroking those same shapes can often lead to fuzzy outlines because the default stroking attributes specify both that the default stroke width is 1.0 coordinates which often maps to exactly 1 device pixel and also that the stroke should straddle the border of the shape, falling half on either side of the border. Since the borders in many common shapes tend to fall directly on integer coordinates and those integer coordinates often map precisely to integer device locations, the borders tend to result in 50% coverage over the pixel rows and columns on either side of the border of the shape rather than 100% coverage on one or the other. Thus, fills may typically be crisp, but strokes are often fuzzy.</p>
+ * <p>Two common solutions to avoid these fuzzy outlines are to use wider strokes that cover more pixels completely - typically a stroke width of 2.0 will achieve this if there are no scale transforms in effect - or to specify either the <code>StrokeType.INSIDE</code> or <code>StrokeType.OUTSIDE</code> stroke styles - which will bias the default single unit stroke onto one of the full pixel rows or columns just inside or outside the border of the shape.</p>
+ * @author Alain Béarez <A@cua.li>
+ */
+public abstract class Shape extends Node {
+    public-read var wrappedShape = bind wrappedNode as javafx.scene.shape.Shape;
+
+    /**
+     * Defines the direction (inside, outside, or both) that the <code>strokeWidth</code> is applied to the boundary of the shape.
+     */
+    public var strokeType :StrokeType on replace oldValue {
+        if ((isInitialized(this) and (oldValue != strokeType)) or (null != strokeType)) {
+            wrappedShape.setStrokeType(strokeType)
+        }
+    }
+    /**
+     * Defines a square pen line width. A value of 0.0 specifies a hairline stroke. A value of less than 0.0 will be treated as 0.0.
+     */
+    public var strokeWidth :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != strokeWidth)) or (0 != strokeWidth)) {
+            wrappedShape.setStrokeWidth(strokeWidth)
+        }
+    }
+    /**
+     * Defines the decoration applied where path segments meet. The value must have one of the following values: <code>StrokeLineJoin.BEVEL</code>, <code>StrokeLineJoin.MITER</code>, and <code>StrokeLineJoin.ROUND</code>.
+     */
+    public var strokeLineJoin :StrokeLineJoin on replace oldValue {
+        if ((isInitialized(this) and (oldValue != strokeLineJoin)) or (null != strokeLineJoin)) {
+            wrappedShape.setStrokeLineJoin(strokeLineJoin)
+        }
+    }
+    /**
+     * The end cap style of this <code>Shape</code> as one of the following values that define possible end cap styles: <code>StrokeLineCap.BUTT</code>, <code>StrokeLineCap.ROUND</code>, and <code>StrokeLineCap.SQUARE</code>.
+     */
+    public var strokeLineCap :StrokeLineCap on replace oldValue {
+        if ((isInitialized(this) and (oldValue != strokeLineCap)) or (null != strokeLineCap)) {
+            wrappedShape.setStrokeLineCap(strokeLineCap)
+        }
+    }
+    /**
+     * Defines the limit for the <code>StrokeLineJoin.MITER</code> line join style. A value of less than 1.0 will be treated as 1.0.
+     */
+    public var strokeMiterLimit :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != strokeMiterLimit)) or (0 != strokeMiterLimit)) {
+            wrappedShape.setStrokeMiterLimit(strokeMiterLimit)
+        }
+    }
+    /**
+     * Defines a distance specified in user coordinates that represents an offset into the dashing pattern. In other words, the dash phase defines the point in the dashing pattern that will correspond to the beginning of the stroke.
+     */
+    public var strokeDashOffset :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != strokeDashOffset)) or (0 != strokeDashOffset)) {
+            wrappedShape.setStrokeDashOffset(strokeDashOffset)
+        }
+    }
+    /**
+     * Defines parameters to fill the interior of a <code>Shape</code> using the settings of the <code>Paint</code> context. The default value is <code>Color.BLACK</code> for all shapes except <code>Line</code>, <code>Polyline</code>, and <code>Path</code>. The default value is <code>null</code> for those shapes.
+     */
+    public var fill :Paint on replace oldValue {
+        if ((isInitialized(this) and (oldValue != fill)) or (null != fill)) {
+            wrappedShape.setFill(fill.wrappedPaint)
+        }
+    }
+    /**
+     * Defines parameters of a stroke that is drawn around the outline of a <code>Shape</code> using the settings of the <code>Paint</code> context. The default value is <code>null</code> for all shapes except <code>Line</code>, <code>Polyline</code>, and <code>Path</code>. The default value is <code>Color.BLACK</code> for those shapes.
+     */
+    public var stroke :Paint on replace oldValue {
+        if ((isInitialized(this) and (oldValue != stroke)) or (null != stroke)) {
+            wrappedShape.setStroke(stroke.wrappedPaint)
+        }
+    }
+    /**
+     * Defines whether antialiasing hints are used or not for this <code>Shape</code>. If the value equals true the rendering hints are applied.
+     */
+    public var smooth :Boolean on replace oldValue {
+        if ((isInitialized(this) and (oldValue != smooth)) or smooth) {
+            wrappedShape.setSmooth(smooth)
+        }
+    }
+    /**
+     * Defines the array representing the lengths of the dash segments. Alternate entries in the array represent the user space lengths of the opaque and transparent segments of the dashes. As the pen moves along the outline of the Shape to be stroked, the user space distance that the pen travels is accumulated. The distance value is used to index into the dash array. The pen is opaque when its current cumulative distance maps to an even element of the dash array and transparent otherwise. An empty <code>strokeDashArray</code> indicates a solid line with no spaces.
+     */
+    public function getStrokeDashArray() :javafx.collections.ObservableList {
+        wrappedShape.getStrokeDashArray()   // TODO check whether this is a correct implementation
+    }
+}
