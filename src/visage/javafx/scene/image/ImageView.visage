@@ -38,7 +38,7 @@ import visage.javafx.scene.Node;
  * import visage.javafx.geometry.Rectangle2D;
  * import visage.javafx.scene.image.Image;
  * import visage.javafx.scene.image.ImageView;
- * import visage.javafx.scene.layout.HBox;
+ * import visage.javafx.scene.Group;
  * import visage.javafx.scene.Scene;
  * import visage.javafx.stage.Stage;
  *
@@ -55,24 +55,28 @@ import visage.javafx.scene.Node;
  * // simple ImageView displays the image as is
  * def iv1 = ImageView { image }
  *
- * // resizes the image to have width of 100 while preserving the ratio and using
+ * // resizes the image to have width of 200 while preserving the ratio and using
  * // higher quality filtering method; this ImageView is also cached to
  * // improve performance
- * def iv2 = ImageView { image, fitWidth: 100, preserveRatio: true, smooth: true, cache: true }
+ * def iv2 = ImageView { image, fitWidth: 200, preserveRatio: true, smooth: true, cache: true, layoutX: 400 }
  *
- * // defines a viewport into the source image (achieving a "zoom" effect) and
- * // displays it rotated
- * def iv3 = ImageView { image, viewport: Rectangle2D {minX: 40, minY: 35, width: 110, height: 110}, rotate: 90 }
+ * // defines a viewport into the source image (achieving a "zoom" effect) 
+ * def iv3 = ImageView { image, viewport: Rectangle2D { minX: 35 minY: 250 width: 100 height: 200 }, layoutX: 600 }
  *
- *         HBox {
- *             [ iv1, iv2, iv3 ]
+ * // resizes the image to have width of 200 while preserving the ratio and using
+ * // higher quality filtering method; this ImageView is also cached to
+ * // improve performance and displays it rotated
+ * def iv4 = ImageView { image, fitWidth: 200, preserveRatio: true, smooth: true, cache: true, layoutX: 400, layoutY: 300, rotate: 180 }
+ *
+ *         Group {
+ *             [ iv1, iv2, iv3, iv4 ]
  *         }
  *     }
  * }
  * </pre>
- * The code above produces the following: <img src="http://download.oracle.com/javafx/2.0/api/javafx/scene/image/doc-files/imageview.png" />
+ * The code above produces the following: <img src="doc-files/Turdus-rufiventris.png" /> from <a href="doc-files/Turdus-rufiventris.jpg">this image</a>.
  * @author Alain Béarez <A@cua.li>
- */ // TODO produce an image with the bird instead of the flower, once the HBox class and the rotate method in Node get ready
+ */
 public class ImageView extends Node {
     override def wrappedNode = javafx.scene.image.ImageView {}
     public-read def wrappedImageView = bind wrappedNode as javafx.scene.image.ImageView;
