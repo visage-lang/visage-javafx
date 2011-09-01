@@ -37,7 +37,7 @@ package visage.javafx.scene.shape;
  */
 public class Rectangle extends Shape {
     override def wrappedNode = javafx.scene.shape.Rectangle {}
-    public-read var wrappedRectangle = bind wrappedNode as javafx.scene.shape.Rectangle;
+    public-read def wrappedRectangle = bind wrappedNode as javafx.scene.shape.Rectangle;
 
     /**
      * Defines the X coordinate of the upper-left corner of the rectangle.

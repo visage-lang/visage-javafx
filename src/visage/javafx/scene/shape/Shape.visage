@@ -52,7 +52,7 @@ import visage.javafx.scene.paint.Paint;
  * @author Alain Béarez <A@cua.li>
  */
 public abstract class Shape extends Node {
-    public-read var wrappedShape = bind wrappedNode as javafx.scene.shape.Shape;
+    public-read def wrappedShape = bind wrappedNode as javafx.scene.shape.Shape;
 
     /**
      * Defines the direction (inside, outside, or both) that the <code>strokeWidth</code> is applied to the boundary of the shape.
@@ -132,4 +132,5 @@ public abstract class Shape extends Node {
     public function getStrokeDashArray() :javafx.collections.ObservableList {
         wrappedShape.getStrokeDashArray()   // TODO check whether this is a correct implementation
     }
+    //FIXME instantiate all the properties' listeners
 }

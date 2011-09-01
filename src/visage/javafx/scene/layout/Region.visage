@@ -1,0 +1,196 @@
+/*
+ * Copyright (c) 2010-2011, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.scene.layout;
+
+import visage.javafx.geometry.Insets;
+import visage.javafx.scene.Parent;
+
+/**
+ * <p>A <code>Region</code> is an area of the screen that can contain other nodes and be styled using CSS.</p>
+ * <p>It can have multiple backgrounds under its contents and multiple borders around its content. By default it's a rectangle with possible rounded corners, depending on borders. It can be made into any shape by specifying the shape. It is designed to support as much of the CSS3 specification for backgrounds and borders as is relevant to JavaFX. The full specification is available at <a target='_blank' href='http://www.w3.org/TR/css3-background/'>http://www.w3.org/TR/css3-background/</a>.</p>
+ * <p>By default a <code>Region</code> inherits the layout behavior of its superclass, <code>{@link Parent}</code>, which means that it will resize any resizable child nodes to their preferred size, but will not reposition them. If an application needs more specific layout behavior, then it should use one of the <code>Region</code> subclasses: <code>{@link StackPane}</code>, <code>{@link HBox}</code>, <code>{@link VBox}</code>, <code>{@link TilePane}</code>, <code>{@link FlowPane}</code>, <code>{@link BorderPane}</code>, <code>{@link GridPane}</code>, or <code>{@link AnchorPane}</code>.</p>
+ * <p>To implement more custom layout, a <code>Region</code> subclass must override <code>computePrefWidth()</code>, <code>computePrefHeight()</code>, and <code>layoutChildren()</code>. Note that <code>layoutChildren</code> is called automatically by the scene graph while executing a top-down layout pass and it should not be invoked directly by the region subclass.
+ * <p>Region subclasses which layout their children will position nodes by setting <code>layoutX/layoutY</code> and do not alter <code>translateX/translateY</code>, which are reserved for adjustments and animation.</p>
+ * @author Alain Béarez <A@cua.li>
+ */
+public class Region extends Parent {
+    public-read def wrappedRegion = bind wrappedParent as PrivateRegion;
+
+    /**
+     * Defines whether this region rounds position/spacing and ceils size values to pixel boundaries when laying out its children.
+     */
+    public var snapToPixel :Boolean on replace oldValue {
+        if ((isInitialized(this) and (oldValue != snapToPixel)) or snapToPixel) {
+            wrappedRegion.setSnapToPixel(snapToPixel)
+        }
+    }
+    /**
+     * The top,right,bottom,left padding around the region's content. This space will be included in the calculation of the region's minimum and preferred sizes. By default padding is <code>Insets.EMPTY</code> and cannot be set to <code>null</code>.
+     */
+    public var padding :Insets on replace oldValue {
+        if ((isInitialized(this) and (oldValue != padding)) or (null != padding)) {
+            wrappedRegion.setPadding(padding.wrappedInsets)
+        }
+    }
+    /**
+     * The width of this resizable node. This property is set by the region's parent during layout and may not be set by the application. If an application needs to explicitly control the size of a region, it should override its preferred size range by setting the <code>minWidth</code>, <code>prefWidth</code>, and <code>maxWidth</code> properties.
+     */
+    public-read protected var width :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != width)) or (0 != width)) {
+            wrappedRegion.setWidth(width)
+        }
+    }
+    /**
+     * The height of this resizable node. This property is set by the region's parent during layout and may not be set by the application. If an application needs to explicitly control the size of a region, it should override its preferred size range by setting the <code>minWidth</code>, <code>prefWidth</code>, and <code>maxWidth</code> properties.
+     */
+    public-read protected var height :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != height)) or (0 != height)) {
+            wrappedRegion.setHeight(height)
+        }
+    }
+    /**
+     * <p>Property for overriding the region's computed minimum width. This should only be set if the region's internally computed minimum width doesn't meet the application's layout needs.</p>
+     * <p>Defaults to the <code>USE_COMPUTED_SIZE</code> flag, which means that <code>minWidth(forHeight)</code> will return the region's internally computed minimum width.</p>
+     * <p>Setting this value to the <code>USE_PREF_SIZE</code> flag will cause <code>minWidth(forHeight)</code> to return the region's preferred width, enabling applications to easily restrict the resizability of the region.</p>
+     */
+    public var minWidth :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != minWidth)) or (0 != minWidth)) {
+            wrappedRegion.setMinWidth(minWidth)
+        }
+    }
+    /**
+     * <p>Property for overriding the region's computed minimum height. This should only be set if the region's internally computed minimum height doesn't meet the application's layout needs.</p>
+     * <p>Defaults to the <code>USE_COMPUTED_SIZE</code> flag, which means that <code>minHeight(forWidth)</code> will return the region's internally computed minimum height.</p>
+     * <p>Setting this value to the <code>USE_PREF_SIZE</code> flag will cause <code>minHeight(forWidth)</code> to return the region's preferred height, enabling applications to easily restrict the resizability of the region.</p>
+     */
+    public var minHeight :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != minHeight)) or (0 != minHeight)) {
+            wrappedRegion.setMinHeight(minHeight)
+        }
+    }
+    /**
+     * <p>Property for overriding the region's computed preferred width. This should only be set if the region's internally computed preferred width doesn't meet the application's layout needs.</p>
+     * <p>Defaults to the <code>USE_COMPUTED_SIZE</code> flag, which means that <code>prefWidth(forHeight)</code> will return the region's internally computed preferred width.</p>
+     */
+    public var prefWidth :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != prefWidth)) or (0 != prefWidth)) {
+            wrappedRegion.setPrefWidth(prefWidth)
+        }
+    }
+    /**
+     * <p>Property for overriding the region's computed preferred height. This should only be set if the region's internally computed preferred height doesn't meet the application's layout needs.</p>
+     * <p>Defaults to the <code>USE_COMPUTED_SIZE</code> flag, which means that <code>prefHeight(forWidth)</code> will return the region's internally computed preferred height.</p>
+     */
+    public var prefHeight :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != prefHeight)) or (0 != prefHeight)) {
+            wrappedRegion.setPrefHeight(prefHeight)
+        }
+    }
+    /**
+     * <p>Property for overriding the region's computed maximum width. This should only be set if the region's internally computed maximum width doesn't meet the application's layout needs.</p>
+     * <p>Defaults to the <code>USE_COMPUTED_SIZE</code> flag, which means that <code>maxWidth(forHeight)</code> will return the region's internally computed maximum width.</p>
+     * <p>Setting this value to the <code>USE_PREF_SIZE</code> flag will cause <code>maxWidth(forHeight)</code> to return the region's preferred width, enabling applications to easily restrict the resizability of the region.</p>
+     */
+    public var maxWidth :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != maxWidth)) or (0 != maxWidth)) {
+            wrappedRegion.setMaxWidth(maxWidth)
+        }
+    }
+    /**
+     * <p>Property for overriding the region's computed maximum height. This should only be set if the region's internally computed maximum height doesn't meet the application's layout needs.</p>
+     * <p>Defaults to the <code>USE_COMPUTED_SIZE</code> flag, which means that <code>maxHeight(forWidth)</code> will return the region's internally computed maximum height.</p>
+     * <p>Setting this value to the <code>USE_PREF_SIZE</code> flag will cause <code>maxHeight(forWidth)</code> to return the region's preferred height, enabling applications to easily restrict the resizability of the region.</p>
+     */
+    public var maxHeight :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != maxHeight)) or (0 != maxHeight)) {
+            wrappedRegion.setMaxHeight(maxHeight)
+        }
+    }
+    /**
+     * Returns <code>true</code> since all Regions are resizable.
+     */
+    override function isResizable() { true }
+    /**
+     * Invoked by the region's parent during layout to set the region's width and height. Applications should not invoke this method directly. If an application needs to directly set the size of the region, it should override its size constraints by calling setMinSize(), setPrefSize(), or setMaxSize() and it's parent will honor those overrides during layout.
+     * @param width the target layout bounds width.
+     * @param height the target layout bounds height.
+     */
+    override function resize(width :Double, height :Double) :Void {
+        wrappedRegion.resize(width, height)
+    }
+    // FIXME what to do with the 'final' and the 'protected' methods???
+    /**
+     * @return the space around content, which will include any borders plus padding if set.
+     */
+    public function getInsets() :Insets {
+        def wrappedInsets = wrappedRegion.getInsets();
+        Insets {
+            top: wrappedInsets.getTop()
+            left: wrappedInsets.getLeft()
+            right: wrappedInsets.getRight()
+            bottom: wrappedInsets.getBottom()
+        }
+    }
+    /**
+     * Convenience method for overriding the region's computed minimum width and height. This should only be called if the region's internally computed minimum size doesn't meet the application's layout needs.
+     * @param minWidth the override value for minimum width.
+     * @param minHeight the override value for minimum height.
+     */
+    public function setMinSize(minWidth :Double, minHeight :Double) :Void {
+        wrappedRegion.setMinSize(minWidth, minHeight)
+    }
+    /**
+     * Convenience method for overriding the region's computed maximum width and height. This should only be called if the region's internally computed maximum size doesn't meet the application's layout needs.
+     * @param maxWidth the override value for maximum width.
+     * @param maxHeight the override value for maximum height.
+     */
+    public function setMaxSize(maxWidth :Double, maxHeight :Double) :Void {
+        wrappedRegion.setMaxSize(maxWidth, maxHeight)
+    }
+    //FIXME instantiate all the properties' listeners
+    init {
+        wrappedNode = PrivateRegion {}
+    }
+}
+class PrivateRegion extends javafx.scene.layout.Region {
+    public override function setWidth(width :Double) :Void {
+        super.setWidth(width)
+    }
+    public override function setHeight(setHeight :Double) :Void {
+        super.setHeight(height)
+    }
+}
+/**
+ * Sentinel value which can be passed to a region's setMinWidth(), setMinHeight(), setPrefWidth(), setPrefHeight(), setMaxWidth(), setMaxHeight() methods to reset the region's size constraint back to it's intrinsic size returned by computeMinWidth(), computeMinHeight(), computePrefWidth(), computePrefHeight(), computeMaxWidth(), or computeMaxHeight().
+ */
+public def USE_COMPUTED_SIZE :Double = javafx.scene.layout.Region.USE_COMPUTED_SIZE;
+
+/**
+ * Sentinel value which can be passed to a region's setMinWidth(), setMinHeight(), setMaxWidth() or setMaxHeight() methods to indicate that the preferred dimension should be used for that max and/or min constraint.
+ */
+public def USE_PREF_SIZE :Double = javafx.scene.layout.Region.USE_COMPUTED_SIZE;

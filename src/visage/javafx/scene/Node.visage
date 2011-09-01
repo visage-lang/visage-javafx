@@ -41,5 +41,31 @@ public class Node {
         if (isInitialized(this) or layoutY != 0) {
             wrappedNode.setLayoutY(layoutY);
         }
-    }  
+    }
+    /**
+     * <p>Defines the angle of rotation about the Node's center, measured in degrees. This is used to rotate the Node.</p>
+     * <p>This rotation factor is not included in layoutBounds by default, which makes it ideal for rotating the entire node after all effects and transforms have been taken into account.</p>
+     * <p>The pivot point about which the rotation occurs is the center of the untransformed layoutBounds.</p>
+     * <p>Note that because the pivot point is computed as the center of this Node's layout bounds, any change to the layout bounds will cause the pivot point to change, which can move the object. For a leaf node, any change to the geometry will cause the layout bounds to change. For a group node, any change to any of its children, including a change in a child's geometry, clip, effect, position, orientation, or scale, will cause the group's layout bounds to change. If this movement of the pivot point is not desired, applications should instead use the Node's #transforms[] observableArrayList, and add a Rotate transform, which has a user-specifiable pivot point.</p>
+     */
+    public var rotate :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != rotate)) or (0 != rotate)) {
+            wrappedNode.setRotate(rotate)
+        }
+    }
+    /**
+     * Indicates whether this node has a flexible range of acceptable sizes and allows its parent to resize it during layout. Nodes that should be treated as rigid will return false, in which case they may be moved but not resized during layout. Returns false by default.
+     * @return whether or not this node can be resized by its parent during layout.
+     */
+    public function isResizable() :Boolean {
+        wrappedNode.isResizable()
+    }
+    /**
+     * If the node is resizable, will set its layout bounds to the specified width and height. If the node is not resizable, this method is a no-op. Resizable nodes are designed to be resized by their parent during layout and thus applications should not invoke this method directly.
+     * @param width the target layout bounds width.
+     * @param height the target layout bounds height.
+     */
+    public function resize(width :Double, height :Double) :Void {
+        wrappedNode.resize(width, height)
+    }
 }
