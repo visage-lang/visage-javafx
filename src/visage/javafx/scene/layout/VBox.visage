@@ -1,0 +1,117 @@
+/*
+ * Copyright (c) 2010-2011, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.scene.layout;
+
+/**
+ * <p>VBox lays out its children in a single vertical column.</p>
+ * <p>VBox example:</p>
+ * <pre>
+ *     vbox = VBox { 8 // spacing = 8
+ *         alignment: HPos.CENTER
+ *         children: [ Button { "Add" }, Button { "Remove" } ]
+ *     }
+ * </pre>
+ * @author Alain Béarez <A@cua.li>
+ */
+public class VBox extends Pane {
+    override def wrappedNode = javafx.scene.layout.VBox{}
+    public-read var wrappedHBox = bind wrappedNode as javafx.scene.layout.VBox;
+
+    /**
+     * The amount of vertical space between each child in the <code>VBox</code>.
+     */
+    public default var spacing :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != spacing)) or (0 != spacing)) {
+            wrappedVBox.setSpacing(spacing)
+        }
+    }
+    /**
+     * The overall alignment of children within the <code>VBox</code>'s width and height.
+     */
+    public var alignment :Pos on replace oldValue {
+        if ((isInitialized(this) and (oldValue != alignment)) or (null != alignment)) {
+            wrappedVBox.setAlignment(alignment)
+        }
+    }
+
+    /**
+     * Whether or not resizable children will be resized to fill the full width of the <code>VBox</code> or be kept to their preferred width and aligned according to the alignment <code>HPos</code> value.
+     */
+   public var fillWidth :Boolean on replace oldValue {
+        if ((isInitialized(this) and (oldValue != fillWidth)) or fillWidth) {
+            wrappedVBox.setFillWidth(fillWidth)
+        }
+    }
+    /**
+     * {@inheritsDoc}
+     * @return <code>null</code> unless <code>fillWidth </code> is <code>true</code> and one of its children has a <code>HORIZONTAL</code> content bias, in which case it returns <code>HORIZONTAL</code>.
+     */
+    override function getContentBias() :Orientation {
+        wrappedVBox.getContentBias()
+    }
+    // FIXME instantiate all the properties' listeners
+}
+
+/**
+ * Sets the vertical grow priority for the child when contained by an <code>VBox</code>. If set, the <code>VBox</code> will use the priority to allocate additional space if the <code>VBox</code> is resized larger than it's preferred width. If multiple <code>VBox</code> children have the same vertical grow priority, then the extra space will be split evening between them. If no vertical grow priority is set on a child, the <code>VBox</code> will never allocate it additional vertical space if available. Setting the value to <code>null</code> will remove the constraint.
+ * @param child the child node of an <code>VBox</code>.
+ * @param value the vertical grow priority for the child.
+ */
+public function setVGrow(child :Node, value :Priority) :Void {
+    javafx.scene.layout.VBox.setVgrow(child.wrappedNode, value)
+}
+/**
+ * @param child the child node of an <code>VBox</code>.
+ * @return the vertical grow priority for the child or <code>null</code> if no priority was set.
+ */
+public function getVGrow(child :Node) :Priority {
+    javafx.scene.layout.VBox.getVgrow(child.wrappedNode)
+}
+/**
+ * Sets the margin for the child when contained by an <code>VBox</code>. If set, the <code>VBox</code> will layout the child with the margin space around it. Setting the value to <code>null</code> will remove the constraint.
+ * @param child the child node of an <code>VBox</code>.
+ * @param value the margin of space around the child.
+ */
+public function setMargin(child :Node, value :Insets) :Void {
+    javafx.scene.layout.VBox.setMargin(child.wrappedNode, value.wrappedInsets)
+}
+/**
+ * @param child the child node of an <code>VBox</code>.
+ * @return the margin for the child or <code>null</code> if no margin was set.
+ */
+public function getMargin(child :Node) :Insets {
+    Insets { wrappedInsets: javafx.scene.layout.VBox.getMargin(child.wrappedNode) }
+}
+/**
+ * Removes all <code>VBox</code> constraints from the child node.
+ * @param child the child node of an <code>VBox</code>.
+ */
+public function clearConstraints(child :Node) {
+    javafx.scene.layout.VBox.clearConstraints(child.wrappedNode)
+
+}

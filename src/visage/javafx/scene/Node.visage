@@ -27,8 +27,11 @@
  */
 package visage.javafx.scene;
 
+import javafx.geometry.Orientation;
+
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
+ * @author Alain Béarez <A@cua.li>
  */
 public class Node {
     public-read protected var wrappedNode:javafx.scene.Node;
@@ -67,5 +70,12 @@ public class Node {
      */
     public function resize(width :Double, height :Double) :Void {
         wrappedNode.resize(width, height)
+    }
+    /**
+     * If the node is resizable and it's preferred height depends on its width, returns <code>HORIZONTAL</code>, else if its preferred width depends on its height, returns <code>VERTICAL</code>, or if there is no such dependency, returns <code>null</code>. Resizable subclasses should override this method to return an appropriate value.
+     * @return orientation of width/height dependency or <code>null</code> if there is none.
+     */
+    public function getContentBias() :Orientation {
+        wrappedNode.getContentBias()
     }
 }

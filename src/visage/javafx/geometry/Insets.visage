@@ -27,24 +27,24 @@
  */
 package visage.javafx.geometry;
 /**
- * @author William Antônio <william.a.siqueira@gmail.com>
+ * @author William AntÃ´nio <william.a.siqueira@gmail.com>
  */
 public class Insets {
-    public-read protected var wrappedInsets:javafx.geometry.Insets;
+    public-init protected var wrappedInsets:javafx.geometry.Insets;
     
-    public-init var bottom:Double  = bind wrappedInsets.getBottom();
-    public-init var left:Double = bind wrappedInsets.getLeft();
-    public-init var right:Double = bind wrappedInsets.getRight();
-    public-init var top:Double = bind wrappedInsets.getTop();
+    public-init var bottom :Double = bind wrappedInsets.getBottom();
+    public-init var left :Double = bind wrappedInsets.getLeft();
+    public-init var right :Double = bind wrappedInsets.getRight();
+    public-init var top :Double = bind wrappedInsets.getTop();
     
     init{
         wrappedInsets = new javafx.geometry.Insets(top, right, bottom, left);
     }
     
-    override function toString():String{
-        wrappedInsets.toString();
+    override function toString() :String{
+        wrappedInsets.toString()
     }
     override function hashCode():Integer{
-        17 + 31 * wrappedInsets.hashCode();
+        17 + 31 * wrappedInsets.hashCode()
     }
 }

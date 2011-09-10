@@ -39,7 +39,8 @@ import visage.javafx.scene.Parent;
  * @author Alain Béarez <A@cua.li>
  */
 public class Region extends Parent {
-    public-read def wrappedRegion = bind wrappedParent as PrivateRegion;
+    override def wrappedNode = PrivateRegion{}
+    public-read def wrappedRegion = bind wrappedNode as PrivateRegion;
 
     /**
      * Defines whether this region rounds position/spacing and ceils size values to pixel boundaries when laying out its children.
@@ -173,9 +174,6 @@ public class Region extends Parent {
         wrappedRegion.setMaxSize(maxWidth, maxHeight)
     }
     //FIXME instantiate all the properties' listeners
-    init {
-        wrappedNode = PrivateRegion {}
-    }
 }
 class PrivateRegion extends javafx.scene.layout.Region {
     public override function setWidth(width :Double) :Void {

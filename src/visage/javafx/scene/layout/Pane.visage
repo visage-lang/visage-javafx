@@ -25,20 +25,18 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package visage.javafx.scene.control;
+package visage.javafx.scene.layout;
 
 /**
- * @author William Antônio <william.a.siqueira@gmail.com>
+ * <p>Base class for layout panes which need to expose the children list as public so that users of the subclass can freely add/remove children.</p>
+ * <p>This class may be used directly in cases where absolute positioning of children is required since it does not perform layout beyond resizing resizable children to their preferred sizes; childrens' positions are not modified by the pane.</p>
+ * <p>Note: if an application needs children to be centered within a parent, it should use a StackPane instead.</p>
+ * <p><strong>Resizable Range</strong></p>
+ * <p>The pane's preferred width/height will be computed as the size required to encompass each managed child at its current location and preferred size, measured from the pane's origin (in other words, the largest layoutBounds maxX and maxY values). It's max width/height are unbounded (Double.MAX_VALUE).</p>
+ * <p>Pane does not clip its content by default, so it is possible that childrens' bounds may extend outside its own bounds, either if children are positioned at negative coordinates or the pane is resized smaller than its preferred size.</p>
+ * @author Alain Béarez <A@cua.li>
  */
-
-public class Label extends Labeled {
-    override def wrappedNode = javafx.scene.control.Label {}
-    public-read def wrappedLabel = bind wrappedNode as javafx.scene.control.Label;
-
-    /**
-     * <code>null</code> text is treated as the empty string.
-     */
-    public default var text:String on replace {
-		wrappedLabel.setText(text);
-    }
+public class Pane extends Region {
+    override def wrappedNode = javafx.scene.layout.Pane{}
+    public-read def wrappedPane = bind wrappedNode as javafx.scene.layout.Pane;
 }

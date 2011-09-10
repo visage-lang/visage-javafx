@@ -36,7 +36,7 @@ import visage.javafx.geometry.Insets;
 import visage.javafx.scene.Node;
 
 /**
- * @author William Antônio <william.a.siqueira@gmail.com>
+ * @author William AntÃ´nio <william.a.siqueira@gmail.com>
  */
 public class Labeled extends Control {
     public-read def wrappedLabeled = bind wrappedNode as javafx.scene.control.Labeled;
