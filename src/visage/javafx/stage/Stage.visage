@@ -42,14 +42,11 @@ public class Stage {
             wrappedStage.setTitle(title);
             scene.construct();
             wrappedStage.setScene(scene.wrappedScene);
-            wrappedStage.setVisible(visible);
+            wrappedStage.show();
         }
     }
     public var title:String on replace {
         wrappedStage.setTitle(title);
-    }
-    public var visible:Boolean = false on replace {
-        wrappedStage.setVisible(visible);
     }
     public default var scene:Scene on replace {
         if (wrappedStage != null) {

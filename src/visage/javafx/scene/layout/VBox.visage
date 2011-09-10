@@ -27,6 +27,13 @@
  */
 package visage.javafx.scene.layout;
 
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.scene.layout.Priority;
+
+import visage.javafx.scene.Node;
+import visage.javafx.geometry.Insets;
+
 /**
  * <p>VBox lays out its children in a single vertical column.</p>
  * <p>VBox example:</p>
@@ -40,7 +47,7 @@ package visage.javafx.scene.layout;
  */
 public class VBox extends Pane {
     override def wrappedNode = javafx.scene.layout.VBox{}
-    public-read var wrappedHBox = bind wrappedNode as javafx.scene.layout.VBox;
+    public-read var wrappedVBox = bind wrappedNode as javafx.scene.layout.VBox;
 
     /**
      * The amount of vertical space between each child in the <code>VBox</code>.

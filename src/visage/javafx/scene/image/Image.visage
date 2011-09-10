@@ -130,6 +130,7 @@ public class Image {
                 wrappedImage = new javafx.scene.image.Image(is, requestedWidth, requestedHeight, preserveRatio, smooth)
             }
         }
+/*
         wrappedImage.errorProperty().addListener(
             ValueChangeListener {
                 setValue: function(newValue) :Void {
@@ -165,6 +166,7 @@ public class Image {
                 }
             }
         )
+*/
      }
 
      /**
