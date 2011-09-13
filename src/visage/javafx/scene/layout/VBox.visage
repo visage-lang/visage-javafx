@@ -65,7 +65,6 @@ public class VBox extends Pane {
             wrappedVBox.setAlignment(alignment)
         }
     }
-
     /**
      * Whether or not resizable children will be resized to fill the full width of the <code>VBox</code> or be kept to their preferred width and aligned according to the alignment <code>HPos</code> value.
      */
@@ -85,30 +84,30 @@ public class VBox extends Pane {
 }
 
 /**
- * Sets the vertical grow priority for the child when contained by an <code>VBox</code>. If set, the <code>VBox</code> will use the priority to allocate additional space if the <code>VBox</code> is resized larger than it's preferred width. If multiple <code>VBox</code> children have the same vertical grow priority, then the extra space will be split evening between them. If no vertical grow priority is set on a child, the <code>VBox</code> will never allocate it additional vertical space if available. Setting the value to <code>null</code> will remove the constraint.
- * @param child the child node of an <code>VBox</code>.
+ * Sets the vertical grow priority for the child when contained by a <code>VBox</code>. If set, the <code>VBox</code> will use the priority to allocate additional space if the <code>VBox</code> is resized larger than it's preferred width. If multiple <code>VBox</code> children have the same vertical grow priority, then the extra space will be split evening between them. If no vertical grow priority is set on a child, the <code>VBox</code> will never allocate it additional vertical space if available. Setting the value to <code>null</code> will remove the constraint.
+ * @param child the child node of a <code>VBox</code>.
  * @param value the vertical grow priority for the child.
  */
 public function setVGrow(child :Node, value :Priority) :Void {
     javafx.scene.layout.VBox.setVgrow(child.wrappedNode, value)
 }
 /**
- * @param child the child node of an <code>VBox</code>.
+ * @param child the child node of a <code>VBox</code>.
  * @return the vertical grow priority for the child or <code>null</code> if no priority was set.
  */
 public function getVGrow(child :Node) :Priority {
     javafx.scene.layout.VBox.getVgrow(child.wrappedNode)
 }
 /**
- * Sets the margin for the child when contained by an <code>VBox</code>. If set, the <code>VBox</code> will layout the child with the margin space around it. Setting the value to <code>null</code> will remove the constraint.
- * @param child the child node of an <code>VBox</code>.
+ * Sets the margin for the child when contained by a <code>VBox</code>. If set, the <code>VBox</code> will layout the child with the margin space around it. Setting the value to <code>null</code> will remove the constraint.
+ * @param child the child node of a <code>VBox</code>.
  * @param value the margin of space around the child.
  */
 public function setMargin(child :Node, value :Insets) :Void {
     javafx.scene.layout.VBox.setMargin(child.wrappedNode, value.wrappedInsets)
 }
 /**
- * @param child the child node of an <code>VBox</code>.
+ * @param child the child node of a <code>VBox</code>.
  * @return the margin for the child or <code>null</code> if no margin was set.
  */
 public function getMargin(child :Node) :Insets {
@@ -116,7 +115,7 @@ public function getMargin(child :Node) :Insets {
 }
 /**
  * Removes all <code>VBox</code> constraints from the child node.
- * @param child the child node of an <code>VBox</code>.
+ * @param child the child node of a <code>VBox</code>.
  */
 public function clearConstraints(child :Node) {
     javafx.scene.layout.VBox.clearConstraints(child.wrappedNode)
