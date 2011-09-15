@@ -29,7 +29,16 @@ package visage.javafx.scene;
 
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
+ * @author Alain Béarez <A@cua.li>
  */
 public class Parent extends Node {
     public-read def wrappedParent = bind wrappedNode as javafx.scene.Parent;
+
+    /**
+     * <p>Requests a layout pass to be performed before the next scene is rendered. This is batched up asynchronously to happen once per "pulse", or frame of animation.</p>
+     * <p>If this parent is either a layout root or unmanaged, then it will be added directly to the scene's dirty layout list, otherwise {@code requestLayout} will be invoked on its parent.</p>
+     */
+    public function requestLayout() :Void {
+        wrappedParent.requestLayout()
+    }
 }

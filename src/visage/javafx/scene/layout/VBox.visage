@@ -119,5 +119,4 @@ public function getMargin(child :Node) :Insets {
  */
 public function clearConstraints(child :Node) {
     javafx.scene.layout.VBox.clearConstraints(child.wrappedNode)
-
 }
