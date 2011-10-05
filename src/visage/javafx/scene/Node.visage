@@ -27,7 +27,10 @@
  */
 package visage.javafx.scene;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
+import javafx.scene.input.MouseEvent;
 
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
@@ -78,4 +81,17 @@ public class Node {
     public function getContentBias() :Orientation {
         wrappedNode.getContentBias()
     }
+    public var onMouseClicked :function(:MouseEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onMouseClicked == null) { 
+                wrappedNode.setOnMouseClicked(null) 
+            } else if (wrappedNode.getOnMouseClicked() == null) { 
+                wrappedNode.setOnMouseClicked(EventHandler { 
+                    override function handle(e:Event):Void { 
+                        onMouseClicked(e as MouseEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    } 
 }
