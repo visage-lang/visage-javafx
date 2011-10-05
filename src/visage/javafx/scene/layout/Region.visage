@@ -39,8 +39,7 @@ import visage.javafx.scene.Parent;
  * @author Alain Béarez <A@cua.li>
  */
 public class Region extends Parent {
-    override def wrappedNode = PrivateRegion{}
-    public-read def wrappedRegion = bind wrappedNode as PrivateRegion;
+    public-read def wrappedRegion = bind wrappedNode as javafx.scene.layout.Region;
 
     /**
      * Defines whether this region rounds position/spacing and ceils size values to pixel boundaries when laying out its children.
@@ -61,19 +60,11 @@ public class Region extends Parent {
     /**
      * The width of this resizable node. This property is set by the region's parent during layout and may not be set by the application. If an application needs to explicitly control the size of a region, it should override its preferred size range by setting the <code>minWidth</code>, <code>prefWidth</code>, and <code>maxWidth</code> properties.
      */
-    public-read protected var width :Double on replace oldValue {
-        if ((isInitialized(this) and (oldValue != width)) or (0 != width)) {
-            wrappedRegion.setWidth(width)
-        }
-    }
+    public-read protected var width :Double;
     /**
      * The height of this resizable node. This property is set by the region's parent during layout and may not be set by the application. If an application needs to explicitly control the size of a region, it should override its preferred size range by setting the <code>minWidth</code>, <code>prefWidth</code>, and <code>maxWidth</code> properties.
      */
-    public-read protected var height :Double on replace oldValue {
-        if ((isInitialized(this) and (oldValue != height)) or (0 != height)) {
-            wrappedRegion.setHeight(height)
-        }
-    }
+    public-read protected var height :Double;
     /**
      * <p>Property for overriding the region's computed minimum width. This should only be set if the region's internally computed minimum width doesn't meet the application's layout needs.</p>
      * <p>Defaults to the <code>USE_COMPUTED_SIZE</code> flag, which means that <code>minWidth(forHeight)</code> will return the region's internally computed minimum width.</p>
@@ -175,14 +166,7 @@ public class Region extends Parent {
     }
     //FIXME instantiate all the properties' listeners
 }
-class PrivateRegion extends javafx.scene.layout.Region {
-    public override function setWidth(width :Double) :Void {
-        super.setWidth(width)
-    }
-    public override function setHeight(setHeight :Double) :Void {
-        super.setHeight(height)
-    }
-}
+
 /**
  * Sentinel value which can be passed to a region's setMinWidth(), setMinHeight(), setPrefWidth(), setPrefHeight(), setMaxWidth(), setMaxHeight() methods to reset the region's size constraint back to it's intrinsic size returned by computeMinWidth(), computeMinHeight(), computePrefWidth(), computePrefHeight(), computeMaxWidth(), or computeMaxHeight().
  */

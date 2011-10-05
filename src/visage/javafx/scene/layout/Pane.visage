@@ -27,6 +27,8 @@
  */
 package visage.javafx.scene.layout;
 
+import visage.javafx.scene.Node;
+
 /**
  * <p>Base class for layout panes which need to expose the children list as public so that users of the subclass can freely add/remove children.</p>
  * <p>This class may be used directly in cases where absolute positioning of children is required since it does not perform layout beyond resizing resizable children to their preferred sizes; childrens' positions are not modified by the pane.</p>
@@ -37,6 +39,10 @@ package visage.javafx.scene.layout;
  * @author Alain Béarez <A@cua.li>
  */
 public class Pane extends Region {
-    override def wrappedNode = javafx.scene.layout.Pane{}
     public-read def wrappedPane = bind wrappedNode as javafx.scene.layout.Pane;
+    public default var children:Node[] on replace {
+        if (isInitialized(this) or children != []) {
+            wrappedPane.getChildren().setAll(for (child in children) child.wrappedNode);
+        }
+    }
 }

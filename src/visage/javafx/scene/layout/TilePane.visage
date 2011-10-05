@@ -60,6 +60,7 @@ import visage.javafx.geometry.Insets;
  * @author Alain Béarez <A@cua.li>
  */
 public class TilePane extends Pane {
+    override def wrappedNode = javafx.scene.layout.TilePane{}
     public-read var wrappedTilePane = bind wrappedNode as javafx.scene.layout.TilePane;
 
     /**
@@ -91,7 +92,7 @@ public class TilePane extends Pane {
     /**
      * The orientation of this <code>TilePane</code>. A horizontal <code>TilePane</code> lays out children in tiles, left to right, wrapping tiles at the <code>TilePane</code>'s width boundary. A vertical <code>TilePane</code> lays out children in tiles, top to bottom, wrapping at the <code>TilePane</code>'s height. The default is horizontal.
      */
-    public var orientation :Orientation on replace oldValue {
+    public default var orientation :Orientation on replace oldValue {
         if ((isInitialized(this) and (oldValue != orientation)) or (null != orientation)) {
             wrappedTilePane.setOrientation(orientation)
         }
