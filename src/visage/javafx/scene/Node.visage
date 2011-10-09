@@ -101,7 +101,7 @@ public class Node {
     /**
      * Additional hint for controlling bitmap caching.
      */
-    public var cacheHint :CacheHint on replace {
+    public var cacheHint :CacheHint  = CacheHint.DEFAULT  on replace {
         if (isInitialized(this) or CacheHint.DEFAULT  != cacheHint) {
             wrappedNode.setCacheHint(cacheHint);
         }
@@ -128,7 +128,7 @@ public class Node {
     /**
      *  Defines the mouse cursor for this Node and subnodes.
      */
-    public var cursor:Cursor on replace{
+    public var cursor:Cursor  = Cursor.DEFAULT on replace{
         if (isInitialized(this) or Cursor.DEFAULT != cursor) {
             wrappedNode.setCursor(cursor);
         }
@@ -137,7 +137,7 @@ public class Node {
     /**
      *  Indicates whether depth testing is used when rendering this node.
      */
-    public var depthTest:DepthTest on replace {
+    public var depthTest:DepthTest = DepthTest.DISABLE on replace {
         if (isInitialized(this) or DepthTest.DISABLE != depthTest) {
             wrappedNode.setDepthTest(depthTest);
         }
@@ -196,16 +196,15 @@ public class Node {
     /**
      *  Defines whether or not this node's layout will be managed by it's parent.
      */
-    public var managed:Boolean on replace {
-        if (isInitialized(this) or managed ) {
+    public var managed:Boolean = true on replace {
+        if (isInitialized(this) or not managed ) {
             wrappedNode.setManaged(managed);
         }
 	}	
     
     /**
      *   If true, this node (together with all its children) is completely transparent to mouse events.
-    */
-    
+    */    
     public var mouseTransparent:Boolean on replace {
         if (isInitialized(this) or mouseTransparent ) {
             wrappedNode.setMouseTransparent(mouseTransparent);
@@ -216,7 +215,7 @@ public class Node {
     /**
      *  Specifies how opaque (that is, solid) the Node appears.
     **/
-     public var opacity:Double on replace {
+     public var opacity:Double = 1.0 on replace {
         if (isInitialized(this) or opacity != 0) {
             wrappedNode.setOpacity(opacity);
         }
