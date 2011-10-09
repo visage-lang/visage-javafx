@@ -1,0 +1,100 @@
+/*
+ * Copyright (c) 2010-2011, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.scene.shape;
+
+import javafx.scene.shape.ArcType;
+
+/**
+* The Arc class represents a 2D arc object, defined by a center point, start angle (in degrees), angular extent (length of the arc in degrees), and an arc type (ArcType#OPEN, ArcType#CHORD, or ArcType#ROUND).
+* @author William Antônio <william.a.siqueira@gmail.com>
+**/
+public class Arc extends Shape{
+    override def wrappedNode = javafx.scene.shape.Arc {}
+    public-read def wrappedArc = bind wrappedNode as javafx.scene.shape.Arc;
+   
+    /**
+     * Defines the X coordinate of the center point of the arc.
+     **/
+    public var centerX:Double on replace{
+        if (isInitialized(this) or centerX != 0){
+            wrappedArc.setCenterX(centerX);
+        }
+    }   
+    /**
+     * Defines the Y coordinate of the center point of the arc.
+     **/
+    public var centerY:Double on replace{
+        if (isInitialized(this) or centerY != 0){
+            wrappedArc.setCenterY(centerY);
+        }
+    }       
+    
+    /**
+     * Defines the angular extent of the arc in degrees.
+     **/
+    public var length:Double on replace{
+        if (isInitialized(this) or length != 0){
+            wrappedArc.setLength(length);
+        }
+    }    
+
+    /**
+     * Defines the overall width (horizontal radius) of the full ellipse of which this arc is a partial section.
+     **/
+    public var radiusX:Double on replace{
+        if (isInitialized(this) or radiusX != 0){
+            wrappedArc.setRadiusX(radiusX);
+        }
+    }  
+    /**
+     * Defines the overall height (veritcal radius) of the full ellipse of which this arc is a partial section.
+     **/
+    public var radiusY:Double on replace{
+        if (isInitialized(this) or radiusY != 0){
+            wrappedArc.setRadiusY(radiusY);
+        }
+    }  
+
+    /**
+     * Defines the starting angle of the arc in degrees.
+     **/
+    public var startAngle:Double on replace{
+        if (isInitialized(this) or startAngle != 0){
+            wrappedArc.setStartAngle(startAngle);
+        }
+    } 
+
+    /**
+     * Defines the closure type for the arc: ArcType.OPEN, ArcType.CHORD,or ArcType.ROUND.
+     **/
+    public var type:ArcType on replace{
+        if (isInitialized(this) or type != ArcType.OPEN){
+            wrappedArc.setType(type);
+        }
+    }  
+}
