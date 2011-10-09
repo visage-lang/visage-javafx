@@ -30,9 +30,9 @@ package visage.javafx.scene.shape;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.shape.StrokeType;
-
 import visage.javafx.scene.Node;
 import visage.javafx.scene.paint.Paint;
+import org.visage.javafx.util.VConvert;
 
 /**
  * <p>The <code>Shape</code> class provides definitions of common properties for objects that represent some form of geometric shape. These properties include:</p>
@@ -105,9 +105,9 @@ public abstract class Shape extends Node {
     /**
      * Defines parameters to fill the interior of a <code>Shape</code> using the settings of the <code>Paint</code> context. The default value is <code>Color.BLACK</code> for all shapes except <code>Line</code>, <code>Polyline</code>, and <code>Path</code>. The default value is <code>null</code> for those shapes.
      */
-    public var fill :Paint on replace oldValue {
+    public var fill :Color on replace oldValue {
         if ((isInitialized(this) and (oldValue != fill)) or (null != fill)) {
-            wrappedShape.setFill(fill.wrappedPaint)
+            wrappedShape.setFill(VConvert.color(fill))
         }
     }
     /**

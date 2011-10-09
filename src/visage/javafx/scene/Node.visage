@@ -31,10 +31,18 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.CacheHint;
+import javafx.scene.Cursor;
+import javafx.scene.DepthTest;
+import visage.javafx.scene.effect.Effect;
+import java.util.Set;
 
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
  * @author Alain Béarez <A@cua.li>
+ * @author William Antônio <william.a.siqueira@gmail.com>
  */
 public class Node {
     public-read protected var wrappedNode:javafx.scene.Node;
@@ -78,9 +86,203 @@ public class Node {
      * If the node is resizable and it's preferred height depends on its width, returns <code>HORIZONTAL</code>, else if its preferred width depends on its height, returns <code>VERTICAL</code>, or if there is no such dependency, returns <code>null</code>. Resizable subclasses should override this method to return an appropriate value.
      * @return orientation of width/height dependency or <code>null</code> if there is none.
      */
-    public function getContentBias() :Orientation {
+    public function getContentBias():Orientation {
         wrappedNode.getContentBias()
     }
+	
+    /**
+     * The BlendMode used to blend this individual node into the scene behind it.
+     */
+    public var blendMode:BlendMode on replace {        
+        if (isInitialized(this) or BlendMode.SRC_OVER != blendMode) {
+            wrappedNode.setBlendMode(blendMode);
+        }
+    }
+    /**
+     * Additional hint for controlling bitmap caching.
+     */
+    public var cacheHint :CacheHint on replace {
+        if (isInitialized(this) or CacheHint.DEFAULT  != cacheHint) {
+            wrappedNode.setCacheHint(cacheHint);
+        }
+    }	
+	
+    /**
+     *   A performance hint to the system to indicate that this Node should be cached as a bitmap.
+     */
+    public var cache :Boolean on replace{
+        if (isInitialized(this) or cache) {
+            wrappedNode.setCache(cache);
+        }
+    }		
+	
+    /**
+     *  Specifies a Node to use to define the the clipping shape for this Node.
+     */
+    public var clip :javafx.scene.Node on replace oldValue {
+        if (isInitialized(this) or null != clip) {
+            wrappedNode.setClip(clip);
+        }
+    }		
+	
+    /**
+     *  Defines the mouse cursor for this Node and subnodes.
+     */
+    public var cursor:Cursor on replace{
+        if (isInitialized(this) or Cursor.DEFAULT != cursor) {
+            wrappedNode.setCursor(cursor);
+        }
+    }		
+		
+    /**
+     *  Indicates whether depth testing is used when rendering this node.
+     */
+    public var depthTest:DepthTest on replace {
+        if (isInitialized(this) or DepthTest.DISABLE != depthTest) {
+            wrappedNode.setDepthTest(depthTest);
+        }
+	}		
+    /**
+     *  Sets the individual disabled state of this Node.
+     */
+    public var disable :Boolean on replace {
+        if (isInitialized(this) or disable) {
+            wrappedNode.setDisable(disable);
+        }
+	}	     
+
+    /**
+     *  Specifies an effect to apply to this Node.
+     */
+    public var effect :Effect on replace {
+        if (isInitialized(this) or null != effect) {
+            wrappedNode.setEffect(effect.wrappedEffect);
+        }
+	}		
+
+    /**
+     *  Indicates whether this Node currently has the input focus.
+     * @return 
+     */
+    public function isFocused():Boolean{
+        return wrappedNode.isFocused();
+    }   
+    
+    /**
+     *  Specifies whether this Node should be a part of focus traversal cycle.
+     */
+    public var focusTraversable:Boolean on replace {
+        if (isInitialized(this) or focusTraversable) {
+            wrappedNode.setFocusTraversable (focusTraversable );
+        }
+	}	
+    
+    /**
+     *  Whether or not this Node is being hovered over
+     * @return 
+     */
+    public function isHover():Boolean{
+        return wrappedNode.isHover();
+    }
+    /**
+     *  The id of this node
+     */
+    public var id:String on replace  {
+        if (isInitialized(this) or null != id) {
+            wrappedNode.setId(id);
+        }
+	}
+
+    /**
+     *  Defines whether or not this node's layout will be managed by it's parent.
+     */
+    public var managed:Boolean on replace {
+        if (isInitialized(this) or managed ) {
+            wrappedNode.setManaged(managed);
+        }
+	}	
+    
+    /**
+     *   If true, this node (together with all its children) is completely transparent to mouse events.
+    */
+    
+    public var mouseTransparent:Boolean on replace {
+        if (isInitialized(this) or mouseTransparent ) {
+            wrappedNode.setMouseTransparent(mouseTransparent);
+        }
+	}
+        
+
+    /**
+     *  Specifies how opaque (that is, solid) the Node appears.
+    **/
+     public var opacity:Double on replace {
+        if (isInitialized(this) or opacity != 0) {
+            wrappedNode.setOpacity(opacity);
+        }
+    }   
+    
+    /**
+     * Defines how the picking computation is done for this node when triggered by a MouseEvent or a contains function call.
+    */
+    public var pickOnBounds:Boolean on replace {
+        if (isInitialized(this) or pickOnBounds ) {
+            wrappedNode.setPickOnBounds(pickOnBounds );
+        }
+	}        
+    /**
+     * Whether or not the Node is pressed.
+     **/
+    public function isPressed():Boolean{
+        return wrappedNode.isPressed();        
+    }
+    /**
+     * Defines the factor by which coordinates are scaled about the center of the object along the X axis of this Node.
+     **/
+    public var scaleX:Double on replace {
+        if (isInitialized(this) or scaleX != 0) {
+            wrappedNode.setScaleX(scaleX);
+        }
+    } 
+
+    /**
+     * Defines the factor by which coordinates are scaled about the center of the object along the Y axis of this Node.
+     **/
+    public var scaleY:Double on replace {
+        if (isInitialized(this) or scaleY != 0) {
+            wrappedNode.setScaleY(scaleY);
+        }
+    } 
+
+    /**
+     * Defines the factor by which coordinates are scaled about the center of the object along the X axis of this Node.
+     **/
+    public var scaleZ:Double on replace {
+        if (isInitialized(this) or scaleZ != 0) {
+            wrappedNode.setScaleZ(scaleZ);
+        }
+    }     
+    
+    /**
+     * A string representation of the CSS style associated with this specific Node.
+     **/
+    public var style:String on replace{
+        if (isInitialized(this) or null != style) {
+            wrappedNode.setStyle(style);
+        }
+    }
+    /**
+     *   Specifies whether this Node and any subnodes should be rendered as part of the scene graph.
+    **/
+    public var visible:Boolean  = true on replace{
+        if (isInitialized(this) or not visible) {
+            wrappedNode.setVisible(visible);
+        }
+    }       
+    
+    /**
+     * Defines a function to be called when a mouse button has been clicked (pressed and released) on this Node.
+     */        
     public var onMouseClicked :function(:MouseEvent):Void on replace { 
         // if (isInitialized(this)) { 
             if (onMouseClicked == null) { 
@@ -93,5 +295,186 @@ public class Node {
                 }) 
             } 
         // } 
+    }
+
+   /**
+     * Defines a function to be called when a mouse button is pressed on this Node and then dragged.
+     */        
+    public var onMouseDragged :function(:MouseEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onMouseDragged == null) { 
+                wrappedNode.setOnMouseDragged(null) 
+            } else if (wrappedNode.getOnMouseDragged() == null) { 
+                wrappedNode.setOnMouseDragged(EventHandler { 
+                    override function handle(e:Event):Void { 
+                        onMouseDragged(e as MouseEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }    
+    /**
+     * Defines a function to be called when the mouse enters this Node.
+     */        
+    public var onMouseEntered :function(:MouseEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onMouseEntered == null) { 
+                wrappedNode.setOnMouseEntered(null) 
+            } else if (wrappedNode.getOnMouseEntered() == null) { 
+                wrappedNode.setOnMouseEntered(EventHandler { 
+                    override function handle(e:Event):Void { 
+                        onMouseEntered(e as MouseEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }   
+   /**
+     * Defines a function to be called when the mouse exits this Node.
+     */        
+    public var onMouseExited :function(:MouseEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onMouseExited == null) { 
+                wrappedNode.setOnMouseExited(null) 
+            } else if (wrappedNode.getOnMouseExited() == null) { 
+                wrappedNode.setOnMouseExited(EventHandler { 
+                    override function handle(e:Event):Void { 
+                        onMouseExited(e as MouseEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }
+   /**
+     * Defines a function to be called when mouse cursor moves within this Node but no buttons have been pushed.
+     */        
+    public var onMouseMoved :function(:MouseEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onMouseMoved == null) { 
+                wrappedNode.setOnMouseMoved(null) 
+            } else if (wrappedNode.getOnMouseMoved() == null) { 
+                wrappedNode.setOnMouseMoved(EventHandler { 
+                    override function handle(e:Event):Void { 
+                        onMouseMoved(e as MouseEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }
+   /**
+     * Defines a function to be called when a mouse button has been pressed on this Node.
+     */        
+    public var onMousePressed :function(:MouseEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onMousePressed == null) { 
+                wrappedNode.setOnMousePressed(null) 
+            } else if (wrappedNode.getOnMousePressed() == null) { 
+                wrappedNode.setOnMousePressed(EventHandler { 
+                    override function handle(e:Event):Void { 
+                        onMousePressed(e as MouseEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }
+   /**
+     * Defines a function to be called when a mouse button has been released on this Node.
+     */        
+    public var onMouseReleased :function(:MouseEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onMouseReleased == null) { 
+                wrappedNode.setOnMouseReleased(null) 
+            } else if (wrappedNode.getOnMouseReleased() == null) { 
+                wrappedNode.setOnMouseReleased(EventHandler { 
+                    override function handle(e:Event):Void { 
+                        onMouseReleased(e as MouseEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }	
+    /**
+     * Defines a function to be called when drag gesture has been detected. This is the right place to start drag and drop operation.
+     */        
+    public var onDragDetected :function(:MouseEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onDragDetected == null) { 
+                wrappedNode.setOnDragDetected(null) 
+            } else if (wrappedNode.getOnDragDetected() == null) { 
+                wrappedNode.setOnDragDetected(EventHandler { 
+                    override function handle(e:Event):Void { 
+                        onDragDetected(e as MouseEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }   
+    
+    /**
+     * Defines a function to be called when this Node or its child Node has input focus and a key has been pressed. The function is called only if the event hasn't been already consumed during its capturing or bubbling phase.
+     */        
+    public var onKeyPressed :function(:KeyEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onKeyPressed == null) { 
+                wrappedNode.setOnKeyPressed(null) 
+            } else if (wrappedNode.getOnKeyPressed() == null) { 
+                wrappedNode.setOnKeyPressed(EventHandler { 
+                    override function handle(e:Event):Void { 
+                        onKeyPressed(e as KeyEvent) 
+                    }
+                }) 
+            } 
+        // } 
     } 
+	/**
+     * Defines a function to be called when this Node or its child Node has input focus and a key has been released. The function is called only if the event hasn't been already consumed during its capturing or bubbling phase.
+     */        
+    public var onKeyReleased :function(:KeyEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onKeyReleased == null) { 
+                wrappedNode.setOnKeyReleased(null) 
+            } else if (wrappedNode.getOnKeyReleased() == null) { 
+                wrappedNode.setOnKeyReleased(EventHandler { 
+                    override function handle(e:Event):Void { 
+                        onKeyReleased(e as KeyEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }
+	/**
+     * Defines a function to be called when this Node or its child Node has input focus and a key has been typed. The function is called only if the event hasn't been already consumed during its capturing or bubbling phase.
+     */        
+    public var onKeyTyped :function(:KeyEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onKeyTyped == null) { 
+                wrappedNode.setOnKeyTyped(null) 
+            } else if (wrappedNode.getOnKeyTyped() == null) { 
+                wrappedNode.setOnKeyTyped(EventHandler { 
+                    override function handle(e:Event):Void { 
+                        onKeyTyped(e as KeyEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }
+    
+    /**
+     * Finds this Node, or the first sub-node, based on the given CSS selector.
+    **/
+    public function lookup(selector:String):Node{
+        return Node{
+            wrappedNode: wrappedNode.lookup(selector);
+        };
+    }
+    /**
+     * Finds all Nodes, including this one and any children, which match the given CSS selector.    
+    **/
+    public function lookupAll(selector: String):Set{
+        return wrappedNode.lookupAll(selector);
+    }    
+    
+    //TODO: eventDispatcher, inputMethodRequests, layoutBounds, finish drags, parent
+    // rotationAxis, scene
+ 	
 }
