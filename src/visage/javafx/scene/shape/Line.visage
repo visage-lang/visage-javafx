@@ -33,9 +33,7 @@ package visage.javafx.scene.shape;
 **/
 public class Line extends Shape{
     override def wrappedNode = javafx.scene.shape.Line {}
-    public-read def wrappedLine = bind wrappedNode as javafx.scene.shape.Line;
-
-    //public-read def wrappedLine = bind wrappedShape as javafx.scene.shape.Line;    
+    public-read def wrappedLine = bind wrappedNode as javafx.scene.shape.Line;    
     /**
      * The X coordinate of the end point of the line segment.
      **/
