@@ -28,7 +28,7 @@
 package visage.javafx.scene.shape;
 
 /**
-* The Arc class represents a 2D arc object, defined by a center point, start angle (in degrees), angular extent (length of the arc in degrees), and an arc type (ArcType#OPEN, ArcType#CHORD, or ArcType#ROUND).
+* The Circle class creates a new circle with the specified radius and center location measured in pixels
 * @author William Antônio <william.a.siqueira@gmail.com>
 **/
 public class Circle extends Shape{
@@ -59,10 +59,5 @@ public class Circle extends Shape{
             wrappedCircle.setRadius(radius);
         }
     }
-    
-
-
-
-    
     
 }
