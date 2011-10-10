@@ -104,5 +104,5 @@ public class CubicCurve extends Shape{
         if (isInitialized(this) or startY != 0){
             wrappedCubicCurve.setStartY(startY);
         }
-    }    
+    }
 }
