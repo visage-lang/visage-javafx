@@ -28,81 +28,62 @@
 package visage.javafx.scene.shape;
 
 /**
-* The CubiCurve class defines a cubic Bézier parametric curve segment in (x,y) coordinate space. Drawing a curve that intersects both the specified coordinates (startX, startY) and (endX, enfY), using the specified points (controlX1, controlY1) and (controlX2, controlY2) as Bézier control points. 
+* The Quadcurve class defines a quadratic Bézier parametric curve segment in (x,y) coordinate space. Drawing a curve that intersects both the specified coordinates (startX, startY) and (endX, enfY), using the specified point (controlX, controlY) as Bézier control point.
 * @author William Antônio <william.a.siqueira@gmail.com>
 **/
-public class CubicCurve extends Shape{
-    override def wrappedNode = javafx.scene.shape.CubicCurve {}
-    public-read def wrappedCubicCurve = bind wrappedNode as javafx.scene.shape.CubicCurve;    
+public class QuadCurve extends Shape{
+    override def wrappedNode = javafx.scene.shape.QuadCurve {}
+    public-read def wrappedQuadCurve = bind wrappedNode as javafx.scene.shape.QuadCurve;    
     
     /**
-     * Defines the X coordinate of the first control point of the cubic curve segment.
+     * Defines the X coordinate of the control point of the quadratic curve segment.
      **/
-    public var controlX1:Double on replace{
-        if (isInitialized(this) or controlX1 != 0){
-            wrappedCubicCurve.setControlX1(controlX1);
-        }
-    }    
-
-    /**
-     * Defines the X coordinate of the second control point of the cubic curve segment.
-     **/
-    public var controlX2:Double on replace{
-        if (isInitialized(this) or controlX2 != 0){
-            wrappedCubicCurve.setControlX2(controlX2);
+    public var controlX:Double on replace{
+        if (isInitialized(this) or controlX != 0){
+            wrappedQuadCurve.setControlX(controlX);
         }
     }        
-    
     /**
-     * Defines the Y coordinate of the first control point of the cubic curve segment.
+     * Defines the Y coordinate of the control point of the quadratic curve segment.
      **/
-     public var controlY1:Double on replace{
-        if (isInitialized(this) or controlY1 != 0){
-            wrappedCubicCurve.setControlY1(controlY1);
+     public var controlY:Double on replace{
+        if (isInitialized(this) or controlY != 0){
+            wrappedQuadCurve.setControlY(controlY);
         }
     }
     
     /**
-     * Defines the Y coordinate of the second control point of the cubic curve segment.
-     **/
-     public var controlY2:Double on replace{
-        if (isInitialized(this) or controlY2 != 0){
-            wrappedCubicCurve.setControlY2(controlY2);
-        }
-    }    
-    
-    /**
-     * Defines the X coordinate of the end point of the cubic curve segment.
+     * Defines the X coordinate of the end point of the quadratic curve segment.
      **/
     public var endX:Double on replace{
         if (isInitialized(this) or endX != 0){
-            wrappedCubicCurve.setEndX(endX);
+            wrappedQuadCurve.setEndX(endX);
         }
     }    
     
     /**
-     * Defines the Y coordinate of the end point of the cubic curve segment.
+     * Defines the Y coordinate of the end point of the quadratic curve segment.
      **/
      public var endY:Double on replace{
         if (isInitialized(this) or endY != 0){
-            wrappedCubicCurve.setEndY(endY);
+            wrappedQuadCurve.setEndY(endY);
         }
     }
     
     /**
-     * Defines the X coordinate of the start point of the cubic curve segment.
+     * Defines the X coordinate of the start point of the quadratic curve segment.
     **/     
     public var startX:Double on replace{
         if (isInitialized(this) or startX != 0){
-            wrappedCubicCurve.setStartX(startX);
+            wrappedQuadCurve.setStartX(startX);
         }
     }
     /**
-     * Defines the Y coordinate of the start point of the cubic curve segment.
+     * Defines the Y coordinate of the start point of the quadratic curve segment.
     **/     
     public var startY:Double on replace{
         if (isInitialized(this) or startY != 0){
-            wrappedCubicCurve.setStartY(startY);
+            wrappedQuadCurve.setStartY(startY);
         }
     }
 }
