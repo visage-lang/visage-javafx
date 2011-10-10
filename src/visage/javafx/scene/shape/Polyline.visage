@@ -39,8 +39,8 @@ public class Polyline extends Shape{
      * Defines the coordinates of the polyline segments.
      **/
     public var points:Double[] on replace{
-        if (isInitialized(this) or points != []) {
-            wrappedPolyline.getPoints().addAll(for(point in points) point);
+        if (isInitialized(this) or points != []) {            
+            wrappedPolyline.getPoints().setAll(for(point in points) point);
         }
     }
 }
