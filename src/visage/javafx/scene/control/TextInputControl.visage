@@ -1,0 +1,328 @@
+/*
+ * Copyright (c) 2010-2011, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.scene.control;
+
+/** 
+ * Several Controls accept and receive text input. Two such Controls are TextBox and PasswordBox. This class contains API which is common among all text entry Controls.
+ * @author William Antônio <william.a.siqueira@gmail.com>
+ */
+public abstract class TextInputControl extends Control {    
+    public-read def wrappedTextInputControl = bind wrappedControl as javafx.scene.control.TextInputControl;
+    
+    /**
+    * The textual content of this TextInputControl.
+    **/
+    public var text:String on replace{
+        if(isInitialized(this) or text != null){
+            wrappedTextInputControl.setText(text);
+        }
+    }
+    
+    /**
+    * The textual content of this TextInputControl.
+    **/
+    public-read def length:Integer = bind wrappedTextInputControl.getLength();
+
+
+    /**
+     * Indicates whether this TextInputControl can be edited by the user.
+    **/
+    public var editable:Boolean on replace{
+        if(isInitialized(this) or editable){
+            wrappedTextInputControl.setEditable(editable);
+        }
+    }
+
+    /**
+     * The current selection.
+    **/
+    public-read def selection:javafx.scene.control.IndexRange = bind wrappedTextInputControl.getSelection();
+
+    /**
+     * Defines the characters in the TextInputControl which are selected
+    **/
+    public-read def selectedText:String = bind wrappedTextInputControl.getSelectedText();
+
+    /**
+     * The anchor of the text selection. The anchor and caretPosition make up the selection range. Selection must always be specified in terms of begin <= end, but anchor may be less than, equal to, or greater than the caretPosition. Depending on how the user selects text, the anchor might represent the lower or upper bound of the selection.
+    **/
+    public-read def anchor:Integer = bind wrappedTextInputControl.getAnchor();
+    
+    /**
+     * The current position of the caret within the text. The anchor and caretPosition make up the selection range. Selection must always be specified in terms of begin <= end, but anchor may be less than, equal to, or greater than the caretPosition. Depending on how the user selects text, the caretPosition might represent the lower or upper bound of the selection.
+    **/
+    public-read def caretPosition:Integer = bind wrappedTextInputControl.getCaretPosition();
+    
+    /**
+     * Appends a sequence of characters to the content.
+     * @param text a non null String
+    **/
+    public function appendText(text:String):Void{
+        wrappedTextInputControl.appendText(text);
+    }
+    /**
+     * Inserts a sequence of characters into the content.
+     * @param index The location to insert the text
+     * @param text The text to insert
+    **/
+    public function insertText(index:Integer, text:String):Void{
+        wrappedTextInputControl.insertText(index, text);
+    }  
+    
+    /**
+     * Removes a range of characters from the content.
+     * @param range   
+    **/
+    public function deleteText(range: javafx.scene.control.IndexRange):Void{
+        wrappedTextInputControl.deleteText(range);
+    }
+
+    /**
+     * Removes a range of characters from the content.
+     * @param start   
+     * @param end
+    **/
+    public function deleteText(start:Integer, end:Integer):Void{
+        wrappedTextInputControl.deleteText(start, end);
+    } 
+    
+    /**
+     * Replaces a range of characters with the given text.
+     * @param range
+     * @param text  
+    **/
+    public function replaceText(range: javafx.scene.control.IndexRange, text:String):Void{
+        wrappedTextInputControl.replaceText(range, text);
+    }    
+
+    /**
+     * Replaces a range of characters with the given text.
+     * @param start   
+     * @param end
+     * @param text
+    **/
+    public function replaceText(start:Integer, end:Integer, text:String):Void{
+        wrappedTextInputControl.replaceText(start, end, text);
+    }     
+
+    /**
+     * Transfers the currently selected range in the text to the clipboard, removing the current selection.
+     **/
+    public function cut():Void{
+        wrappedTextInputControl.cut();
+    }
+    
+    /**
+     * Transfers the currently selected range in the text to the clipboard, leaving the current selection.
+     **/
+    public function copy():Void{
+        wrappedTextInputControl.copy();
+    } 
+
+    /**
+     * Transfers the contents in the clipboard into this text, replacing the current selection. If there is no selection, the contents in the clipboard is inserted at the current caret position.
+     **/
+    public function paste():Void{
+        wrappedTextInputControl.paste();
+    }     
+
+    /**
+     * Moves the selection backward one char in the text. This may have the effect of deselecting, depending on the location of the anchor relative to the caretPosition. This function effectively just moves the caretPosition.
+     **/
+    public function selectBackward():Void{
+        wrappedTextInputControl.selectBackward();
+    }           
+    
+    /**
+     * Moves the selection forward one char in the text. This may have the effect of deselecting, depending on the location of the anchor relative to the caretPosition. This function effectively just moves the caret forward.
+     **/
+    public function selectForward():Void{
+        wrappedTextInputControl.selectForward();
+    }   
+
+    /**
+     * Moves the caret to the beginning of previous word. This function also has the effect of clearing the selection.
+     **/
+    public function previousWord():Void{
+        wrappedTextInputControl.previousWord();
+    } 
+
+    /**
+     * Moves the caret to the beginning of next word. This function also has the effect of clearing the selection.
+     **/
+    public function nextWord():Void{
+        wrappedTextInputControl.nextWord();
+    }      
+
+    /**
+     * Moves the caret to the end of the next word. This function also has the effect of clearing the selection.
+     **/
+    public function endOfNextWord():Void{
+        wrappedTextInputControl.endOfNextWord();
+    }    
+
+    /**
+     * Moves the caret to the beginning of previous word. This does not cause the selection to be cleared. Rather, the anchor stays put and the caretPosition is moved to the beginning of previous word.
+     **/
+    public function selectPreviousWord():Void{
+        wrappedTextInputControl.selectPreviousWord();
+    }          
+
+    
+    /**
+     * Moves the caret to the beginning of next word. This does not cause the selection to be cleared. Rather, the anchor stays put and the caretPosition is moved to the beginning of next word.
+     **/
+    public function selectNextWord():Void{
+        wrappedTextInputControl.selectNextWord();
+    }      
+    
+    /**
+     * Moves the caret to the end of the next word. This does not cause the selection to be cleared.
+     **/
+    public function selectEndOfNextWord():Void{
+        wrappedTextInputControl.selectEndOfNextWord();
+    } 
+
+    /**
+     * Selects all text in the text input.
+     **/
+    public function selectAll():Void{
+        wrappedTextInputControl.selectAll();
+    } 
+
+    /**
+     * Moves the caret to before the first char of the text. This function also has the effect of clearing the selection.
+     **/
+    public function home():Void{
+        wrappedTextInputControl.home();
+    }     
+    
+    /**
+     * Moves the caret to after the last char of the text. This function also has the effect of clearing the selection.
+     **/
+    public function end():Void{
+        wrappedTextInputControl.end();
+    }  
+
+    /**
+     * Moves the caret to before the first char of text. This does not cause the selection to be cleared. Rather, the anchor stays put and the caretPosition is moved to before the first char.
+     **/
+    public function selectHome():Void{
+        wrappedTextInputControl.selectHome();
+    }     
+    
+    /**
+     * Moves the caret to after the last char of text. This does not cause the selection to be cleared. Rather, the anchor stays put and the caretPosition is moved to after the last char.
+     **/
+    public function selectEnd():Void{
+        wrappedTextInputControl.end();
+    }  
+
+    /**
+     * Deletes the character that precedes the current caret position from the text if there is no selection, or deletes the selection if there is one. This function returns true if the deletion succeeded, false otherwise.
+     **/
+    public function deletePreviousChar():Boolean{
+        wrappedTextInputControl.deletePreviousChar();
+    } 
+
+    /**
+     * Deletes the character that follows the current caret position from the text if there is no selection, or deletes the selection if there is one. This function returns true if the deletion succeeded, false otherwise.
+     **/
+    public function deleteNextChar():Boolean{
+        wrappedTextInputControl.deleteNextChar();
+    }  
+
+    /**
+     * Moves the caret position forward. If there is no selection, then the caret position is moved one character forward. If there is a selection, then the caret position is moved to the end of the selection and the selection cleared.
+     **/
+    public function forward():Void{
+        wrappedTextInputControl.forward();
+    }  
+    
+    /**
+     * Moves the caret position backward. If there is no selection, then the caret position is moved one character backward. If there is a selection, then the caret position is moved to the beginning of the selection and the selection cleared.
+     **/
+    public function backward():Void{
+        wrappedTextInputControl.backward();
+    }  
+    
+    /**
+     * Positions the caret to the position indicated by pos. This function will also clear the selection.
+     * @param pos
+    **/
+
+    public function positionCaret(pos:Integer):Void{
+        wrappedTextInputControl.positionCaret(pos);
+    }
+    
+    /**
+     * Positions the caret to the position indicated by pos and extends the selection, if there is one. If there is no selection, then a selection is formed where the anchor is at the current caret position and the caretPosition is moved to pos.
+     * @param pos
+    **/
+    public function selectPositionCaret(pos:Integer):Void{
+        wrappedTextInputControl.selectPositionCaret(pos);
+    }
+    /**
+     * Positions the anchor and caretPosition explicitly.
+     * @param anchor
+     * @param caretPosition
+    **/
+    public function selectRange(anchor:Integer, caretPosition:Integer):Void{
+        wrappedTextInputControl.selectRange(anchor, caretPosition);
+    }
+    
+    /**
+     * This function will extend the selection to include the specified pos. This is different from selectPositionCaret in that it does not simply move the caret. Rather, it will reposition the caret and anchor as necessary to ensure that pos becomes the new caret and the far other end of the selection becomes the anchor.
+     * @param pos
+    **/
+    public function extendSelection(pos:Integer):Void{
+        wrappedTextInputControl.extendSelection(pos);
+    }  
+
+    /**
+     * Clears the text.
+    **/
+    public function clear():Void{
+        wrappedTextInputControl.clear();
+    }   
+
+    /**
+     * Clears the selection.
+    **/
+    public function deselect():Void{
+        wrappedTextInputControl.deselect();
+    }  
+
+    /**
+     * Replaces the selection with the given replacement String. If there is no selection, then the replacement text is simply inserted at the current caret position. If there was a selection, then the selection is cleared and the given replacement text inserted.
+    **/
+    public function replaceSelection(replacement:String):Void{
+        wrappedTextInputControl.replaceSelection(replacement);
+    }    
+ 
+}
