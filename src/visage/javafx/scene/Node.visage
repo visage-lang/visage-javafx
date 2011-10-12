@@ -89,7 +89,7 @@ public class Node {
     public function getContentBias():Orientation {
         wrappedNode.getContentBias()
     }
-	
+    
     /**
      * The BlendMode used to blend this individual node into the scene behind it.
      */
@@ -105,8 +105,8 @@ public class Node {
         if (isInitialized(this) or CacheHint.DEFAULT  != cacheHint) {
             wrappedNode.setCacheHint(cacheHint);
         }
-    }	
-	
+    }    
+    
     /**
      *   A performance hint to the system to indicate that this Node should be cached as a bitmap.
      */
@@ -114,8 +114,8 @@ public class Node {
         if (isInitialized(this) or cache) {
             wrappedNode.setCache(cache);
         }
-    }		
-	
+    }        
+    
     /**
      *  Specifies a Node to use to define the the clipping shape for this Node.
      */
@@ -123,8 +123,8 @@ public class Node {
         if (isInitialized(this) or null != clip) {
             wrappedNode.setClip(clip);
         }
-    }		
-	
+    }        
+    
     /**
      *  Defines the mouse cursor for this Node and subnodes.
      */
@@ -132,8 +132,8 @@ public class Node {
         if (isInitialized(this) or Cursor.DEFAULT != cursor) {
             wrappedNode.setCursor(cursor);
         }
-    }		
-		
+    }        
+        
     /**
      *  Indicates whether depth testing is used when rendering this node.
      */
@@ -141,7 +141,7 @@ public class Node {
         if (isInitialized(this) or DepthTest.DISABLE != depthTest) {
             wrappedNode.setDepthTest(depthTest);
         }
-	}		
+    }        
     /**
      *  Sets the individual disabled state of this Node.
      */
@@ -149,7 +149,7 @@ public class Node {
         if (isInitialized(this) or disable) {
             wrappedNode.setDisable(disable);
         }
-	}	     
+    }         
 
     /**
      *  Specifies an effect to apply to this Node.
@@ -158,7 +158,7 @@ public class Node {
         if (isInitialized(this) or null != effect) {
             wrappedNode.setEffect(effect.wrappedEffect);
         }
-	}		
+    }        
 
     /**
      *  Indicates whether this Node currently has the input focus.
@@ -175,7 +175,7 @@ public class Node {
         if (isInitialized(this) or focusTraversable) {
             wrappedNode.setFocusTraversable (focusTraversable );
         }
-	}	
+    }    
     
     /**
      *  Whether or not this Node is being hovered over
@@ -191,7 +191,7 @@ public class Node {
         if (isInitialized(this) or null != id) {
             wrappedNode.setId(id);
         }
-	}
+    }
 
     /**
      *  Defines whether or not this node's layout will be managed by it's parent.
@@ -200,7 +200,7 @@ public class Node {
         if (isInitialized(this) or not managed ) {
             wrappedNode.setManaged(managed);
         }
-	}	
+    }    
     
     /**
      *   If true, this node (together with all its children) is completely transparent to mouse events.
@@ -209,7 +209,7 @@ public class Node {
         if (isInitialized(this) or mouseTransparent ) {
             wrappedNode.setMouseTransparent(mouseTransparent);
         }
-	}
+    }
         
 
     /**
@@ -228,7 +228,7 @@ public class Node {
         if (isInitialized(this) or pickOnBounds ) {
             wrappedNode.setPickOnBounds(pickOnBounds );
         }
-	}        
+    }        
     /**
      * Whether or not the Node is pressed.
      **/
@@ -391,7 +391,7 @@ public class Node {
                 }) 
             } 
         // } 
-    }	
+    }    
     /**
      * Defines a function to be called when drag gesture has been detected. This is the right place to start drag and drop operation.
      */        
@@ -425,7 +425,7 @@ public class Node {
             } 
         // } 
     } 
-	/**
+    /**
      * Defines a function to be called when this Node or its child Node has input focus and a key has been released. The function is called only if the event hasn't been already consumed during its capturing or bubbling phase.
      */        
     public var onKeyReleased :function(:KeyEvent):Void on replace { 
@@ -441,7 +441,7 @@ public class Node {
             } 
         // } 
     }
-	/**
+    /**
      * Defines a function to be called when this Node or its child Node has input focus and a key has been typed. The function is called only if the event hasn't been already consumed during its capturing or bubbling phase.
      */        
     public var onKeyTyped :function(:KeyEvent):Void on replace { 
@@ -475,5 +475,5 @@ public class Node {
     
     //TODO: eventDispatcher, inputMethodRequests, layoutBounds, finish drags, parent
     // rotationAxis, scene
- 	
+     
 }

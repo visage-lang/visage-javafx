@@ -27,18 +27,32 @@
  */
 package visage.javafx.scene.control;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
 /** 
  * Several Controls accept and receive text input. Two such Controls are TextBox and PasswordBox. This class contains API which is common among all text entry Controls.
  * @author William Antônio <william.a.siqueira@gmail.com>
  */
 public abstract class TextInputControl extends Control {    
-    public-read def wrappedTextInputControl = bind wrappedControl as javafx.scene.control.TextInputControl;
+    public-read protected var wrappedTextInputControl = bind wrappedControl as javafx.scene.control.TextInputControl;
+    
+    postinit{
+        //Changes on text property will be reflected in visage text
+        wrappedTextInputControl.textProperty().addListener(
+        ChangeListener{
+            override function changed( observable:ObservableValue, oldValue:Object , newValue:Object ):Void{
+                text = newValue as String;
+            }
+        });
+    }
+    
     
     /**
     * The textual content of this TextInputControl.
     **/
-    public var text:String on replace{
-        if(isInitialized(this) or text != null){
+    public var text:String on replace oldvalue{
+        if(not text.equals(oldvalue) and (isInitialized(this) or text != null)){
             wrappedTextInputControl.setText(text);
         }
     }
@@ -47,7 +61,6 @@ public abstract class TextInputControl extends Control {
     * The textual content of this TextInputControl.
     **/
     public-read def length:Integer = bind wrappedTextInputControl.getLength();
-
 
     /**
      * Indicates whether this TextInputControl can be edited by the user.
