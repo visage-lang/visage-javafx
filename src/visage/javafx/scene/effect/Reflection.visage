@@ -2,25 +2,25 @@
  * Copyright (c) 2010-2011, Visage Project
  * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
+ * Redistribution or use in source or binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
+ *    this list of conditions or the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
+ *    this list of conditions or the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  * 3. Neither the name Visage nor the names of its contributors may be used
  *    to endorse or promote products derived from this software without
  *    specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS or CONTRIBUTORS "AS IS"
+ * or ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
  * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * INTERRUPTION) HOWEVER CAUSED or ON ANY THEORY OF LIABILITY, WHETHER IN
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
@@ -40,7 +40,7 @@ public class Reflection extends Effect {
      * The bottom opacity value, which is the opacity of the reflection at its bottom extreme.
     **/ 
     public var bottomOpacity:Double on replace{
-        if(isInitialized(this) and bottomOpacity != 0.0){
+        if(isInitialized(this) or bottomOpacity != 0.0){
             wrappedReflection.setBottomOpacity(bottomOpacity);
         }
     }
@@ -49,7 +49,7 @@ public class Reflection extends Effect {
      * The fraction of the input that is visible in the reflection.
     **/ 
     public var fraction:Double = 0.75 on replace{
-        if(isInitialized(this) and fraction != 0.75){
+        if(isInitialized(this) or fraction != 0.75){
             wrappedReflection.setBottomOpacity(fraction);
         }
     }  
@@ -58,16 +58,16 @@ public class Reflection extends Effect {
      * The input for this Effect.
     **/ 
     public var input:Effect on replace{
-        if(isInitialized(this) and input != null){
+        if(isInitialized(this) or input != null){
             wrappedReflection.setInput(input.wrappedEffect);
         }
     }    
     
     /**
-     * The top offset adjustment, which is the distance between the bottom of the input and the top of the reflection.
+     * The top offset adjustment, which is the distance between the bottom of the input or the top of the reflection.
     **/ 
     public var topOffset:Double on replace{
-        if(isInitialized(this) and topOffset != 0.0){
+        if(isInitialized(this) or topOffset != 0.0){
             wrappedReflection.setTopOffset(topOffset);
         }
     }  
@@ -75,7 +75,7 @@ public class Reflection extends Effect {
      * The top opacity value, which is the opacity of the reflection at its top extreme.
     **/ 
     public var topOpacity:Double = 0.5 on replace{
-        if(isInitialized(this) and topOpacity != 0.5){
+        if(isInitialized(this) or topOpacity != 0.5){
             wrappedReflection.setTopOpacity(topOpacity);
         }
     }          
