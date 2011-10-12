@@ -49,8 +49,8 @@ public class Reflection extends Effect {
      * The fraction of the input that is visible in the reflection.
     **/ 
     public var fraction:Double = 0.75 on replace{
-        if(isInitialized(this) and bottomOpacity != 0.75){
-            wrappedReflection.setBottomOpacity(bottomOpacity);
+        if(isInitialized(this) and fraction != 0.75){
+            wrappedReflection.setBottomOpacity(fraction);
         }
     }  
 
@@ -68,7 +68,7 @@ public class Reflection extends Effect {
     **/ 
     public var topOffset:Double on replace{
         if(isInitialized(this) and topOffset != 0.0){
-            wrappedReflection.setBottomOpacity(topOffset);
+            wrappedReflection.setTopOffset(topOffset);
         }
     }  
     /**
@@ -76,7 +76,7 @@ public class Reflection extends Effect {
     **/ 
     public var topOpacity:Double = 0.5 on replace{
         if(isInitialized(this) and topOpacity != 0.5){
-            wrappedReflection.setBottomOpacity(topOpacity);
+            wrappedReflection.setTopOpacity(topOpacity);
         }
     }          
 }
