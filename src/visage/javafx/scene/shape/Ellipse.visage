@@ -28,7 +28,7 @@
 package visage.javafx.scene.shape;
 
 /**
-* The Circle class creates a new circle with the specified radius and center location measured in pixels
+* The Ellipse class creates a new ellipse with the specified size and location in pixels
 * @author William Antônio <william.a.siqueira@gmail.com>
 **/
 public class Ellipse extends Shape{
