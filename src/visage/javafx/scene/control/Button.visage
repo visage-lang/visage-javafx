@@ -33,4 +33,19 @@ package visage.javafx.scene.control;
 public class Button extends ButtonBase {
     override def wrappedNode = javafx.scene.control.Button {}
     public-read def wrappedButton = bind wrappedNode as javafx.scene.control.Button;
+    
+    public var cancelButton:Boolean on replace{
+        if(isInitialized(this) or not cancelButton){
+            wrappedButton.setCancelButton(cancelButton);
+        }
+    }
+    public var defaultButton:Boolean on replace{
+        if(isInitialized(this) or not defaultButton){
+            wrappedButton.setDefaultButton(defaultButton);
+        }
+    }    
+    
+    public function fire():Void{
+        wrappedButton.fire();
+    }
 }
