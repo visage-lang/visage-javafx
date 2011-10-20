@@ -34,11 +34,4 @@ package visage.javafx.scene.control;
 public class Label extends Labeled {
     override def wrappedNode = javafx.scene.control.Label {}
     public-read def wrappedLabel = bind wrappedNode as javafx.scene.control.Label;
-
-    /**
-     * <code>null</code> text is treated as the empty string.
-     */
-    public default var text:String on replace {
-		wrappedLabel.setText(text);
-    }
 }

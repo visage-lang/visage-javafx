@@ -33,7 +33,4 @@ package visage.javafx.scene.control;
 public class Button extends ButtonBase {
     override def wrappedNode = javafx.scene.control.Button {}
     public-read def wrappedButton = bind wrappedNode as javafx.scene.control.Button;
-    public var text:String on replace {
-        wrappedButton.setText(text);
-    }
 }

@@ -78,7 +78,7 @@ public class Labeled extends Control {
             wrappedLabeled.setTextAlignment(textAlignment);
     }
     
-    /*
+    /**
      * <p>Specifies the behavior to use if the text of the Labeled exceeds the available space for rendering the text.</p>
      */
     public var textOverrun:OverrunStyle = OverrunStyle.CLIP on replace{
@@ -86,7 +86,7 @@ public class Labeled extends Control {
             wrappedLabeled.setTextOverrun(textOverrun);
     }
     
-    /*
+    /**
      * <p>The default font to use for text in the Labeled. If the Label's text is rich text then this font may or may not be used depending on the font information embedded in the rich text, but in any case where a default font is required, this font will be used.</p>
      */
     
@@ -94,7 +94,7 @@ public class Labeled extends Control {
         if (isInitialized(this) or font != null)
             wrappedLabeled.setFont(font.wrappedFont);
     }
-    /*
+    /**
      * <p>An optional icon for the Labeled. This can be positioned relative to the text by using the graphicHPos and graphicVPos variables. The node specified for this variable cannot appear elsewhere in the scene graph, otherwise the IllegalArgumentException is thrown. See the class description of Node for more detail.</p>
      */    
     public var graphic:Node on replace{
@@ -102,7 +102,7 @@ public class Labeled extends Control {
             wrappedLabeled.setGraphic(graphic.wrappedNode);
     }
     
-    /*
+    /**
      * <p>Specifies the positioning of the graphic relative to the text.</p>
      */    
     public var contentDisplay:ContentDisplay = ContentDisplay.LEFT on replace{
@@ -116,7 +116,7 @@ public class Labeled extends Control {
         if (isInitialized(this) or labelPadding != null)
             wrappedLabeled.setLabelPadding(labelPadding.wrappedInsets);
     }*/
-    /*
+    /**
      * <p>The amount of space between the graphic and text.</p>
      */    
     public var graphicTextGap:Double on replace{
@@ -124,12 +124,19 @@ public class Labeled extends Control {
             wrappedLabeled.setGraphicTextGap(graphicTextGap);
     }
     
-    /*
+    /**
      *<p>MnemonicParsing property to enable/disable text parsing the defaut value for Label is false.</p>
     */
     public var mnemonicParsing:Boolean on replace{
         if (isInitialized(this) or mnemonicParsing)
             wrappedLabeled.setMnemonicParsing(mnemonicParsing);
+    }
+    
+     /**
+     * <code>null</code> text is treated as the empty string.
+     */
+    public var text:String on replace {
+		wrappedLabeled.setText(text);
     }
 }
 
