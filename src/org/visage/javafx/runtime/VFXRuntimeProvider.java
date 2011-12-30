@@ -27,36 +27,61 @@
  */
 package org.visage.javafx.runtime;
 
-import org.visage.runtime.VisageExit;
-import org.visage.runtime.RuntimeProvider;
-import org.visage.runtime.TypeInfo;
-import org.visage.runtime.sequence.Sequences;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.stage.Stage;
+import org.visage.runtime.RuntimeProvider;
+import org.visage.runtime.TypeInfo;
+import org.visage.runtime.VisageExit;
+import org.visage.runtime.sequence.Sequences;
 
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
  */
-public class VFXRuntimeProvider implements RuntimeProvider {
+public class VFXRuntimeProvider extends Application implements RuntimeProvider {
+    private static Method entryPoint;
+    private static Object result;
+    private static Stage primaryStage;
+    private static Boolean gotStage;
+    
+    public static Stage getPrimaryStageOnce() {
+        if (gotStage) return null;
+        gotStage = true;
+        return primaryStage;
+    }
 
     public boolean usesRuntimeLibrary(Class type) {
         return true;
     }
 
     public Object run(Method entryPoint, String... args) throws Throwable {
+        this.entryPoint = entryPoint;
+        launch(VFXRuntimeProvider.class, args);
+        return result;
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
         try {
-            return entryPoint.invoke(null, Sequences.make(TypeInfo.String, args));
+            this.primaryStage = stage;
+            gotStage = false;
+            result = entryPoint.invoke(null, Sequences.make(TypeInfo.String, getParameters().getRaw()));
+            primaryStage.show();
         } catch (InvocationTargetException ite) {
             Throwable cause = ite.getCause();
             // todo - check what really gets thrown...
-            if (cause instanceof VisageExit) { // explicit exit
-                return null;
+            if (!(cause instanceof VisageExit)) { // explicit exit
+                if (cause instanceof Exception) {
+                    throw (Exception) cause;
+                } else {
+                    throw new Exception(cause);
+                }
             }
-            throw cause;
         }
     }
-
+    
     public void deferAction(Runnable r) {
         Platform.runLater(r);
     }
@@ -64,5 +89,4 @@ public class VFXRuntimeProvider implements RuntimeProvider {
     public void exit() {
         Platform.exit();
     }
-    
 }

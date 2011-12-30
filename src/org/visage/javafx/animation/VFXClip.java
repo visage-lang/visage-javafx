@@ -27,11 +27,16 @@
  */
 package org.visage.javafx.animation;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.util.Duration;
 import org.visage.animation.Clip;
 import org.visage.animation.Interpolator;
 import org.visage.animation.TimingTarget;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
@@ -39,10 +44,15 @@ import java.util.TimerTask;
 public class VFXClip implements Clip {
     private final long duration;
     private final TimingTarget target;
-    private Interpolator interpolator;
     private int resolution;
-    private boolean running;
-    Timer timer = new Timer();
+    Timeline timeline;
+    DoubleProperty value = new SimpleDoubleProperty() {
+        @Override
+        protected void invalidated() {
+            target.timingEvent(value.floatValue(), (long) timeline.getCurrentTime().toMillis());
+            super.invalidated();
+        }
+    };
 
     VFXClip(long duration, TimingTarget target) {
         this.duration = duration;
@@ -50,44 +60,44 @@ public class VFXClip implements Clip {
     }
 
     public boolean isRunning() {
-        return running;
+        return timeline.getStatus() == Animation.Status.RUNNING;
     }
 
     public void pause() {
-        running = false;
+        timeline.pause();
         target.pause();
     }
 
     public void resume() {
-        running = true;
         target.resume();
+        timeline.play();
     }
 
     public void setInterpolator(Interpolator interpolator) {
-        this.interpolator = interpolator;
+        // right now we will always get a linear interpolator, so it is safe to ignore
     }
 
     long startTime;
     public void start() {
-        running = true;
-        target.begin();
-        startTime = System.currentTimeMillis();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                target.timingEvent(0, System.currentTimeMillis() - startTime);
+        if (timeline == null) {
+            KeyFrame kf = new KeyFrame(duration == INDEFINITE ? Duration.millis(Double.MAX_VALUE) : Duration.millis(duration), new KeyValue(value, 1));
+            if (resolution > 0) {
+                double framerate = 1000d / resolution;
+                timeline = new Timeline(framerate, kf);
+            } else {
+                timeline = new Timeline(kf);
             }
-        }, 0, 1000 / 60);
+        }
+        target.begin();
+        timeline.playFromStart();
     }
 
     public void stop() {
-        running = false;
-        timer.cancel();
+        timeline.stop();
         target.end();
     }
 
     public void setResolution(int resolution) {
         this.resolution = resolution;
     }
-    
 }

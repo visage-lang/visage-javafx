@@ -1,0 +1,83 @@
+/*
+ * Copyright (c) 2010-2011, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution or use in source or binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions or the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions or the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS or CONTRIBUTORS "AS IS"
+ * or ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED or ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.scene.effect;
+
+/** 
+ * A blur effect using a simple box filter kernel, with separately configurable sizes in both
+ * dimensions, and an iteration parameter that contols the quality of the resulting blur.
+ *
+ * @author Stephen Chin <steveonjava@gmail.com>
+ */
+public class BoxBlur extends Effect {
+    override def wrappedEffect = javafx.scene.effect.BoxBlur {};
+    public-read def wrappedBoxBlur = bind wrappedEffect as javafx.scene.effect.BoxBlur;
+   
+    /**
+     * The vertical dimension of the blur effect. The color information for a given pixel will
+     * be spread across a Box of the indicated height centered over the pixel. Values less than
+     * or equal to 1 will not spread the color data beyond the pixel where it originated from and
+     * so will have no effect. 
+     **/ 
+    public var height:Double on replace {
+        if(isInitialized(this) or height != 5.0){
+            wrappedBoxBlur.setHeight(height);
+        }
+    }
+   
+    /**
+     * The horizontal dimension of the blur effect. The color information for a given pixel will
+     * be spread across a Box of the indicated height centered over the pixel. Values less than
+     * or equal to 1 will not spread the color data beyond the pixel where it originated from and
+     * so will have no effect. 
+     **/ 
+    public var width:Double on replace {
+        if(isInitialized(this) or width != 5.0){
+            wrappedBoxBlur.setWidth(width);
+        }
+    }
+   
+    /**
+     * The number of times to iterate the blur effect to improve its "quality" or "smoothness".
+     * Iterating the effect 3 times approximates the quality of a Gaussian Blur to within 3%. 
+     **/ 
+    public var iterations:Integer on replace {
+        if(isInitialized(this) or iterations != 1){
+            wrappedBoxBlur.setIterations(iterations);
+        }
+    }
+
+    /**
+     * The input for this Effect. If set to null, or left unspecified, a graphical image of the
+     * Node to which the Effect is attached will be used as the input.
+     **/ 
+    public var input:Effect on replace {
+        if(isInitialized(this) or input != null){
+            wrappedBoxBlur.setInput(input.wrappedEffect);
+        }
+    }
+}

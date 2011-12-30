@@ -89,7 +89,7 @@
             <arg value="-d"/>
             <arg value="${build.dir}/classes"/>
             <arg value="-cp"/>
-            <arg path="${javac.classpath}:${endorsed.classpath}"/>
+            <arg path="${build.dir}/classes:${javac.classpath}:${endorsed.classpath}"/>
             <arg line="${visagesources}"/>
         </exec>
     </target>

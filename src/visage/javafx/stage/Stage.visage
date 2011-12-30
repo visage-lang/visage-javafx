@@ -27,31 +27,22 @@
  */
 package visage.javafx.stage;
 
-import visage.javafx.application.Application;
 import visage.javafx.scene.Scene;
+import org.visage.javafx.runtime.VFXRuntimeProvider;
 
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
  */
 public class Stage {
-    init {
-        Application.initialize(this);
-    }
-    public var wrappedStage:javafx.stage.Stage on replace {
-        if (wrappedStage != null) {
-            wrappedStage.setTitle(title);
-            scene.construct();
-            wrappedStage.setScene(scene.wrappedScene);
-            wrappedStage.show();
-        }
+    public var wrappedStage:javafx.stage.Stage = {
+        def primary = VFXRuntimeProvider.getPrimaryStageOnce();
+        if (primary != null) primary else new javafx.stage.Stage();
     }
     public var title:String on replace {
         wrappedStage.setTitle(title);
     }
     public default var scene:Scene on replace {
-        if (wrappedStage != null) {
-            scene.construct();
-            wrappedStage.setScene(scene.wrappedScene);
-        }
+        scene.construct();
+        wrappedStage.setScene(scene.wrappedScene);
     }
 }

@@ -66,7 +66,7 @@ public abstract class Shape extends Node {
      * Defines a square pen line width. A value of 0.0 specifies a hairline stroke. A value of less than 0.0 will be treated as 0.0.
      */
     public var strokeWidth :Double on replace oldValue {
-        if ((isInitialized(this) and (oldValue != strokeWidth)) or (0 != strokeWidth)) {
+        if ((isInitialized(this) and (oldValue != strokeWidth)) or (1 != strokeWidth)) {
             wrappedShape.setStrokeWidth(strokeWidth)
         }
     }
@@ -113,9 +113,9 @@ public abstract class Shape extends Node {
     /**
      * Defines parameters of a stroke that is drawn around the outline of a <code>Shape</code> using the settings of the <code>Paint</code> context. The default value is <code>null</code> for all shapes except <code>Line</code>, <code>Polyline</code>, and <code>Path</code>. The default value is <code>Color.BLACK</code> for those shapes.
      */
-    public var stroke :Paint on replace oldValue {
+    public var stroke :Color on replace oldValue {
         if ((isInitialized(this) and (oldValue != stroke)) or (null != stroke)) {
-            wrappedShape.setStroke(stroke.wrappedPaint)
+            wrappedShape.setStroke(VConvert.color(stroke))
         }
     }
     /**

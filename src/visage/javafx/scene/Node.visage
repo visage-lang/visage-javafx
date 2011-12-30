@@ -27,6 +27,8 @@
  */
 package visage.javafx.scene;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -176,6 +178,8 @@ public class Node {
             wrappedNode.setFocusTraversable (focusTraversable );
         }
     }    
+
+    public-read var hover:Boolean;
     
     /**
      *  Whether or not this Node is being hovered over
@@ -476,4 +480,20 @@ public class Node {
     //TODO: eventDispatcher, inputMethodRequests, layoutBounds, finish drags, parent
     // rotationAxis, scene
      
+    init {
+        wrappedNode.hoverProperty().addListener(
+            ValueChangeListener {
+                setValue: function(newValue) :Void {
+                    hover = newValue as Boolean
+                }
+            }
+        );
+    }
+}
+
+class ValueChangeListener extends ChangeListener {
+    override function changed (observable :ObservableValue, oldValue, newValue) :Void {
+        setValue(newValue)
+    }
+    public var setValue :function(newValue :Object) :Void;
 }

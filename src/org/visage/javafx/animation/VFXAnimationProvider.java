@@ -27,12 +27,7 @@
  */
 package org.visage.javafx.animation;
 
-import org.visage.animation.AnimationProvider;
-import org.visage.animation.Clip;
-import org.visage.animation.ClipFactory;
-import org.visage.animation.Interpolator;
-import org.visage.animation.InterpolatorFactory;
-import org.visage.animation.TimingTarget;
+import org.visage.animation.*;
 
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
@@ -74,13 +69,36 @@ public class VFXAnimationProvider implements AnimationProvider {
         }
 
         public Interpolator getEasingInstance() {
-            return null;
-//            throw new UnsupportedOperationException("Not supported yet.");
+            return new Interpolator() {
+                public float interpolate(float f) {
+                    return (float) javafx.animation.Interpolator.EASE_BOTH.interpolate(0d, 1d, f);
+                }
+            };
         }
 
-        public Interpolator getEasingInstance(float acceleration, float deceleration) {
-            return null;
-//            throw new UnsupportedOperationException("Not supported yet.");
+        public Interpolator getEasingInstance(final float acceleration, final float deceleration) {
+            return new Interpolator() {
+                javafx.animation.Interpolator easing;
+                {
+                    // approximation based off the fact that we will always be passed in factors of .2 for acceleration and deceleration
+                    if (acceleration >= .1) {
+                        if (deceleration >= .1) {
+                            easing = javafx.animation.Interpolator.EASE_BOTH;
+                        } else {
+                            easing = javafx.animation.Interpolator.EASE_IN;
+                        }
+                    } else {
+                        if (deceleration >= .1) {
+                            easing = javafx.animation.Interpolator.EASE_OUT;
+                        } else {
+                            easing = javafx.animation.Interpolator.EASE_BOTH;
+                        }
+                    }
+                }
+                public float interpolate(float f) {
+                    return (float) easing.interpolate(0d, 1d, f);
+                }
+            };
         }
 
         public Interpolator getLinearInstance() {
@@ -91,9 +109,13 @@ public class VFXAnimationProvider implements AnimationProvider {
             };
         }
 
-        public Interpolator getSplineInstance(float x1, float y1, float x2, float y2) {
-            return null;
-//            throw new UnsupportedOperationException("Not supported yet.");
+        public Interpolator getSplineInstance(final float x1, final float y1, final float x2, final float y2) {
+            return new Interpolator() {
+                javafx.animation.Interpolator spline = javafx.animation.Interpolator.SPLINE(x1, y1, x2, y2);
+                public float interpolate(float f) {
+                    return (float) spline.interpolate(0d, 1d, f);
+                }
+            };
         }
         
     }
