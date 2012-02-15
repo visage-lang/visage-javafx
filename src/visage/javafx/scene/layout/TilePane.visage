@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2011, Visage Project
+ * Copyright (c) 2010-2012, Visage Project
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,6 +27,8 @@
  */
 package visage.javafx.scene.layout;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 
@@ -68,7 +70,7 @@ public class TilePane extends Pane {
      */
     public-read var tileWidth :Double;
     /**
-     * The actual hieght of each tile. This property is read-only.
+     * The actual height of each tile. This property is read-only.
      */
     public-read var tileHeight :Double;
     /**
@@ -161,9 +163,22 @@ public class TilePane extends Pane {
         wrappedTilePane.getContentBias()
     }
     init {
-        wrappedNode = new javafx.scene.layout.TilePane(orientation, hgap, vgap)
-    }
+        wrappedTilePane.tileWidthProperty().addListener(
+            ChangeListener {
+                override function changed(observable :ObservableValue, oldValue, newValue) :Void {
+                    tileWidth = newValue as Double
+                }
+            }
+        );
+        wrappedTilePane.tileHeightProperty().addListener(
+            ChangeListener {
+                override function changed(observable :ObservableValue, oldValue, newValue) :Void {
+                    tileHeight = newValue as Double
+                }
+            }
+        );
     // FIXME instantiate all the properties' listeners
+    }
 }
 /**
  * Sets the alignment for the child when contained by a <code>TilePane</code>.  If set, will override the <code>TilePane</code>'s default alignment. Setting the value to <code>null</code> will remove the constraint.

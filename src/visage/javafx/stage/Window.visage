@@ -27,24 +27,10 @@
  */
 package visage.javafx.stage;
 
-import visage.javafx.scene.Scene;
-import org.visage.javafx.runtime.VFXRuntimeProvider;
 
 /**
- * @author Stephen Chin <steveonjava@gmail.com>
  * @author Alain Béarez <A@cua.li>
  */
-public class Stage extends Window {
-    override def wrappedWindow = {
-        def primary = VFXRuntimeProvider.getPrimaryStageOnce();
-        if (primary != null) primary else new javafx.stage.Stage();
-    }
-    public-read var wrappedStage :javafx.stage.Stage = bind wrappedWindow as javafx.stage.Stage;
-    public var title:String on replace {
-        wrappedStage.setTitle(title);
-    }
-    public default var scene:Scene on replace {
-        scene.construct();
-        wrappedStage.setScene(scene.wrappedScene);
-    }
+public class Window {
+    public-read protected var wrappedWindow :javafx.stage.Window;
 }
