@@ -29,7 +29,7 @@ package visage.javafx.scene.shape;
 
 /**
 * Creates a polyline, defined by the array of the segment points. The Polyline class is similar to the Polygon class, except that it is not automatically closed.
-* @author William Antônio <william.a.siqueira@gmail.com>
+* @author William AntÃ´nio <william.a.siqueira@gmail.com>
 **/
 public class Polyline extends Shape{
     override def wrappedNode = javafx.scene.shape.Polyline {}

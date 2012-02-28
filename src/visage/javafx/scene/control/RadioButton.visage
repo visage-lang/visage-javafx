@@ -28,7 +28,7 @@
 package visage.javafx.scene.control;
 
 /**
- * @author William Antônio <william.a.siqueira@gmail.com>
+ * @author William AntÃ´nio <william.a.siqueira@gmail.com>
  */
 public class RadioButton extends ToggleButton{
     override def wrappedNode = javafx.scene.control.RadioButton {}

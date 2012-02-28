@@ -29,7 +29,7 @@ package visage.javafx.scene.shape;
 
 /**
 * The Circle class creates a new circle with the specified radius and center location measured in pixels
-* @author William Antônio <william.a.siqueira@gmail.com>
+* @author William AntÃ´nio <william.a.siqueira@gmail.com>
 **/
 public class Circle extends Shape{
     override def wrappedNode = javafx.scene.shape.Circle {}

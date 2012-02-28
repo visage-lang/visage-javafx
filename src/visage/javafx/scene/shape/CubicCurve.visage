@@ -28,8 +28,8 @@
 package visage.javafx.scene.shape;
 
 /**
-* The CubiCurve class defines a cubic Bézier parametric curve segment in (x,y) coordinate space. Drawing a curve that intersects both the specified coordinates (startX, startY) and (endX, enfY), using the specified points (controlX1, controlY1) and (controlX2, controlY2) as Bézier control points. 
-* @author William Antônio <william.a.siqueira@gmail.com>
+* The CubiCurve class defines a cubic BÃ©zier parametric curve segment in (x,y) coordinate space. Drawing a curve that intersects both the specified coordinates (startX, startY) and (endX, enfY), using the specified points (controlX1, controlY1) and (controlX2, controlY2) as BÃ©zier control points. 
+* @author William AntÃ´nio <william.a.siqueira@gmail.com>
 **/
 public class CubicCurve extends Shape{
     override def wrappedNode = javafx.scene.shape.CubicCurve {}

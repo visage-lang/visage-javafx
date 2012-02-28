@@ -32,7 +32,7 @@ import javafx.beans.value.ObservableValue;
 
 /** 
  * Several Controls accept and receive text input. Two such Controls are TextBox and PasswordBox. This class contains API which is common among all text entry Controls.
- * @author William Antônio <william.a.siqueira@gmail.com>
+ * @author William AntÃ´nio <william.a.siqueira@gmail.com>
  */
 public abstract class TextInputControl extends Control {    
     public-read protected var wrappedTextInputControl = bind wrappedControl as javafx.scene.control.TextInputControl;

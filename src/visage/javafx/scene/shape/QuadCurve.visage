@@ -28,8 +28,8 @@
 package visage.javafx.scene.shape;
 
 /**
-* The Quadcurve class defines a quadratic Bézier parametric curve segment in (x,y) coordinate space. Drawing a curve that intersects both the specified coordinates (startX, startY) and (endX, enfY), using the specified point (controlX, controlY) as Bézier control point.
-* @author William Antônio <william.a.siqueira@gmail.com>
+* The Quadcurve class defines a quadratic BÃ©zier parametric curve segment in (x,y) coordinate space. Drawing a curve that intersects both the specified coordinates (startX, startY) and (endX, enfY), using the specified point (controlX, controlY) as BÃ©zier control point.
+* @author William AntÃ´nio <william.a.siqueira@gmail.com>
 **/
 public class QuadCurve extends Shape{
     override def wrappedNode = javafx.scene.shape.QuadCurve {}

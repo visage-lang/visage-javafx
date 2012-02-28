@@ -29,7 +29,7 @@ package visage.javafx.scene.effect;
 
 /** 
  * A filter that produces a sepia tone effect, similar to antique photographs.
- * @author William Antônio <william.a.siqueira@gmail.com>
+ * @author William AntÃ´nio <william.a.siqueira@gmail.com>
  */
 public class SepiaTone extends Effect {
     override def wrappedEffect = javafx.scene.effect.SepiaTone {};

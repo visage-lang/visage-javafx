@@ -30,7 +30,7 @@ package visage.javafx.scene.effect;
 /** 
  * <p>An effect that renders a reflected version of the input below the actual input content.</p>
  * <p>Note that the reflection of a Node with a Reflection effect installed will not respond to mouse events or the containment methods on the Node.</p>
- * @author William Antônio <william.a.siqueira@gmail.com>
+ * @author William AntÃ´nio <william.a.siqueira@gmail.com>
  */
 public class Reflection extends Effect {
     override def wrappedEffect = javafx.scene.effect.Reflection {};

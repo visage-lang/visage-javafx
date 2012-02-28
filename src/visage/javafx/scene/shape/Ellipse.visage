@@ -29,7 +29,7 @@ package visage.javafx.scene.shape;
 
 /**
 * The Ellipse class creates a new ellipse with the specified size and location in pixels
-* @author William Antônio <william.a.siqueira@gmail.com>
+* @author William AntÃ´nio <william.a.siqueira@gmail.com>
 **/
 public class Ellipse extends Shape{
     override def wrappedNode = javafx.scene.shape.Ellipse {}

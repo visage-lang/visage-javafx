@@ -33,7 +33,7 @@ import javafx.event.ActionEvent;
 
 /** 
  * Several Controls accept and receive text input. Two such Controls are TextBox and PasswordBox. This class contains API which is common among all text entry Controls.
- * @author William Antônio <william.a.siqueira@gmail.com>
+ * @author William AntÃ´nio <william.a.siqueira@gmail.com>
  */
 public class TextArea extends TextInputControl {    
     override def wrappedNode = javafx.scene.control.TextArea{};

@@ -29,7 +29,7 @@ package visage.javafx.scene.shape;
 
 /**
 * This Line represents a line segment in (x,y) coordinate space.
-* @author William Antônio <william.a.siqueira@gmail.com>
+* @author William AntÃ´nio <william.a.siqueira@gmail.com>
 **/
 public class Line extends Shape{
     override def wrappedNode = javafx.scene.shape.Line {}

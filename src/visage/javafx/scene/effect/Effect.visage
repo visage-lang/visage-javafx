@@ -28,7 +28,7 @@
 package visage.javafx.scene.effect;
 
 /** 
- * @author William Antônio <william.a.siqueira@gmail.com>
+ * @author William AntÃ´nio <william.a.siqueira@gmail.com>
  */
 public class Effect {
     public-read protected var wrappedEffect:javafx.scene.effect.Effect;

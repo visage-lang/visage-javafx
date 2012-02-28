@@ -31,7 +31,7 @@ import javafx.collections.ListChangeListener;
 /** 
  * <p>A class which contains a reference to all Toggles whose selected variables should be managed such that only a single Toggle within the ToggleGroup may be selected at any one time.</p>
  * <p>Generally ToggleGroups are managed automatically simply by specifying the name of a ToggleGroup on the Toggle, but in some situations it is desirable to explicitly manage which ToggleGroup is used by Toggles.</p>
- * @author William Antônio <william.a.siqueira@gmail.com>
+ * @author William AntÃ´nio <william.a.siqueira@gmail.com>
  */
 public class ToggleGroup{    
     public-read def wrappedToggleGroup = javafx.scene.control.ToggleGroup{};

@@ -31,7 +31,7 @@ import javafx.scene.shape.ArcType;
 
 /**
 * The Arc class represents a 2D arc object, defined by a center point, start angle (in degrees), angular extent (length of the arc in degrees), and an arc type (ArcType#OPEN, ArcType#CHORD, or ArcType#ROUND).
-* @author William Antônio <william.a.siqueira@gmail.com>
+* @author William AntÃ´nio <william.a.siqueira@gmail.com>
 **/
 public class Arc extends Shape{
     override def wrappedNode = javafx.scene.shape.Arc {}
