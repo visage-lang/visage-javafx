@@ -27,9 +27,33 @@
  */
 package visage.javafx.scene.control;
 
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
+ * @author Alain Béarez <A@cua.li>
  */
 public class ButtonBase extends Labeled {
     public-read def wrappedButtonBase = bind wrappedNode as javafx.scene.control.ButtonBase;
+
+    /** 
+     * The button's action, which is invoked whenever the button is fired.
+     * This may be due to the user clicking on the button with the mouse, or by a touch event, or by a key press,
+     * or if the developer programmatically invokes the <code>fire()</code> method.
+     */
+    public var onAction :function(:ActionEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onAction == null) { 
+                wrappedButtonBase.setOnAction(null) 
+            } else if (wrappedButtonBase.getOnAction() == null) { 
+                wrappedButtonBase.setOnAction(EventHandler { 
+                    override function handle(event :Event) :Void { 
+                        onAction(event as ActionEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }
 }

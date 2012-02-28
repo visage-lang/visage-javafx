@@ -27,19 +27,22 @@
  */
 package visage.javafx.scene;
 
+import java.util.Set;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.CacheHint;
 import javafx.scene.Cursor;
 import javafx.scene.DepthTest;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+
 import visage.javafx.scene.effect.Effect;
-import java.util.Set;
 
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
@@ -456,6 +459,22 @@ public class Node {
                 wrappedNode.setOnKeyTyped(EventHandler { 
                     override function handle(e:Event):Void { 
                         onKeyTyped(e as KeyEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }
+    /**
+     * Defines a function to be called when user performs a scrolling action.
+     */        
+    public var onScroll :function(:ScrollEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onScroll == null) { 
+                wrappedNode.setOnScroll(null) 
+            } else if (wrappedNode.getOnScroll() == null) { 
+                wrappedNode.setOnScroll(EventHandler { 
+                    override function handle(event :Event) :Void { 
+                        onScroll(event as ScrollEvent) 
                     }
                 }) 
             } 
