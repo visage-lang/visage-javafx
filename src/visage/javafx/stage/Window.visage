@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010-2012, Visage Project
  * All rights reserved.
  *
@@ -27,10 +27,30 @@
  */
 package visage.javafx.stage;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.stage.WindowEvent;
 
 /**
  * @author Alain Béarez <A@cua.li>
  */
 public class Window {
     public-read protected var wrappedWindow :javafx.stage.Window;
+   /**
+     * Called when there is an external request to close this <code>Window</code>. 
+     * The installed event handler can prevent window closing by consuming the received event.
+     */
+    public var onCloseRequest :function(:WindowEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onCloseRequest == null) { 
+                wrappedWindow.setOnCloseRequest(null) 
+            } else if (wrappedWindow.getOnCloseRequest() == null) { 
+                wrappedWindow.setOnCloseRequest(EventHandler { 
+                    override function handle(e:Event):Void { 
+                        onCloseRequest(e as WindowEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }
 }

@@ -27,6 +27,8 @@
  */
 package visage.javafx.scene;
 
+import java.util.Set;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
@@ -38,8 +40,8 @@ import javafx.scene.effect.BlendMode;
 import javafx.scene.CacheHint;
 import javafx.scene.Cursor;
 import javafx.scene.DepthTest;
+
 import visage.javafx.scene.effect.Effect;
-import java.util.Set;
 
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
@@ -284,7 +286,7 @@ public class Node {
     }       
     
     /**
-     * Defines a function to be called when a mouse button has been clicked (pressed and released) on this Node.
+     * Defines a function to be called when a mouse button has been clicked (pressed and released) on this <code>Node</code>.
      */        
     public var onMouseClicked :function(:MouseEvent):Void on replace { 
         // if (isInitialized(this)) { 
@@ -301,7 +303,7 @@ public class Node {
     }
 
    /**
-     * Defines a function to be called when a mouse button is pressed on this Node and then dragged.
+     * Defines a function to be called when a mouse button is pressed on this <code>Node</code> and then dragged.
      */        
     public var onMouseDragged :function(:MouseEvent):Void on replace { 
         // if (isInitialized(this)) { 
@@ -317,7 +319,7 @@ public class Node {
         // } 
     }    
     /**
-     * Defines a function to be called when the mouse enters this Node.
+     * Defines a function to be called when the mouse enters this <code>Node</code>.
      */        
     public var onMouseEntered :function(:MouseEvent):Void on replace { 
         // if (isInitialized(this)) { 
@@ -333,7 +335,7 @@ public class Node {
         // } 
     }   
    /**
-     * Defines a function to be called when the mouse exits this Node.
+     * Defines a function to be called when the mouse exits this <code>Node</code>.
      */        
     public var onMouseExited :function(:MouseEvent):Void on replace { 
         // if (isInitialized(this)) { 
@@ -349,7 +351,7 @@ public class Node {
         // } 
     }
    /**
-     * Defines a function to be called when mouse cursor moves within this Node but no buttons have been pushed.
+     * Defines a function to be called when mouse cursor moves within this <code>Node</code> but no buttons have been pushed.
      */        
     public var onMouseMoved :function(:MouseEvent):Void on replace { 
         // if (isInitialized(this)) { 
@@ -365,7 +367,7 @@ public class Node {
         // } 
     }
    /**
-     * Defines a function to be called when a mouse button has been pressed on this Node.
+     * Defines a function to be called when a mouse button has been pressed on this <code>Node</code>.
      */        
     public var onMousePressed :function(:MouseEvent):Void on replace { 
         // if (isInitialized(this)) { 
@@ -381,7 +383,7 @@ public class Node {
         // } 
     }
    /**
-     * Defines a function to be called when a mouse button has been released on this Node.
+     * Defines a function to be called when a mouse button has been released on this <code>Node</code>.
      */        
     public var onMouseReleased :function(:MouseEvent):Void on replace { 
         // if (isInitialized(this)) { 

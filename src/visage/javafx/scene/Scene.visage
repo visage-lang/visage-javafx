@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2010-2011, Visage Project
  * All rights reserved.
  *
@@ -27,10 +27,15 @@
  */
 package visage.javafx.scene;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
+
 import org.visage.javafx.util.VConvert;
 
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
+ * @author Alain Béarez <A@cua.li>
  */
 public class Scene {
     public-read var wrappedScene:javafx.scene.Scene;
@@ -40,12 +45,124 @@ public class Scene {
             wrappedScene = new javafx.scene.Scene(root, width, height, VConvert.color(fill));
         }
     }
-    public-init var width:Double;
-    public-init var height:Double;
-    public default var content:Parent;
+    public-init var width :Double;
+    public-init var height :Double;
+    public default var content :Parent;
     public var fill:Color on replace {
         if (isInitialized(this) or fill != null) {
             wrappedScene.setFill(VConvert.color(fill));
         }
     }
+    /**
+     * Defines a function to be called when a mouse button has been clicked (pressed and released) on this <code>Scene</code>.
+     */        
+    public var onMouseClicked :function(:MouseEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onMouseClicked == null) { 
+                wrappedScene.setOnMouseClicked(null) 
+            } else if (wrappedScene.getOnMouseClicked() == null) { 
+                wrappedScene.setOnMouseClicked(EventHandler { 
+                    override function handle(e :Event) :Void { 
+                        onMouseClicked(e as MouseEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }
+    /**
+     * Defines a function to be called when a mouse button is pressed on this <code>Scene</code> and then dragged.
+     */        
+    public var onMouseDragged :function(:MouseEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onMouseDragged == null) { 
+                wrappedScene.setOnMouseDragged(null) 
+            } else if (wrappedScene.getOnMouseDragged() == null) { 
+                wrappedScene.setOnMouseDragged(EventHandler { 
+                    override function handle(e :Event):Void { 
+                        onMouseDragged(e as MouseEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }    
+    /**
+     * Defines a function to be called when the mouse enters this <code>Scene</code>.
+     */        
+    public var onMouseEntered :function(:MouseEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onMouseEntered == null) { 
+                wrappedScene.setOnMouseEntered(null) 
+            } else if (wrappedScene.getOnMouseEntered() == null) { 
+                wrappedScene.setOnMouseEntered(EventHandler { 
+                    override function handle(e :Event) :Void { 
+                        onMouseEntered(e as MouseEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }   
+   /**
+     * Defines a function to be called when the mouse exits this <code>Scene</code>.
+     */        
+    public var onMouseExited :function(:MouseEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onMouseExited == null) { 
+                wrappedScene.setOnMouseExited(null) 
+            } else if (wrappedScene.getOnMouseExited() == null) { 
+                wrappedScene.setOnMouseExited(EventHandler { 
+                    override function handle(e :Event) :Void { 
+                        onMouseExited(e as MouseEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }
+   /**
+     * Defines a function to be called when mouse cursor moves within this <code>Scene</code> but no buttons have been pushed.
+     */        
+    public var onMouseMoved :function(:MouseEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onMouseMoved == null) { 
+                wrappedScene.setOnMouseMoved(null) 
+            } else if (wrappedScene.getOnMouseMoved() == null) { 
+                wrappedScene.setOnMouseMoved(EventHandler { 
+                    override function handle(e :Event) :Void { 
+                        onMouseMoved(e as MouseEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }
+   /**
+     * Defines a function to be called when a mouse button has been pressed on this <code>Scene</code>.
+     */        
+    public var onMousePressed :function(:MouseEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onMousePressed == null) { 
+                wrappedScene.setOnMousePressed(null) 
+            } else if (wrappedScene.getOnMousePressed() == null) { 
+                wrappedScene.setOnMousePressed(EventHandler { 
+                    override function handle(e :Event) :Void { 
+                        onMousePressed(e as MouseEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }
+   /**
+     * Defines a function to be called when a mouse button has been released on this <code>Scene</code>.
+     */        
+    public var onMouseReleased :function(:MouseEvent):Void on replace { 
+        // if (isInitialized(this)) { 
+            if (onMouseReleased == null) { 
+                wrappedScene.setOnMouseReleased(null) 
+            } else if (wrappedScene.getOnMouseReleased() == null) { 
+                wrappedScene.setOnMouseReleased(EventHandler { 
+                    override function handle(e :Event) :Void { 
+                        onMouseReleased(e as MouseEvent) 
+                    }
+                }) 
+            } 
+        // } 
+    }    
 }
