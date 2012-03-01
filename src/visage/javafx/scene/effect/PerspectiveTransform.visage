@@ -1,0 +1,109 @@
+/*
+ * Copyright (c) 2010-2012, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.scene.effect;
+
+/** 
+ * <p>An effect that provides non-affine transformation of the input content. Most typically <code>PerspectiveTransform</code> is used to provide a "faux" three-dimensional effect for otherwise two-dimensional content.</p>
+ * <p>A perspective transformation is capable of mapping an arbitrary quadrilateral into another arbitrary quadrilateral, while preserving the straightness of lines. Unlike an affine transformation, the parallelism of lines in the source is not necessarily preserved in the output.</p>
+ * <p>Note that this effect does not adjust the coordinates of input events or any methods that measure containment on a <code>Node</code>. The results of mouse picking and the containment methods are undefined when a <code>Node</code> has a <code>PerspectiveTransform</code> effect in place.</p>
+ *
+ * @author Alain Béarez <A@cua.li>
+ */
+public class PerspectiveTransform extends Effect {
+    override def wrappedEffect = javafx.scene.effect.PerspectiveTransform {};
+    public-read def wrappedPerspectiveTransform = 
+            bind wrappedEffect as javafx.scene.effect.PerspectiveTransform;
+
+    /** The input for this <code>Effect</code>. If set to <code>null</code>, or left unspecified, a graphical image of the <code>Node</code> to which the <code>Effect</code> is attached will be used as the input. */
+    public default var input :Effect on replace oldValue {
+        if ((isInitialized(this) and (oldValue != input)) or (null != input)) {
+            wrappedPerspectiveTransform.setInput(input.wrappedEffect);
+        }
+    }
+    /** The x coordinate of the output location onto which the upper left corner of the source is mapped. */
+    public var ulx :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != ulx)) or (0 != ulx)) {
+            wrappedPerspectiveTransform.setUlx(ulx);
+        }
+    }
+    /** The y coordinate of the output location onto which the upper left corner of the source is mapped. */
+    public var uly :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != uly)) or (0 != uly)) {
+            wrappedPerspectiveTransform.setUly(uly);
+        }
+    }
+    /** The x coordinate of the output location onto which the upper right corner of the source is mapped. */
+    public var urx :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != urx)) or (0 != urx)) {
+            wrappedPerspectiveTransform.setUrx(urx);
+        }
+    }
+    /** The y coordinate of the output location onto which the upper right corner of the source is mapped. */
+    public var ury :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != ury)) or (0 != ury)) {
+            wrappedPerspectiveTransform.setUry(ury);
+        }
+    }
+    /** The x coordinate of the output location onto which the lower right corner of the source is mapped. */
+    public var lrx :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != lrx)) or (0 != lrx)) {
+            wrappedPerspectiveTransform.setLrx(lrx);
+        }
+    }
+    /** The y coordinate of the output location onto which the lower right corner of the source is mapped. */
+    public var lry :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != lry)) or (0 != lry)) {
+            wrappedPerspectiveTransform.setLry(lry);
+        }
+    }
+    /** The x coordinate of the output location onto which the lower left corner of the source is mapped. */
+    public var llx :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != llx)) or (0 != llx)) {
+            wrappedPerspectiveTransform.setLlx(llx);
+        }
+    }
+    /** The y coordinate of the output location onto which the lower left corner of the source is mapped. */
+    public var lly :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != lly)) or (0 != lly)) {
+            wrappedPerspectiveTransform.setLly(lly);
+        }
+    }
+    /** The 8 coordinates as <code>[ulx, uly, urx, ury, lrx, lry, llx, lly]</code>. */
+    public var coordinates :Double[] on replace oldValue {
+        if ((isInitialized(this) and (oldValue != coordinates)) or ((null != coordinates) and (8 == coordinates.size()))) {
+            wrappedPerspectiveTransform.setUlx(coordinates[0]);
+            wrappedPerspectiveTransform.setUly(coordinates[1]);
+            wrappedPerspectiveTransform.setUrx(coordinates[2]);
+            wrappedPerspectiveTransform.setUry(coordinates[3]);
+            wrappedPerspectiveTransform.setLrx(coordinates[4]);
+            wrappedPerspectiveTransform.setLry(coordinates[5]);
+            wrappedPerspectiveTransform.setLlx(coordinates[6]);
+            wrappedPerspectiveTransform.setLly(coordinates[7]);
+        }
+    }
+}

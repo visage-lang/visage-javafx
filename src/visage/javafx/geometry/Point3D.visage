@@ -1,0 +1,97 @@
+/*
+ * Copyright (c) 2010-2012, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.geometry;
+
+/**
+ * A 3D geometric point that represents the x, y, z coordinates.
+ * @author Alain Béarez <A@cua.li>
+ */
+public class Point3D {
+    public-read var wrappedPoint3D :javafx.geometry.Point3D;
+    /** The x coordinate of the point. */
+    public-init var x :Double;
+    /** The y coordinate of the point. */
+    public-init var y :Double;
+    /** The z coordinate of the point. */
+    public-init var z :Double;
+
+    init {
+        wrappedPoint3D = new javafx.geometry.Point3D(x, y, z)
+    }
+
+    /**
+     * Computes the distance between this point and point <code>(x1, y1, z1)</code>.
+     * @param x1 the x coordinate of other point.
+     * @param y1 the y coordinate of other point.
+     * @param z1 the z coordinate of other point.
+     * @return the distance between this point and point <code>(x1, y1, z1)</code>.
+     */
+    public function distance(x1 :Double, y1 :Double, z1 :Double) :Double {
+        wrappedPoint3D.distance(x1, y1, z1)
+    }
+    /**
+     * Computes the distance between this point and the other point.
+     * @param other the other point.
+     * @return the distance between this point and the <code>other</code> point.
+     */
+    public function distance(other :Point3D) :Double {
+        wrappedPoint3D.distance(other.wrappedPoint3D)
+    }
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * @param object the reference object with which to compare.
+     * @return <code>true</code> if this point is the same as the <code>object</code> argument; <code>false</code> otherwise
+     */
+    override function equals(object :Object) :Boolean {
+        if (object instanceof Point3D)
+        then wrappedPoint3D.equals((object as Point3D).wrappedPoint3D)
+        else false
+    }
+    /**
+     * Returns a hash code value for the point.
+     * @return a hash code value for the point.
+     */
+    override function hashCode() :Integer {
+        17 + 31 * wrappedPoint3D.hashCode()
+    }
+    /**
+     * <p>Returns a string representation of this <code>Point3D</code>. This method is intended to be used only for informational purposes. 
+     * The content and format of the returned string might vary between implementations. The returned string might be empty but cannot be <code>null</code>.</p>
+     */
+    override function toString() :String {
+        wrappedPoint3D.toString()
+    }
+}
+
+public function fromJavaFX(original :javafx.geometry.Point3D) :Point3D {
+    Point3D {
+        x: original.getX()
+        y: original.getY()
+        z: original.getZ()
+    }
+}
