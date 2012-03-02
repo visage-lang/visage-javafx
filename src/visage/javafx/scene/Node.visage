@@ -484,7 +484,7 @@ public class Node {
     /**
      * Finds this Node, or the first sub-node, based on the given CSS selector.
     **/
-    public function lookup(selector:String):Node{
+    public function lookup(selector :String) :Node{
         return Node{
             wrappedNode: wrappedNode.lookup(selector);
         };
@@ -492,10 +492,13 @@ public class Node {
     /**
      * Finds all Nodes, including this one and any children, which match the given CSS selector.    
     **/
-    public function lookupAll(selector: String):Set{
+    public function lookupAll(selector :String) :Set{
         return wrappedNode.lookupAll(selector);
     }    
-    
+    /** Moves this <code>Node</code> to the front of its sibling nodes in terms of z-order. This is accomplished by moving this <code>Node</code> to the last position in its parent's content <code>ObservableList</code>. This function has no effect if this <code>Node</code> is not part of a group. */
+    public function toFront() :Void {
+        wrappedNode.toFront()
+    }
     //TODO: eventDispatcher, inputMethodRequests, layoutBounds, finish drags, parent
     // rotationAxis, scene
      

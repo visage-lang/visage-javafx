@@ -35,7 +35,7 @@ import visage.javafx.scene.paint.Paint;
 
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
- * @author Alain Béarez <A@cua.li>
+ * @author Alain BÃ©arez <A@cua.li>
  */
 public class Scene {
     public-read var wrappedScene:javafx.scene.Scene;

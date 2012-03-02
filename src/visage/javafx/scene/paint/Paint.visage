@@ -32,8 +32,16 @@ package visage.javafx.scene.paint;
  * @author Alain Béarez <A@cua.li>
  */
 public abstract class Paint {
+}
+
+class PaintColor extends Paint {
     public-read var wrappedPaint :javafx.scene.paint.Paint;
 }
+
+public function fromColor(color :Color) {
+    PaintColor { wrappedPaint: toJavaFX(color) }
+}
+
 
 public function toJavaFX(color :Color) {
     javafx.scene.paint.Color.color(color.red, color.green, color.blue, color.opacity);

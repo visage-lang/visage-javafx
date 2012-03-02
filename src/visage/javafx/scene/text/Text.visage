@@ -1,0 +1,112 @@
+/*
+ * Copyright (c) 2010-2012, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.scene.text;
+
+import javafx.geometry.VPos;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextBoundsType;
+
+import visage.javafx.scene.shape.Shape;
+
+/**
+ * The <code>Text</code> class defines a node that displays a text. Paragraphs are separated by <code>'\n'</code> and the text is wrapped on paragraph boundaries. 
+ * @author Alain Béarez <A@cua.li>
+ */
+public class Text extends Shape {
+    override var wrappedNode = javafx.scene.text.Text{};
+    public-read def wrappedText = bind wrappedNode as javafx.scene.text.Text;   
+    
+    /** Defines text string that is to be displayed. */
+    public var text :String on replace oldValue {
+        if ((isInitialized(this) and (oldValue != text)) or ("" != text)) {
+            wrappedText.setText(text);
+        }
+    }
+    /** Defines the X coordinate of text origin. */
+    public var x :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != x)) or (0 != x)) {
+            wrappedText.setX(x);
+        }
+    }
+    /** Defines the Y coordinate of text origin. */
+    public var y :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != y)) or (0 != y)) {
+            wrappedText.setY(y);
+        }
+    }
+    /** Defines the font of text. */
+    public var font :Font on replace oldValue {
+        if ((isInitialized(this) and (oldValue != font)) or (null != font)) {
+            wrappedText.setFont(font.wrappedFont);
+        }
+    }
+    /**
+     * <p>Defines the origin of text coordinate system in local coordinates.</p>
+     * <p>Note: in case multiple rows are rendered <code>VPos.BASELINE</code> and <code>VPos.TOP</code> define the origin of the top row while <code>VPos.BOTTOM</code> defines the origin of the bottom row.</p>
+     */
+    public var textOrigin :VPos on replace oldValue {
+        if ((isInitialized(this) and (oldValue != textOrigin)) or (null != textOrigin)) {
+            wrappedText.setTextOrigin(textOrigin);
+        }
+    }
+    /** Determines how the bounds of the text node are calculated. Logical bounds is a more appropriate default for text than the visual bounds. See <code>TextBoundsType</code> for more information. */
+    public var boundsType :TextBoundsType on replace oldValue {
+        if ((isInitialized(this) and (oldValue != boundsType)) or (null != boundsType)) {
+            wrappedText.setBoundsType(boundsType);
+        }
+    }
+    /** Defines a width constraint for the text in user space coordinates, e.g. pixels, not glyph or character count. If the value is > 0 text will be line wrapped as needed to satisfy this constraint. */
+    public var wrappingWidth :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != wrappingWidth)) or (0 != wrappingWidth)) {
+            wrappedText.setWrappingWidth(wrappingWidth);
+        }
+    }
+    /** Defines if each line of text should have a line below it. */
+    public var underline :Boolean on replace oldValue {
+        if ((isInitialized(this) and (oldValue != underline)) or (underline)) {
+            wrappedText.setUnderline(underline);
+        }
+    }
+    /** Defines if each line of text should have a line through it. */
+    public var strikethrough :Boolean on replace oldValue {
+        if ((isInitialized(this) and (oldValue != strikethrough)) or (strikethrough)) {
+            wrappedText.setStrikethrough(strikethrough);
+        }
+    }
+    /**
+     * <p>Defines horizontal text alignment in the bounding box. The width of the bounding box is defined by the widest row.</p>
+     * <p>Note: In the case of a single line of text, where the width of the node is determined by the width of the text, the alignment setting has no effect.</p>
+     */
+    public var textAlignment :TextAlignment on replace oldValue {
+        if ((isInitialized(this) and (oldValue != textAlignment)) or (null != textAlignment)) {
+            wrappedText.setTextAlignment(textAlignment);
+        }
+    }
+    /** The 'alphabetic' (or roman) baseline offset from the Text node's layoutBounds.minY location. The value typically corresponds to the max ascent of the font. */
+    public var baselineOffset :Double = bind wrappedText.getBaselineOffset();
+} 
