@@ -144,4 +144,4 @@ public class Rectangle2D {
 }
 
 /** An empty <code>Rectangle2D</code> instance (with all coordinates equal to zero). */
-def EMTPY = Rectangle2D { }
+def EMPTY = Rectangle2D { }

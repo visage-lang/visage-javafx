@@ -40,10 +40,10 @@ public class Stage extends Window {
         if (primary != null) primary else new javafx.stage.Stage();
     }
     public-read var wrappedStage :javafx.stage.Stage = bind wrappedWindow as javafx.stage.Stage;
-    public var title:String on replace {
+    public var title :String on replace {
         wrappedStage.setTitle(title);
     }
-    public default var scene:Scene on replace {
+    public default var scene :Scene on replace {
         scene.construct();
         wrappedStage.setScene(scene.wrappedScene);
     }
