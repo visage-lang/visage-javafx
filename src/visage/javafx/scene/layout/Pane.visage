@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2011, Visage Project
+ * Copyright (c) 2010-2012, Visage Project
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,9 +32,9 @@ import visage.javafx.scene.Node;
 /**
  * <p>Base class for layout panes which need to expose the children list as public so that users of the subclass can freely add/remove children.</p>
  * <p>This class may be used directly in cases where absolute positioning of children is required since it does not perform layout beyond resizing resizable children to their preferred sizes; childrens' positions are not modified by the pane.</p>
- * <p>Note: if an application needs children to be centered within a parent, it should use a StackPane instead.</p>
+ * <p>Note: if an application needs children to be centered within a parent, it should use a <code>StackPane</code> instead.</p>
  * <p><strong>Resizable Range</strong></p>
- * <p>The pane's preferred width/height will be computed as the size required to encompass each managed child at its current location and preferred size, measured from the pane's origin (in other words, the largest layoutBounds maxX and maxY values). It's max width/height are unbounded (Double.MAX_VALUE).</p>
+ * <p>The pane's preferred width/height will be computed as the size required to encompass each managed child at its current location and preferred size, measured from the pane's origin (in other words, the largest layoutBounds maxX and maxY values). It's max width/height are unbounded (<code>Double.MAX_VALUE</code>).</p>
  * <p>Pane does not clip its content by default, so it is possible that childrens' bounds may extend outside its own bounds, either if children are positioned at negative coordinates or the pane is resized smaller than its preferred size.</p>
  * @author Alain Béarez <A@cua.li>
  */
@@ -44,5 +44,9 @@ public class Pane extends Region {
         if (isInitialized(this) or children != []) {
             wrappedPane.getChildren().setAll(for (child in children) child.wrappedNode);
         }
+    }
+    /** Gets the list of all managed children of this <code>Parent</code>. */
+    protected function getManagedChildren() :Node[] {
+        [ for (child in children) { if (child.managed) child else null } ]
     }
 }

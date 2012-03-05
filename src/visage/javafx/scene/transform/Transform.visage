@@ -27,6 +27,8 @@
  */
 package visage.javafx.scene.transform;
 
+import visage.javafx.geometry.Point3D;
+
 /** 
  * <p>This class provides functions to perform rotating, scaling, shearing, and translation transformations for <code>Affine<code>/ objects. </p>
  *
@@ -34,6 +36,69 @@ package visage.javafx.scene.transform;
  */
 public abstract class Transform {
     public-read protected var wrappedTransform :javafx.scene.transform.Transform;
+}
+
+/** 
+ * Returns a <code>Rotate</code> object that rotates coordinates around a pivot point along the Z axis.
+ * @param angle
+ *      the angle of rotation measured in degrees.
+ * @param pivotX
+ *      the X coordinate of the rotation pivot point.
+ * @param pivotY
+ *      the Y coordinate of the rotation pivot point.
+ */
+public function rotate(angle :Double, pivotX :Double, pivotY :Double) :Rotate {
+    rotate(angle, pivotX, pivotY, 0, Rotate.Z_AXIS)
+}
+/**
+ * Creates a three-dimensional Rotate transform with pivot.
+ * @param angle
+ *      the angle of rotation measured in degrees
+ * @param pivotX
+ *      the X coordinate of the rotation pivot point.
+ * @param pivotY
+ *      the Y coordinate of the rotation pivot point.
+ * @param pivotZ
+ *      the Z coordinate of the rotation pivot point.
+ * @param axis
+ *      the axis of rotation
+ */
+public function rotate(angle :Double, pivotX :Double, pivotY :Double, pivotZ :Double, axis :Point3D) :Rotate {
+    Rotate { angle: angle, pivotX: pivotX, pivotY: pivotY, pivotZ: pivotZ, axis: axis } //FIXME should a Visage angle literal instead of "degrees in double"
+}
+
+/** 
+ * Returns a <code>Scale</code> object representing a scaling transformation. 
+ * @param x
+ *      the factor by which coordinates are scaled along the X axis.
+ * @param y
+ *      the factor by which coordinates are scaled along the Y axis.
+ * @param pivotX
+ *      the X coordinate about which point the scale occurs.
+ * @param pivotY
+ *      the Y coordinate about which point the scale occurs.
+ */
+public function scale(x :Double, y :Double, pivotX :Double, pivotY :Double) :Scale {
+    scale(x, y, 1, pivotX, pivotY, 0)
+}
+
+/** 
+ * Returns a <code>Scale</code> object representing a scaling transformation. 
+ * @param x
+ *      the factor by which coordinates are scaled along the X axis.
+ * @param y
+ *      the factor by which coordinates are scaled along the Y axis.
+ * @param z
+ *      the factor by which coordinates are scaled along the Z axis.
+ * @param pivotX
+ *      the X coordinate about which point the scale occurs.
+ * @param pivotY
+ *      the Y coordinate about which point the scale occurs.
+ * @param pivotZ
+ *      the Z coordinate about which point the scale occurs.
+ */
+public function scale(x :Double, y :Double, z :Double, pivotX :Double, pivotY :Double, pivotZ :Double) :Scale {
+    Scale { x: x, y: y, z: z, pivotX: pivotX, pivotY: pivotY, pivotZ: pivotZ }
 }
 
 /** 
@@ -58,17 +123,4 @@ public function translate(x :Double, y :Double) :Translate {
  */
 public function translate(x :Double, y :Double, z :Double) :Translate {
     Translate { x: x, y: y, z: z }
-}
-
-/** 
- * Returns a <code>Rotate</code> object that rotates coordinates around a pivot point along the Z axis.
- * @param angle
- *      the angle of rotation measured in degrees.
- * @param pivotX
- *      the X coordinate of the rotation pivot point.
- * @param pivotY
- *      the Y coordinate of the rotation pivot point.
- */
-public function rotate(angle :Double, pivotX :Double, pivotY :Double) :Rotate {
-    Rotate { angle: angle, pivotX: pivotX, pivotY: pivotY, axis: Rotate.Z_AXIS }
 }

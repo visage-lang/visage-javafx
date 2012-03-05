@@ -1,0 +1,87 @@
+/*
+ * Copyright (c) 2010-2012, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.animation;
+
+import java.lang.IllegalArgumentException;
+
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+
+/**
+ * <p>Base class for layout panes which need to expose the children list as public so that users of the subclass can freely add/remove children.</p>
+ * <p>This class may be used directly in cases where absolute positioning of children is required since it does not perform layout beyond resizing resizable children to their preferred sizes; childrens' positions are not modified by the pane.</p>
+ * <p>Note: if an application needs children to be centered within a parent, it should use a StackPane instead.</p>
+ * <p><strong>Resizable Range</strong></p>
+ * <p>The pane's preferred width/height will be computed as the size required to encompass each managed child at its current location and preferred size, measured from the pane's origin (in other words, the largest layoutBounds maxX and maxY values). It's max width/height are unbounded (Double.MAX_VALUE).</p>
+ * <p>Pane does not clip its content by default, so it is possible that childrens' bounds may extend outside its own bounds, either if children are positioned at negative coordinates or the pane is resized smaller than its preferred size.</p>
+ * @author Alain Béarez <A@cua.li>
+ */
+public class KeyFrame {
+    package var wrappedKeyFrame :javafx.animation.KeyFrame;
+    public default var mandatory :Constructor on replace {
+        if (isInitialized(mandatory)) {
+            if (null == mandatory.time)
+                throw new IllegalArgumentException("Missing mandatory Duration to build a KeyFrame.");
+            def time = new javafx.util.Duration(mandatory.time.toMillis());
+            def values = [ for (value in mandatory.values) { value.wrappedKeyValue } ] as nativearray of javafx.animation.KeyValue;
+            if (null == mandatory.onFinished) {
+                if (null == mandatory.name) {
+                    wrappedKeyFrame = new javafx.animation.KeyFrame(time, values)
+                } else {
+                    wrappedKeyFrame = new javafx.animation.KeyFrame(time, mandatory.name, values)
+                }
+            } else {
+                def handler = EventHandler { 
+                    override function handle(event :Event) :Void { 
+                        mandatory.onFinished(event as ActionEvent) 
+                    }
+                }
+                if (null == mandatory.name) {
+                    wrappedKeyFrame = new javafx.animation.KeyFrame(time, handler, values)
+                } else {
+                    wrappedKeyFrame = new javafx.animation.KeyFrame(time, mandatory.name, handler, values)
+                }
+            }
+        }
+    }
+}
+
+public class Constructor {
+    /** A <code>KeyValue</code> defines a target and the desired value that should be interpolated at the specified time of this <code>KeyFrame</code>. */
+    public-init default var values :KeyValue[];
+    /** If a named <code>KeyFrame</code> is added to a <code>Timeline</code>, a cuepoint with the name and the time of the <code>KeyFrame</code> will be added automatically. If the <code>KeyFrame</code> is removed, the cuepoint will also be removed. */
+    public-init var name :String;
+    /**
+     * The time offset of this <code>KeyFrame<code> defines the time offset within a single cycle of a <code>Timeline</code> at which the <code>KeyValue</code>s will be set and at which the <code>onFinished</code> function variable will be called.
+     * The time of a <code>KeyFrame</code> has to be greater than or equal to <code>Duration.ZERO</code> and it cannot be <code>Duration.UNKNOWN</code>. Note: While the unit of time is a millisecond, the granularity depends on the underlying operating system and will in general be larger. For example animations on desktop systems usually run with a maximum of 60fps which gives a granularity of ~17 ms.</p>
+     */
+    public-init var time :Duration;
+    /** The <code>onFinished</code> event handler is a function that is called when the elapsed time on a cycle passes the specified time of this <code>KeyFrame</code>. The <code>onFinished</code> function variable will be called if the elapsed time passes the indicated value, even if it never equaled the time value exactly. */
+    public-init var onFinished :function(:ActionEvent):Void;
+}

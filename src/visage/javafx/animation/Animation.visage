@@ -1,0 +1,169 @@
+/*
+ * Copyright (c) 2010-2012, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.animation;
+
+import javafx.animation.Animation.Status;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+
+/**
+ * <p>The class <code>Animation</code> provides the core functionality of all animations used in the JavaFX runtime.</p>
+ * <p>An animation can run in a loop by setting <code>cycleCount</code>. To make an animation run back and forth while looping, set the <code>autoReverse</code> flag.</p>
+ * <p>Call <code>play()</code> or <code>playFromStart()</code> to play an <code>Animation</code>. The <code>Animation</code> progresses in the direction and speed specified by rate, and stops when its duration is elapsed. An <code>Animation</code> with indefinite duration (a <code>cycleCount</code> of <code>INDEFINITE</code>) runs repeatedly until the <code>stop()</code> method is explicitly called, which will stop the running <code>Animation</code> and reset its play head to the initial position.</p>
+ * <p>An <code>Animation</code> can be paused by calling <code>pause()</code>, and the next <code>play()</code> call will resume the <code>Animation</code> from where it was paused.</p>
+ * <p>An <code>Animation</code>'s play head can be randomly positioned, whether it is running or not. If the <code>Animation</code> is running, the play head jumps to the specified position immediately and continues playing from new position. If the <code>Animation</code> is not running, the next <code>play()</code> will start the <code>Animation</code> from the specified position.</p>
+ * <p>Inverting the value of <code>rate</code> toggles the play direction.</p>
+ * @author Alain Béarez <A@cua.li>
+ */
+public class Animation {
+    package var wrappedAnimation :javafx.animation.Animation;
+    /**
+     * <p>Defines the direction/speed at which the <code>Animation</code> is expected to be played.</p>
+     * <p>The absolute value of rate indicates the speed which the <code>Animation</code> is to be played, while the sign of rate indicates the direction. A positive value of rate indicates forward play, a negative value indicates backward play and 0.0 to stop a running <code>Animation</code>.</p>
+     * <p>Rate <code>1.0</code> is normal play, <code>2.0</code> is 2 time normal, <code>-1.0</code> is backwards, etc...</p>
+     * <p>Inverting the rate of a running <code>Animation</code> will cause the <code>Animation</code> to reverse direction in place and play back over the portion of the <code>Animation</code> that has alreay elapsed.</p>
+     */
+    public var rate :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != rate)) or (0 != rate)) {
+            wrappedAnimation.setRate(rate);
+        }
+    }
+
+    /**
+     * <p>Read-only variable to indicate current direction/speed at which the <code>Animation</code> is being played.</p>
+     * <p><code>currentRate</code> is not necessary equal to <code>rate</code>. <code>currentRate</code> is set to <code>0.0</code> when animation is paused or stopped. <code>currentRate</code> may also point to different direction during reverse cycles when <code>autoReverse</code> is <code>true</code>.</p>
+     */
+    public var currentRate = bind wrappedAnimation.getCurrentRate();
+
+    /**
+     * <p>Read-only variable to indicate the duration of one cycle of this <code>Animation</code>: the time it takes to play from time 0 to the KeyFrame with the largest time (at the default rate of 1.0).</p>
+     * <p>This is set to the largest time value of its keyFrames.</p>
+     */
+/*
+    public var cycleDuration :Duration on replace oldValue {
+        if ((isInitialized(this) and (oldValue != cycleDuration)) or (null != cycleDuration)) {
+            wrappedAnimation.setCycleDuration(new javafx.util.Duration(cycleDuration.toMillis()));
+        }
+    }
+*/
+
+    /**
+     * <p>Read-only variable to indicate the total duration of this <code>Animation</code>, including repeats. A Timeline with a cycleCount of Timeline.INDEFINITE will have a totalDuration of Duration.INDEFINITE.</p>
+     * <p>This is set to cycleDuration * cycleCount.</p>
+     */
+    public var totalDuration = bind wrappedAnimation.getTotalDuration();
+
+    public var currentTime = bind wrappedAnimation.getCurrentTime();
+
+    /**
+     * <p>Delays the start of an animation.</p>
+     */
+    public var delay :Duration on replace oldValue {
+        if ((isInitialized(this) and (oldValue != delay)) or (null != delay)) {
+            wrappedAnimation.setDelay(new javafx.util.Duration(delay.toMillis()));
+        }
+    }
+
+    /**
+     * <p>Defines the number of cycles in this animation. The <code>cycleCount</code> may be <code>INDEFINITE</code> for animations that repeat indefinitely, but must otherwise be </code>&gt; 0</code>.</p>
+     * <p>It is not possible to change the cycleCount of a running <code>Animation</code>. If the value of cycleCount is changed for a running Animation, the animation has to be stopped and started again to pick up the new value.</p>
+     */
+    public var cycleCount :Integer on replace oldValue {
+        if ((isInitialized(this) and (oldValue != cycleCount)) or (0 != cycleCount)) {
+            wrappedAnimation.setCycleCount(cycleCount);
+        }
+    }
+
+    /**
+     * <p>Defines whether this <code>Animation</code> reverses direction on alternating cycles. If true, the <code>Animation</code> will proceed forward on the first cycle, then reverses on the second cycle, and so on. Otherwise, animation will loop such that each cycle proceeds forward from the start. It is not possible to change the autoReverse flag of a running <code>Animation</code>. If the value of autoReverse is changed for a running <code>Animation</code>, the animation has to be stopped and started again to pick up the new value.</p>
+     */
+    public var autoReverse :Boolean on replace oldValue {
+        if ((isInitialized(this) and (oldValue != autoReverse)) or (autoReverse)) {
+            wrappedAnimation.setAutoReverse(autoReverse);
+        }
+    }
+
+    /**
+     * <p>The status of the <code>Animation</code>. An <code>Animation</code> can be in one of three states: <code>Animation.Status.STOPPED</code>, <code>Animation.Status.PAUSED</code> or <code>Animation.Status.RUNNING</code>.</p>
+     */
+/*
+    public var status :Status on replace oldValue {
+        if ((isInitialized(this) and (oldValue != status)) or (null != status)) {
+            wrappedAnimation.setStatus(status);
+        }
+    }
+*/
+
+    /**
+     * <p>The action to be executed at the conclusion of this <code>Animation</code>.</p>
+     */
+    public var onFinished :function(:ActionEvent):Void on replace {
+        if (onFinished == null) {
+            wrappedAnimation.setOnFinished(null)
+        } else if (wrappedAnimation.getOnFinished() == null) {
+            wrappedAnimation.setOnFinished(EventHandler {
+                override function handle(event :Event) :Void {
+                    onFinished(event as ActionEvent)
+                }
+            })
+        }
+    }
+
+    /**
+     * <p>Plays <code>Animation</code> from current position in the direction indicated by rate. If the <code>Animation</code> is running, it has no effect.</p>
+     * <p>When rate > 0 (forward play), if a <code>Animation</code> is already positioned at the end, the first cycle will not be played, it is considered to have already finished. This also applies to a backward ( rate < 0) cycle if an <code>Animation</code> is positioned at the beginning. However, if the <code>Animation</code> has <code>cycleCount > 1</code>, following cycle(s) will be played as usual.</p>
+     * <p>When <code>Animation</code> reaches the end, <code>Animation</code> is stopped and the play head remains at the end.</p>
+     * <p>To play a Timeline backwards from the end:</p>
+     * <pre>
+     * timeline.rate = negative rate
+     * timeline.time = overall duration of timeline
+     * timeline.play()
+     * </pre>
+     * <p><dl><dt>Note:</dt><dd><code>play()</code> is an asynchronous call, <code>Animation</code> may not start immediately.</dd></dl></p>
+     */
+    public function play() {
+        wrappedAnimation.play()
+    }
+
+    /**
+     * <p>Pauses the animation. If the animation is not currently running, this method has no effect.</p>
+     * <p><dl><dt>Note:</dt><dd><code>pause()</code> is an asynchronous call, timeline may not pause immediately.</dd></dl></p>
+     */
+    public function pause() {
+        wrappedAnimation.pause()
+    }
+
+    /**
+     * <p>Stops the animation and resets the play head to its initial position. If the animation is not currently running, this method has no effect.</p>
+     * <p><dl><dt>Note:</dt><dd><code>stop()</code> is an asynchronous call, timeline may not stop immediately.</dd></dl></p>
+     */
+    public function stop() {
+        wrappedAnimation.stop()
+    }
+}

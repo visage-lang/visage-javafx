@@ -274,6 +274,7 @@ public class Node {
      * <p>Defines the <code>x</code> coordinate of the translation that is added to this <code>Node</code>'s transform.</p>
      * <p>The node's final translation will be computed as <code>layoutX + translateX</code>, where <code>layoutX</code> establishes the node's stable position and <code>translateX</code> optionally makes dynamic adjustments to that position.</p>
      * <p>This variable can be used to alter the location of a node without disturbing its <code>layoutBounds</code>, which makes it useful for animating a node's location.</p>
+     */
     public var translateX :Double on replace oldValue {
         if ((isInitialized(this) and (oldValue != translateX)) or (0 != translateX)) {
             wrappedNode.setTranslateX(translateX);

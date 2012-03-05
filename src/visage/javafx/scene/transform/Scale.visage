@@ -30,59 +30,59 @@ package visage.javafx.scene.transform;
 import visage.javafx.geometry.Point3D;
 
 /** 
- * <p>This class represents an <code>Affine</code> object that rotates coordinates around an anchor point. This operation is equivalent to translating the coordinates so that the anchor point is at the origin (S1), then rotating them about the new origin (S2), and finally translating so that the intermediate origin is restored to the coordinates of the original anchor point (S3).</p>
- * <p>For example, the matrix representing the returned transform of new <code>Rotate (theta, x, y, z)</code> around the Z-axis is:</p>
+ * <p>This class represents an <code>Affine</code> object that scales coordinates by the specified factors. The matrix representing the scaling transformation is as follows::</p>
  * <pre>
- *             [   cos(theta)    -sin(theta)   0    x-x*cos(theta)+y*sin(theta)  ]
- *             [   sin(theta)     cos(theta)   0    y-x*sin(theta)-y*cos(theta)  ]
- *             [       0              0        1                  z              ]
- * </pre>
+ *             [ x    0   0   0 ]
+ *             [ 0    y   0   0 ]
+ *             [ 0    0   z   0 ]
  *
  * @author Alain Béarez <A@cua.li>
  */
-public class Rotate extends Transform {
-    override var wrappedTransform = javafx.scene.transform.Rotate {};
-    def wrappedRotate = bind wrappedTransform as javafx.scene.transform.Rotate;
+public class Scale extends Transform {
+    override var wrappedTransform = javafx.scene.transform.Scale {};
+    def wrappedScale = bind wrappedTransform as javafx.scene.transform.Scale;
 
-    /** Defines the angle of rotation measured in degrees. */
-    public var angle :Double on replace oldValue {  //FIXME should be a Visage angle literal instead of "degrees in double"
-        if ((isInitialized(this) and (oldValue != angle)) or (0 != angle)) {
-            wrappedRotate.setAngle(angle);
+    /** Defines the factor by which coordinates are scaled along the X axis direction. The default value is <code>1.0</code>. */
+    public var x :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != x)) or (0 != x)) {
+            wrappedScale.setX(x);
+        }
+    }
+    /** Defines the factor by which coordinates are scaled along the Y axis direction. The default value is <code>1.0</code>. */
+    public var y :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != y)) or (0 != y)) {
+            wrappedScale.setY(y);
+        }
+    }
+    /** Defines the factor by which coordinates are scaled along the Z axis direction. The default value is <code>1.0</code>. */
+    public var z :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != z)) or (0 != z)) {
+            wrappedScale.setZ(z);
         }
     }
     /** Defines the X coordinate of the rotation pivot point. */
     public var pivotX :Double on replace oldValue {
         if ((isInitialized(this) and (oldValue != pivotX)) or (0 != pivotX)) {
-            wrappedRotate.setPivotX(pivotX);
+            wrappedScale.setPivotX(pivotX);
         }
     }
     /** Defines the Y coordinate of the rotation pivot point. */
     public var pivotY :Double on replace oldValue {
         if ((isInitialized(this) and (oldValue != pivotY)) or (0 != pivotY)) {
-            wrappedRotate.setPivotY(pivotY);
+            wrappedScale.setPivotY(pivotY);
         }
     }
     /** Defines the Z coordinate of the rotation pivot point. */
     public var pivotZ :Double on replace oldValue {
         if ((isInitialized(this) and (oldValue != pivotZ)) or (0 != pivotZ)) {
-            wrappedRotate.setPivotZ(pivotZ);
-        }
-    }
-    /** Defines the axis of rotation at the pivot point. */
-    public var axis :Point3D on replace oldValue {
-        if ((isInitialized(this) and (oldValue != axis)) or (null != axis)) {
-            wrappedRotate.setAxis(axis.wrappedPoint3D);
+            wrappedScale.setPivotZ(pivotZ);
         }
     }
     /**
-     * <p>Returns a string representation of this <code>Rotate</code>. This method is intended to be used only for informational purposes. 
+     * <p>Returns a string representation of this <code>Scale</code>. This method is intended to be used only for informational purposes. 
      * The content and format of the returned string might vary between implementations. The returned string might be empty but cannot be <code>null</code>.</p>
      */
     override function toString() :String {
-        wrappedRotate.toString()
+        wrappedScale.toString()
     }
 }
-
-public def X_AXIS = Point3D.fromJavaFX(javafx.scene.transform.Rotate.X_AXIS);
-public def Y_AXIS = Point3D.fromJavaFX(javafx.scene.transform.Rotate.Y_AXIS);
-public def Z_AXIS = Point3D.fromJavaFX(javafx.scene.transform.Rotate.Z_AXIS);
