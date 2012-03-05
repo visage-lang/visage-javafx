@@ -41,7 +41,8 @@ import visage.javafx.geometry.Point3D;
  * @author Alain Béarez <A@cua.li>
  */
 public class Rotate extends Transform {
-    def wrappedRotate = javafx.scene.transform.Rotate {};
+    override var wrappedTransform = javafx.scene.transform.Rotate {};
+    def wrappedRotate = bind wrappedTransform as javafx.scene.transform.Rotate;
 
     /** Defines the angle of rotation measured in degrees. */
     public var angle :Double on replace oldValue {

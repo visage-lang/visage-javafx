@@ -33,6 +33,7 @@ package visage.javafx.scene.transform;
  * @author Alain Béarez <A@cua.li>
  */
 public abstract class Transform {
+    public-read protected var wrappedTransform :javafx.scene.transform.Transform;
 }
 
 /** 

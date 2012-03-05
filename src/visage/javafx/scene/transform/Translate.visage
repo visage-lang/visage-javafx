@@ -38,7 +38,8 @@ package visage.javafx.scene.transform;
  * @author Alain Béarez <A@cua.li>
  */
 public class Translate extends Transform {
-    def wrappedTranslate = javafx.scene.transform.Translate {};
+    override var wrappedTransform = javafx.scene.transform.Translate {};
+    def wrappedTranslate = bind wrappedTransform as javafx.scene.transform.Translate;
 
     /** Defines the distance by which coordinates are translated in the X axis direction. */
     public var x :Double on replace oldValue {

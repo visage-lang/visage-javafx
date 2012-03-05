@@ -43,6 +43,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
 import visage.javafx.scene.effect.Effect;
+import visage.javafx.scene.transform.Transform;
 
 /**
  * @author Stephen Chin <steveonjava@gmail.com>
@@ -267,7 +268,39 @@ public class Node {
         if (isInitialized(this) or scaleZ != 0) {
             wrappedNode.setScaleZ(scaleZ);
         }
-    }     
+    }
+
+    /**
+     * <p>Defines the <code>x</code> coordinate of the translation that is added to this <code>Node</code>'s transform.</p>
+     * <p>The node's final translation will be computed as <code>layoutX + translateX</code>, where <code>layoutX</code> establishes the node's stable position and <code>translateX</code> optionally makes dynamic adjustments to that position.</p>
+     * <p>This variable can be used to alter the location of a node without disturbing its <code>layoutBounds</code>, which makes it useful for animating a node's location.</p>
+    public var translateX :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != translateX)) or (0 != translateX)) {
+            wrappedNode.setTranslateX(translateX);
+        }
+    }
+
+    /**
+     * <p>Defines the <code>y</code> coordinate of the translation that is added to this <code>Node</code>'s transform.</p>
+     * <p>The node's final translation will be computed as <code>layoutY + translateY</code>, where <code>layoutY</code> establishes the node's stable position and <code>translateY</code> optionally makes dynamic adjustments to that position.</p>
+     * <p>This variable can be used to alter the location of a node without disturbing its <code>layoutBounds</code>, which makes it useful for animating a node's location.</p>
+     */
+    public var translateY :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != translateY)) or (0 != translateY)) {
+            wrappedNode.setTranslateY(translateY);
+        }
+    }
+
+    /**
+     * <p>Defines the Z coordinate of the translation that is added to the transformed coordinates of this <code>Node</code>. This value will be added to any translation defined by the transforms <code>ObservableList</code> and <code>layoutZ</code>.</p>
+     * <p>This variable can be used to alter the location of a node without disturbing its <code>layoutBounds</code>, which makes it useful for animating a node's location.</p>
+     * <p>Note that this is a conditional feature. See <code>ConditionalFeature.SCENE3D</code> for more information.</p>
+     */
+    public var translateZ :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != translateZ)) or (0 != translateZ)) {
+            wrappedNode.setTranslateZ(translateZ);
+        }
+    }
     
     /**
      * A string representation of the CSS style associated with this specific Node.
@@ -275,6 +308,11 @@ public class Node {
     public var style:String on replace{
         if (isInitialized(this) or null != style) {
             wrappedNode.setStyle(style);
+        }
+    }
+    public default var transforms :Transform[] on replace oldValue {
+        if ((isInitialized(this) and (oldValue != transforms)) or ([] != transforms)) {
+            wrappedNode.getTransforms().setAll(for (transform in transforms) transform.wrappedTransform);
         }
     }
     /**
