@@ -37,22 +37,37 @@ public class CheckBox extends ButtonBase {
     override def wrappedNode = javafx.scene.control.CheckBox {}
     public-read def wrappedCheckBox = bind wrappedNode as javafx.scene.control.CheckBox;
     
+    
+    /**
+     * <p>Determines whether the user toggling the CheckBox should cycle through all three states: checked, unchecked, and undefined.</p>
+     **/ 
     public var allowIndeterminate:Boolean on replace{
         if(isInitialized(this) or not allowIndeterminate){
             wrappedCheckBox.setAllowIndeterminate(allowIndeterminate);
         }
     }
+    
+    /**
+     * <p>Determines whether the CheckBox is in the indeterminate state.</p>
+     **/ 
     public var indeterminate:Boolean on replace{
         if(isInitialized(this) or not indeterminate){
             wrappedCheckBox.setIndeterminate(indeterminate);
         }
     }    
+    
+    /**
+     * <p>Indicates whether this CheckBox is checked.</p>
+     **/ 
  public var selected:Boolean on replace{
         if(isInitialized(this) or not selected){
             wrappedCheckBox.setSelected(selected);
         }
-    }   
+    }
 
+    /**
+     * <p>Toggles the state of the CheckBox.</p>
+     **/ 
  public function fire():Void{
         wrappedCheckBox.fire();
     }
