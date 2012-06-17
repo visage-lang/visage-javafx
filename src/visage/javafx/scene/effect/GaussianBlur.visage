@@ -1,0 +1,65 @@
+/*
+ * Copyright (c) 2011-2012, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution or use in source or binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions or the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions or the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS or CONTRIBUTORS "AS IS"
+ * or ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED or ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.scene.effect;
+
+
+/** 
+ * <p>A buffer that contains floating point data, intended for use as a parameter to effects such as DisplacementMap.</p>
+ * 
+ * @author Arivazhagan Ambigapathi <arivu86@gmail.com>
+ */
+
+public class GaussianBlur extends Effect
+
+{
+
+    override def wrappedEffect = javafx.scene.effect.GaussianBlur {};
+    public-read def wrappedGaussianBlur = bind wrappedEffect as javafx.scene.effect.GaussianBlur;
+
+
+   public var input:Effect on replace{
+        if(isInitialized(this) or input != null){
+            wrappedGaussianBlur.setInput(input.wrappedEffect);
+        }
+    } 
+
+/**
+     *<p>The radius of the blur kernel. </p>
+     *<pre>
+     *       Min: 0.0
+     *       Max: 63.0
+     *   Default: 10.0
+     *  Identity: 0.0
+     *</pre>
+    **/
+  public var radius :Double = 10.0 on replace{
+        if(isInitialized(this) or radius != 63.0){
+            wrappedGaussianBlur.setRadius(radius);
+        }
+    }
+}
