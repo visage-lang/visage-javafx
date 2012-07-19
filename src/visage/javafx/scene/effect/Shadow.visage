@@ -33,88 +33,85 @@ public class Shadow extends Effect {
     override def wrappedEffect = javafx.scene.effect.Shadow {};
     public-read def wrappedShadow = bind wrappedEffect as javafx.scene.effect.Shadow;
 
-/**
-     *<p>The vertical size of the shadow blur kernel. This attribute controls the vertical size of the total area over which the shadow of a single pixel is distributed by the blur algorithm.</p>
-     *<pre>
-     *       Min: 0.0
-     *       Max: 255.0
-     *   Default: 21.0
-     *  Identity: <1.0
-     *</pre>
-    **/
-public var height :Double on replace{
-        if(isInitialized(this) or height != 0.0){
-            wrappedShadow.setHeight(height);
-        }
-}
+    /**
+         *<p>The vertical size of the shadow blur kernel. This attribute controls the vertical size of the total area over which the shadow of a single pixel is distributed by the blur algorithm.</p>
+         *<pre>
+         *       Min: 0.0
+         *       Max: 255.0
+         *   Default: 21.0
+         *  Identity: <1.0
+         *</pre>
+        **/
+    public var height :Double on replace{
+            if(isInitialized(this) or height != 0.0){
+                wrappedShadow.setHeight(height);
+            }
+    }
 
-*<p>The radius of the shadow blur kernel. This attribute controls the distance that the shadow is spread to each side of the source pixels</p>
-     *<pre>
-     *       Min: 0.0
-     *       Max: 127.0
-     *   Default: 10.0
-     *  Identity: 0.0
-     *</pre>
-    **/
+    /*<p>The radius of the shadow blur kernel. This attribute controls the distance that the shadow is spread to each side of the source pixels</p>
+         *<pre>
+         *       Min: 0.0
+         *       Max: 127.0
+         *   Default: 10.0
+         *  Identity: 0.0
+         *</pre>
+        **/
 
-public var radius :Double on replace{
-        if(isInitialized(this) or radius != 0.0){
-            wrappedShadow.setRadius(radius);
-        }
-}
+    public var radius :Double on replace{
+            if(isInitialized(this) or radius != 0.0){
+                wrappedShadow.setRadius(radius);
+            }
+    }
 
-*<p>The horizontal size of the shadow blur kernel. This attribute controls the horizontal size of the total area over which the shadow of a single pixel is distributed by the blur algorithm. </p>
-     *<pre>
-     *       Min: 0.0
-     *       Max: 255.0
-     *   Default: 21.0
-     *  Identity: <1.0
-     *</pre>
-    **/
-public var width :Double on replace{
-        if(isInitialized(this) or width != 0.0){
-            wrappedShadow.setWidth(width);
-        }
-}
+    /*<p>The horizontal size of the shadow blur kernel. This attribute controls the horizontal size of the total area over which the shadow of a single pixel is distributed by the blur algorithm. </p>
+         *<pre>
+         *       Min: 0.0
+         *       Max: 255.0
+         *   Default: 21.0
+         *  Identity: <1.0
+         *</pre>
+        **/
+    public var width :Double on replace{
+            if(isInitialized(this) or width != 0.0){
+                wrappedShadow.setWidth(width);
+            }
+    }
 
-/*The input for this Effect. If set to null, or left unspecified, a graphical image of the Node 
-to which the Effect is attached will be used as the input.*/
-public var input:Effect on replace{
-        if(isInitialized(this) or input != null){
-            wrappedShadow.setInput(input.wrappedEffect);
-        }
-    }    
-/**
-     *<p>The shadow Color. </p>
-     *<pre>
-     *       Min: n/a
-     *       Max: n/a
-     *   Default: Color.BLACK
-     *  Identity: n/a
-     *</pre>
-    **/
+    /*The input for this Effect. If set to null, or left unspecified, a graphical image of the Node 
+    to which the Effect is attached will be used as the input.*/
+    public var input:Effect on replace{
+            if(isInitialized(this) or input != null){
+                wrappedShadow.setInput(input.wrappedEffect);
+            }
+        }    
+    /**
+         *<p>The shadow Color. </p>
+         *<pre>
+         *       Min: n/a
+         *       Max: n/a
+         *   Default: Color.BLACK
+         *  Identity: n/a
+         *</pre>
+        **/
 
-public var color :Color on replace{
-        if(isInitialized(this) or color != null){
-           wrappedShadow.setColor(visage.javafx.scene.paint.Paint.toJavaFX(color));
-       }	
-}
+    public var color :Color on replace{
+            if(isInitialized(this) or color != null){
+               wrappedShadow.setColor(visage.javafx.scene.paint.Paint.toJavaFX(color));
+           }	
+    }
 
-/**
-     *<p>The algorithm used to blur the shadow.  </p>
-     *<pre>
-     *       Min: n/a
-     *       Max: n/a
-     *   Default: BlurType.THREE_PASS_BOX
-     *  Identity: n/a
-     *</pre>
-    **/
- public var blurType : javafx.scene.effect.BlurType= javafx.scene.effect.BlurType.GAUSSIAN on replace {
-         if(isInitialized(this) or color != null and blurType != javafx.scene.effect.BlurType.GAUSSIAN) {
-            wrappedShadow.setBlurType(blurType);
-        }
-
-}
-
-
+    /**
+         *<p>The algorithm used to blur the shadow.  </p>
+         *<pre>
+         *       Min: n/a
+         *       Max: n/a
+         *   Default: BlurType.THREE_PASS_BOX
+         *  Identity: n/a
+         *</pre>
+        **/
+     public var blurType : javafx.scene.effect.BlurType= javafx.scene.effect.BlurType.GAUSSIAN on replace {
+             if(isInitialized(this) or color != null and blurType != javafx.scene.effect.BlurType.GAUSSIAN) {
+                wrappedShadow.setBlurType(blurType);
+             }
+    }
 }
