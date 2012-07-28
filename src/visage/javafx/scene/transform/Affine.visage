@@ -1,0 +1,138 @@
+/*
+ * Copyright (c) 2010-2012, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/** 
+ * <p>This class represents an <code>Affine</code> object that rotates coordinates around an anchor point. This operation is equivalent to translating the coordinates so that the anchor point is at the origin (S1), then rotating them about the new origin (S2), and finally translating so that the intermediate origin is restored to the coordinates of the original anchor point (S3).</p>
+ * <p>For example, the matrix representing the returned transform of new <code>Rotate (theta, x, y, z)</code> around the Z-axis is:</p>
+ * <pre>
+ *             [ x']   [  mxx  mxy  mxz  tx  ] [ x ]   [ mxx * x + mxy * y + mxz * z + tx ]
+ *             [ y'] = [  myx  myy  myz  ty  ] [ y ] = [ myx * x + myy * y + myz * z + ty ]
+ *             [ z']   [  mzx  mzy  mzz  tz  ] [ z ]   [ mzx * x + mzy * y + mzz * z + tz ]
+ *                                             [ 1 ]
+ * </pre>
+ *
+ * @author Arivazhagan Ambigapathi <arivu86@gmail.com>
+ */
+
+package visage.javafx.scene.transform;
+
+public class Affine extends Transform
+{
+    override var wrappedTransform = javafx.scene.transform.Affine {};
+    def wrappedAffine = bind wrappedTransform as javafx.scene.transform.Affine;
+
+/** Defines the X coordinate scaling element of the 3x4 matrix. */
+    public var mxx :Double on replace oldValue {  //FIXME should be a Visage angle literal instead of "degrees in double"
+        if ((isInitialized(this) and (oldValue != mxx)) or (0 != mxx)) {
+            wrappedAffine.setMxx(mxx);
+        }
+    }
+
+/** Defines the XY coordinate element of the 3x4 matrix. */
+    public var mxy :Double on replace oldValue {  //FIXME should be a Visage angle literal instead of "degrees in double"
+        if ((isInitialized(this) and (oldValue != mxy)) or (0 != mxy)) {
+            wrappedAffine.setMxy(mxy);
+        }
+    }
+
+/** Defines the XZ coordinate element of the 3x4 matrix. */
+    public var mxz :Double on replace oldValue {  //FIXME should be a Visage angle literal instead of "degrees in double"
+        if ((isInitialized(this) and (oldValue != mxz)) or (0 != mxz)) {
+            wrappedAffine.setMxz(mxz);
+        }
+    }
+
+/** Defines the YX coordinate element of the 3x4 matrix. */
+    public var myx :Double on replace oldValue {  //FIXME should be a Visage angle literal instead of "degrees in double"
+        if ((isInitialized(this) and (oldValue != myx)) or (0 != myx)) {
+            wrappedAffine.setMyx(myx);
+        }
+    }
+
+/** Defines the YX coordinate element of the 3x4 matrix. */
+    public var myy :Double on replace oldValue {  //FIXME should be a Visage angle literal instead of "degrees in double"
+        if ((isInitialized(this) and (oldValue != myy)) or (0 != myy)) {
+            wrappedAffine.setMyy(myy);
+        }
+    }
+
+/** Defines the YZ coordinate element of the 3x4 matrix. */
+    public var myz :Double on replace oldValue {  //FIXME should be a Visage angle literal instead of "degrees in double"
+        if ((isInitialized(this) and (oldValue != myz)) or (0 != myz)) {
+            wrappedAffine.setMyz(myz);
+        }
+    }
+
+/** Defines the ZX coordinate element of the 3x4 matrix. */
+    public var mzx :Double on replace oldValue {  //FIXME should be a Visage angle literal instead of "degrees in double"
+        if ((isInitialized(this) and (oldValue != mzx)) or (0 != mzx)) {
+            wrappedAffine.setMzx(mzx);
+        }
+    }
+
+/** Defines the ZY coordinate element of the 3x4 matrix. */
+    public var mzy :Double on replace oldValue {  //FIXME should be a Visage angle literal instead of "degrees in double"
+        if ((isInitialized(this) and (oldValue != mzy)) or (0 != mzy)) {
+            wrappedAffine.setMzy(mzy);
+        }
+    }
+
+
+/** Defines the ZZ coordinate element of the 3x4 matrix. */
+    public var mzz :Double on replace oldValue {  //FIXME should be a Visage angle literal instead of "degrees in double"
+        if ((isInitialized(this) and (oldValue != mzz)) or (0 != mzz)) {
+            wrappedAffine.setMzz(mzz);
+        }
+    }
+
+/** Defines the X coordinate translation element of the 3x4 matrix.*/
+    public var tx :Double on replace oldValue {  //FIXME should be a Visage angle literal instead of "degrees in double"
+        if ((isInitialized(this) and (oldValue != tx)) or (0 != tx)) {
+            wrappedAffine.setTx(tx);
+        }
+    }
+
+
+/** Defines the Y coordinate translation element of the 3x4 matrix.*/
+    public var ty :Double on replace oldValue {  //FIXME should be a Visage angle literal instead of "degrees in double"
+        if ((isInitialized(this) and (oldValue != ty)) or (0 != ty)) {
+            wrappedAffine.setTy(ty);
+        }
+    }
+
+
+/** Defines the Z coordinate translation element of the 3x4 matrix.*/
+    public var tz :Double on replace oldValue {  //FIXME should be a Visage angle literal instead of "degrees in double"
+        if ((isInitialized(this) and (oldValue != tz)) or (0 != tz)) {
+            wrappedAffine.setTz(tz);
+        }
+    }
+
+
+
+}
