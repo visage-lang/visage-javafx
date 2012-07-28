@@ -1,0 +1,158 @@
+/*
+ * Copyright (c) 2011-2012, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution or use in source or binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions or the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions or the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS or CONTRIBUTORS "AS IS"
+ * or ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED or ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.scene.effect;
+
+/*@author Arivazhagan Ambigapathi <arivu86@gmail.com>*/
+
+public class DropShadow extends Effect
+{
+    override def wrappedEffect = javafx.scene.effect.DropShadow {};
+    public-read def wrappedDropShadow = bind wrappedEffect as javafx.scene.effect.DropShadow;
+
+/**
+     *<p>The vertical size of the shadow blur kernel. This attribute controls the vertical size of the total area over which the shadow of a single pixel is distributed by the blur algorithm.</p>
+     *<pre>
+     *       Min: 0.0
+     *       Max: 255.0
+     *   Default: 21.0
+     *  Identity: <1.0
+     *</pre>
+    **/
+public var height :Double on replace{
+        if(isInitialized(this) or height != 0.0){
+            wrappedDropShadow.setHeight(height);
+        }
+}
+
+/**<p>The radius of the shadow blur kernel. This attribute controls the distance that the shadow is spread to each side of the source pixels</p>
+     *<pre>
+     *       Min: 0.0
+     *       Max: 127.0
+     *   Default: 10.0
+     *  Identity: 0.0
+     *</pre>
+    **/
+
+public var radius :Double on replace{
+        if(isInitialized(this) or radius != 0.0){
+            wrappedDropShadow.setRadius(radius);
+        }
+}
+
+/**<p>The horizontal size of the shadow blur kernel. This attribute controls the horizontal size of the total area over which the shadow of a single pixel is distributed by the blur algorithm. </p>
+     *<pre>
+     *       Min: 0.0
+     *       Max: 255.0
+     *   Default: 21.0
+     *  Identity: <1.0
+     *</pre>
+    **/
+public var width :Double on replace{
+        if(isInitialized(this) or width != 0.0){
+            wrappedDropShadow.setWidth(width);
+        }
+}
+/**
+     *<p>The shadow Color. </p>
+     *<pre>
+     *       Min: n/a
+     *       Max: n/a
+     *   Default: Color.BLACK
+     *  Identity: n/a
+     *</pre>
+    **/
+
+public var color :Color on replace{
+        if(isInitialized(this) or color != null){
+           wrappedDropShadow.setColor(visage.javafx.scene.paint.Paint.toJavaFX(color));
+       }	
+}
+
+/**
+     *<p>The algorithm used to blur the shadow.  </p>
+     *<pre>
+     *       Min: n/a
+     *       Max: n/a
+     *   Default: BlurType.THREE_PASS_BOX
+     *  Identity: n/a
+     *</pre>
+    **/
+ public var blurType : javafx.scene.effect.BlurType= javafx.scene.effect.BlurType.GAUSSIAN on replace {
+         if(isInitialized(this) or color != null and blurType != javafx.scene.effect.BlurType.GAUSSIAN) {
+            wrappedDropShadow.setBlurType(blurType);
+        }
+
+}
+
+/**
+     *<p>The shadow offset in the x direction, in pixels. </p>
+     *<pre>
+     *       Min: n/a
+     *       Max: n/a
+     *   Default: 0.0
+     *  Identity: 0.0
+     *</pre>
+    **/
+ public var offsetX :Double on replace{
+        if(isInitialized(this)){
+            wrappedDropShadow.setOffsetX(offsetX);
+        }
+    }
+
+
+/**
+     *<p>The shadow offset in the y direction, in pixels. </p>
+     *<pre>
+     *       Min: n/a
+     *       Max: n/a
+     *   Default: 0.0
+     *  Identity: 0.0
+     *</pre>
+    **/
+ public var offsetY :Double on replace{
+        if(isInitialized(this)){
+            wrappedDropShadow.setOffsetY(offsetY);
+        }
+    }
+
+/**
+     *<p>The spread of the shadow. The spread is the portion of the radius where the contribution of the source material will be 100%.</p>
+     *<pre>
+     *       Min: 0.0
+     *       Max: 1.0
+     *   Default: 0.0
+     *  Identity: 0.0
+     *</pre>
+    **/
+ public var spread :Double on replace{
+        if(isInitialized(this) or spread!=1.0 ){
+            wrappedDropShadow.setSpread(spread);
+        }
+    }
+
+}
