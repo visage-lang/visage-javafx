@@ -34,8 +34,8 @@ public class ToggleButton extends ButtonBase{
     override def wrappedNode = javafx.scene.control.ToggleButton {}
     public-read def wrappedToggleButton = bind wrappedNode as javafx.scene.control.ToggleButton;
     
-    public var selected:Boolean on replace{
-        if(isInitialized(this) or not selected){
+    public var selected:Boolean on replace oldValue{
+        if(isInitialized(this) or not oldValue){
             wrappedToggleButton.setSelected(selected);
         }
     }
