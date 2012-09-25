@@ -41,8 +41,8 @@ public class CheckBox extends ButtonBase {
     /**
      * <p>Determines whether the user toggling the CheckBox should cycle through all three states: checked, unchecked, and undefined.</p>
      **/ 
-    public var allowIndeterminate:Boolean on replace{
-        if(isInitialized(this) or not allowIndeterminate){
+    public var allowIndeterminate:Boolean on replace oldValue{
+        if(isInitialized(this) or not oldValue){
             wrappedCheckBox.setAllowIndeterminate(allowIndeterminate);
         }
     }
@@ -50,8 +50,8 @@ public class CheckBox extends ButtonBase {
     /**
      * <p>Determines whether the CheckBox is in the indeterminate state.</p>
      **/ 
-    public var indeterminate:Boolean on replace{
-        if(isInitialized(this) or not indeterminate){
+    public var indeterminate:Boolean on replace oldValue{
+        if(isInitialized(this) or not oldValue){
             wrappedCheckBox.setIndeterminate(indeterminate);
         }
     }    
@@ -59,8 +59,8 @@ public class CheckBox extends ButtonBase {
     /**
      * <p>Indicates whether this CheckBox is checked.</p>
      **/ 
- public var selected:Boolean on replace{
-        if(isInitialized(this) or not selected){
+ public var selected:Boolean on replace oldValue{
+        if(isInitialized(this) or not oldValue){
             wrappedCheckBox.setSelected(selected);
         }
     }
