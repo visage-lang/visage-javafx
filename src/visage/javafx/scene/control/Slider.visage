@@ -1,0 +1,141 @@
+/*
+ * Copyright (c) 2010-2011, Visage Project
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name Visage nor the names of its contributors may be used
+ *    to endorse or promote products derived from this software without
+ *    specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+package visage.javafx.scene.control;
+/** 
+ * <p> The Slider Control is used to display a continuous or discrete range of valid numeric choices and allows the user to interact with the control. It is typically represented visually as having a "track" and a "knob" or "thumb" which is dragged within the track. The Slider can optionally show tick marks and labels indicating the different slider position values.</p>
+ * 
+ * @author Shiv Kumar Ganesh <gshiv.sk@gmail.com>
+ */
+
+
+public class Slider extends Control {
+    override def wrappedNode = javafx.scene.control.Slider {}
+    public-read def wrappedSlider = bind wrappedNode as javafx.scene.control.Slider;
+    
+    
+    
+    /**
+     * <p>The amount by which to adjust the slider if the track of the slider is clicked. This is used when manipulating the slider position using keys. If snapToTicks is true then the nearest tick mark to the adjusted value will be used.</p>
+     **/
+    public var blockIncrement:Number on replace{
+	if(isInitialized(this) or  blockIncrement !=0)
+	{
+		wrappedSlider.setBlockIncrement(blockIncrement);
+	}
+    }
+    
+     /**
+     * <p>The unit distance between major tick marks. For example, if the min is 0 and the max is 100 and the majorTickUnit is 25, then there would be 5 tick marks: one at position 0, one at position 25, one at position 50, one at position 75, and a final one at position 100.</p>
+     **/
+    public var majorTickUnit:Number on replace{
+	if(isInitialized(this) or majorTickUnit != 0)
+	{
+		wrappedSlider.setMajorTickUnit(majorTickUnit);
+	}
+    }
+    
+     /**
+     * <p>The unit distance between major tick marks. For example, if the min is 0 and the max is 100 and the majorTickUnit is 25, then there would be 5 tick marks: one at position 0, one at position 25, one at position 50, one at position 75, and a final one at position 100.</p>
+     **/
+    public var max:Number on replace{
+	if((isInitialized(this) or max != 0 ) and (max > min))
+	{
+		wrappedSlider.setMax(max);
+	}
+    }
+    
+     /**
+     * <p>The unit distance between major tick marks. For example, if the min is 0 and the max is 100 and the majorTickUnit is 25, then there would be 5 tick marks: one at position 0, one at position 25, one at position 50, one at position 75, and a final one at position 100.</p>
+     **/
+    public var min:Number on replace{
+	if((isInitialized(this) or min != 0 ) and (min < max))
+	{
+		wrappedSlider.setMin(min);
+	}
+    }
+    
+     /**
+     * <p>The unit distance between major tick marks. For example, if the min is 0 and the max is 100 and the majorTickUnit is 25, then there would be 5 tick marks: one at position 0, one at position 25, one at position 50, one at position 75, and a final one at position 100.</p>
+     **/
+    public var minorTickCount:Number on replace{
+	if((isInitialized(this) or minorTickCount != 0 ) and (minorTickCount >=0))
+	{
+		wrappedSlider.setMinorTickCount(minorTickCount);
+	}
+    }
+    
+     /**
+     * <p>Determines whether the user toggling the CheckBox should cycle through all three states: checked, unchecked, and undefined.</p>
+     **/ 
+    public var showTickLabels:Boolean on replace oldValue{
+        if(isInitialized(this) or not oldValue){
+            wrappedSlider.setShowTickLabels(showTickLabels);
+        }
+    }
+    
+     /**
+     * <p>Determines whether the user toggling the CheckBox should cycle through all three states: checked, unchecked, and undefined.</p>
+     **/ 
+    public var showTickMarks:Boolean on replace oldValue{
+        if(isInitialized(this) or not oldValue){
+            wrappedSlider.setShowTickMarks(showTickMarks);
+        }
+    }
+    
+     /**
+     * <p>Determines whether the user toggling the CheckBox should cycle through all three states: checked, unchecked, and undefined.</p>
+     **/ 
+    public var snapToTicks:Boolean on replace oldValue{
+        if(isInitialized(this) or not oldValue){
+            wrappedSlider.setSnapToTicks(snapToTicks);
+        }
+    }
+    
+     /**
+     * <p>Determines whether the user toggling the CheckBox should cycle through all three states: checked, unchecked, and undefined.</p>
+     **/ 
+    public var valueChanging:Boolean on replace oldValue{
+        if(isInitialized(this) or not oldValue){
+            wrappedSlider.setValueChanging(valueChanging);
+        }
+    }
+    
+     /**
+     * <p>Determines whether the user toggling the CheckBox should cycle through all three states: checked, unchecked, and undefined.</p>
+     **/ 
+    public var value:Number on replace{
+        if(isInitialized(this) or value !=0){
+            wrappedSlider.setValue(value);
+        }
+    }
+    
+    }
+   
+
+    
+
