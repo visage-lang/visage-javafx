@@ -60,7 +60,7 @@ public class Slider extends Control {
     }
     
      /**
-     * <p>The unit distance between major tick marks. For example, if the min is 0 and the max is 100 and the majorTickUnit is 25, then there would be 5 tick marks: one at position 0, one at position 25, one at position 50, one at position 75, and a final one at position 100.</p>
+     * <p>The maximum value represented by this Slider.</p>
      **/
     public var max:Number on replace{
 	if((isInitialized(this) or max != 0 ) and (max > min))
@@ -70,7 +70,7 @@ public class Slider extends Control {
     }
     
      /**
-     * <p>The unit distance between major tick marks. For example, if the min is 0 and the max is 100 and the majorTickUnit is 25, then there would be 5 tick marks: one at position 0, one at position 25, one at position 50, one at position 75, and a final one at position 100.</p>
+     * <p>The minimum value represented by this Slider.</p>
      **/
     public var min:Number on replace{
 	if((isInitialized(this) or min != 0 ) and (min < max))
@@ -80,7 +80,7 @@ public class Slider extends Control {
     }
     
      /**
-     * <p>The unit distance between major tick marks. For example, if the min is 0 and the max is 100 and the majorTickUnit is 25, then there would be 5 tick marks: one at position 0, one at position 25, one at position 50, one at position 75, and a final one at position 100.</p>
+     * <p>The number of minor ticks to place between any two major ticks.</p>
      **/
     public var minorTickCount:Number on replace{
 	if((isInitialized(this) or minorTickCount != 0 ) and (minorTickCount >=0))
@@ -90,7 +90,7 @@ public class Slider extends Control {
     }
     
      /**
-     * <p>Determines whether the user toggling the CheckBox should cycle through all three states: checked, unchecked, and undefined.</p>
+     * <p>Indicates that the labels for tick marks should be shown.</p>
      **/ 
     public var showTickLabels:Boolean on replace oldValue{
         if(isInitialized(this) or not oldValue){
@@ -99,7 +99,7 @@ public class Slider extends Control {
     }
     
      /**
-     * <p>Determines whether the user toggling the CheckBox should cycle through all three states: checked, unchecked, and undefined.</p>
+     * <p>Specifies whether the Skin implementation should show tick marks.</p>
      **/ 
     public var showTickMarks:Boolean on replace oldValue{
         if(isInitialized(this) or not oldValue){
@@ -108,7 +108,7 @@ public class Slider extends Control {
     }
     
      /**
-     * <p>Determines whether the user toggling the CheckBox should cycle through all three states: checked, unchecked, and undefined.</p>
+     * <p>Indicates whether the value of the Slider should always be aligned with the tick marks.</p>
      **/ 
     public var snapToTicks:Boolean on replace oldValue{
         if(isInitialized(this) or not oldValue){
@@ -117,7 +117,7 @@ public class Slider extends Control {
     }
     
      /**
-     * <p>Determines whether the user toggling the CheckBox should cycle through all three states: checked, unchecked, and undefined.</p>
+     * <p>When true, indicates the current value of this Slider is changing.</p>
      **/ 
     public var valueChanging:Boolean on replace oldValue{
         if(isInitialized(this) or not oldValue){
@@ -126,7 +126,7 @@ public class Slider extends Control {
     }
     
      /**
-     * <p>Determines whether the user toggling the CheckBox should cycle through all three states: checked, unchecked, and undefined.</p>
+     * <p>The current value represented by this Slider.</p>
      **/ 
     public var value:Number on replace{
         if(isInitialized(this) or value !=0){
