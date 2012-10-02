@@ -27,20 +27,33 @@
  */
 package visage.javafx.scene.control;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
 /** 
  * SelectionModel is an abstract class used by UI controls to provide a consistent API for maintaining selection.
  * @author William Antonio <william.a.siqueira@gmail.com>
  */
 public abstract class SelectionModel {    
-
-
-    //TODO: Reflect the changes on index/item to the selected index and selected item attributes
-    postinit{
     
+    //Letting user init this as we don't have known concrete class...
+    public-init protected var wrappedSelectionModel:javafx.scene.control.SelectionModel;
+
+    postinit{
+         registerListeners();  
     }
-
-    public-read protected var wrappedSelectionModel:javafx.scene.control.SelectionModel;
-
+    
+   /**
+    * Register listeners necessary to reflect the changes from JavaFX side in our selectionModel
+   **/   
+   protected function registerListeners():Void{
+	wrappedSelectionModel.selectedItemProperty().addListener(
+        ChangeListener{
+            override function changed( observable:ObservableValue, oldValue:Object , newValue:Object ):Void{
+                selectedItem = newValue;
+            }
+        });     
+   }   
     /**
       * Refers to the selected index property, which is used to indicate the currently selected index value in the selection model.
     **/
@@ -61,7 +74,7 @@ public abstract class SelectionModel {
     /**
     * This property is available to test whether there are any selected indices/items.
     **/
-    public-read var empty:Boolean = bind  wrappedSelectionModel.isEmpty();
+    public var empty:Boolean = bind  wrappedSelectionModel.isEmpty();
 
     /**
       * A method that clears any selection prior to setting the selection to the given index.
@@ -78,12 +91,18 @@ public abstract class SelectionModel {
    }
  
     /**
-      * Convenience method to inform if the given index is currently selected in this SelectionModel.
+      * Clears the selection of the given index, if it is currently selected.
     **/
    public function clearSelection(index:Integer):Void{
+        wrappedSelectionModel.clearSelection(index);
+   }
+
+    /**
+      * Convenience method to inform if the given index is currently selected in this SelectionModel.
+    **/
+   public function isSelected(index:Integer):Boolean{
         wrappedSelectionModel.isSelected(index);
    }
- 
     /**
       * This will select the given index in the selection model, assuming the index is within the valid range
     **/
@@ -125,5 +144,5 @@ public abstract class SelectionModel {
    public function selectPrevious():Void{
         wrappedSelectionModel.selectPrevious();
    }
-   
+
 }

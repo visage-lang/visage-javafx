@@ -25,13 +25,15 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package visage.javafx.scene.control;
-
-import visage.javafx.scene.Parent;
+package visage.javafx.scene.media;
 
 /**
- * @author Stephen Chin <steveonjava@gmail.com>
+ *  @author William Antonio <william.a.siqueira@gmail.com>
  */
-public class Control extends Parent {
-    public-read def wrappedControl = bind wrappedNode as javafx.scene.control.Control;
+public class Media {
+    public-read var wrappedMedia:javafx.scene.media.Media;
+    
+    public-init default var source:String on replace{
+	wrappedMedia = new javafx.scene.media.Media(source);
+    };
 }

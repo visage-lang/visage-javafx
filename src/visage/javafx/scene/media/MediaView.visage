@@ -25,13 +25,31 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package visage.javafx.scene.control;
+package visage.javafx.scene.media;
 
-import visage.javafx.scene.Parent;
-
+import visage.javafx.scene.Node;
 /**
- * @author Stephen Chin <steveonjava@gmail.com>
+ *  @author William Antonio <william.a.siqueira@gmail.com>
  */
-public class Control extends Parent {
-    public-read def wrappedControl = bind wrappedNode as javafx.scene.control.Control;
+public class MediaView extends Node{
+
+   override def wrappedNode = javafx.scene.media.MediaView{};    
+    public-read def wrappedMediaView = bind wrappedNode as javafx.scene.media.MediaView;
+    
+    public default var mediaPlayer:MediaPlayer on replace{
+         if (isInitialized(this) or mediaPlayer != null) {
+	    wrappedMediaView.setMediaPlayer(mediaPlayer.wrappedMediaPlayer);
+	 }
+    }
+
+    public var fitHeight:Double on replace {
+        if(isInitialized(this) or fitHeight != 0){
+             wrappedMediaView.setFitHeight(fitHeight);
+        }
+    }        
+    public var fitWidth:Double on replace{
+        if(isInitialized(this) or fitWidth != 0){
+             wrappedMediaView.setFitWidth(fitWidth);
+        }
+    }            
 }

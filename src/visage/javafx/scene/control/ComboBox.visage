@@ -27,11 +27,37 @@
  */
 package visage.javafx.scene.control;
 
-import visage.javafx.scene.Parent;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
-/**
- * @author Stephen Chin <steveonjava@gmail.com>
+/** 
+ * 
+ * @author William Antonio <william.a.siqueira@gmail.com>
  */
-public class Control extends Parent {
-    public-read def wrappedControl = bind wrappedNode as javafx.scene.control.Control;
+public class ComboBox extends ComboBoxBase {
+    override def wrappedNode = javafx.scene.control.ComboBox {}
+    public-read def wrappedComboBox = bind wrappedComboBoxBase as javafx.scene.control.ComboBox;
+    
+    init{
+         //JavaFX creates a SingleSelectionModel implementation, so we take it and register listeners to get the changes
+	selectionModel = InternalSingleSelectionModel{wrappedSelectionModel: wrappedComboBox.getSelectionModel()}
+    }
+    
+    public default var items:Object[] on replace {
+        if (isInitialized(this) or items != []) {
+	    wrappedComboBox.getItems().removeAll();
+	    for (item in items){
+	        wrappedComboBox.getItems().add(item);
+	    }
+	    //wrappedComboBox.getItems().setAll(for (item in items) item);
+        }
+    }
+    
+    public var selectionModel:SingleSelectionModel on replace{
+         if (isInitialized(this) or selectionModel != null) {
+	    wrappedComboBox.setSelectionModel(selectionModel.wrappedSingleSelectionModel);
+	 }
+    }
 }
+//Creating an internal class to wrap the SingleSeletionModel.
+class InternalSingleSelectionModel extends SingleSelectionModel{}

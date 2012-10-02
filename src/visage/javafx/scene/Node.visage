@@ -62,6 +62,65 @@ public class Node {
             wrappedNode.setLayoutY(layoutY);
         }
     }
+    
+/**
+     * <p>Property for overriding the region's computed minimum width. This should only be set if the region's internally computed minimum width doesn't meet the application's layout needs.</p>
+     * <p>Defaults to the <code>USE_COMPUTED_SIZE</code> flag, which means that <code>minWidth(forHeight)</code> will return the region's internally computed minimum width.</p>
+     * <p>Setting this value to the <code>USE_PREF_SIZE</code> flag will cause <code>minWidth(forHeight)</code> to return the region's preferred width, enabling applications to easily restrict the resizability of the region.</p>
+     */
+    public var minWidth :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != minWidth)) or (0 != minWidth)) {
+            wrappedNode.minWidth(minWidth)
+        }
+    }
+    /**
+     * <p>Property for overriding the region's computed minimum height. This should only be set if the region's internally computed minimum height doesn't meet the application's layout needs.</p>
+     * <p>Defaults to the <code>USE_COMPUTED_SIZE</code> flag, which means that <code>minHeight(forWidth)</code> will return the region's internally computed minimum height.</p>
+     * <p>Setting this value to the <code>USE_PREF_SIZE</code> flag will cause <code>minHeight(forWidth)</code> to return the region's preferred height, enabling applications to easily restrict the resizability of the region.</p>
+     */
+    public var minHeight :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != minHeight)) or (0 != minHeight)) {
+            wrappedNode.minHeight(minHeight)
+        }
+    }
+    /**
+     * <p>Property for overriding the region's computed preferred width. This should only be set if the region's internally computed preferred width doesn't meet the application's layout needs.</p>
+     * <p>Defaults to the <code>USE_COMPUTED_SIZE</code> flag, which means that <code>prefWidth(forHeight)</code> will return the region's internally computed preferred width.</p>
+     */
+    public var prefWidth :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != prefWidth)) or (0 != prefWidth)) {
+            wrappedNode.prefWidth(prefWidth)
+        }
+    }
+    /**
+     * <p>Property for overriding the region's computed preferred height. This should only be set if the region's internally computed preferred height doesn't meet the application's layout needs.</p>
+     * <p>Defaults to the <code>USE_COMPUTED_SIZE</code> flag, which means that <code>prefHeight(forWidth)</code> will return the region's internally computed preferred height.</p>
+     */
+    public var prefHeight :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != prefHeight)) or (0 != prefHeight)) {
+            wrappedNode.prefHeight(prefHeight)
+        }
+    }
+    /**
+     * <p>Property for overriding the region's computed maximum width. This should only be set if the region's internally computed maximum width doesn't meet the application's layout needs.</p>
+     * <p>Defaults to the <code>USE_COMPUTED_SIZE</code> flag, which means that <code>maxWidth(forHeight)</code> will return the region's internally computed maximum width.</p>
+     * <p>Setting this value to the <code>USE_PREF_SIZE</code> flag will cause <code>maxWidth(forHeight)</code> to return the region's preferred width, enabling applications to easily restrict the resizability of the region.</p>
+     */
+    public var maxWidth :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != maxWidth)) or (0 != maxWidth)) {
+            wrappedNode.maxWidth(maxWidth)
+        }
+    }
+    /**
+     * <p>Property for overriding the region's computed maximum height. This should only be set if the region's internally computed maximum height doesn't meet the application's layout needs.</p>
+     * <p>Defaults to the <code>USE_COMPUTED_SIZE</code> flag, which means that <code>maxHeight(forWidth)</code> will return the region's internally computed maximum height.</p>
+     * <p>Setting this value to the <code>USE_PREF_SIZE</code> flag will cause <code>maxHeight(forWidth)</code> to return the region's preferred height, enabling applications to easily restrict the resizability of the region.</p>
+     */
+    public var maxHeight :Double on replace oldValue {
+        if ((isInitialized(this) and (oldValue != maxHeight)) or (0 != maxHeight)) {
+            wrappedNode.maxHeight(maxHeight)
+        }
+    } 
     /**
      * <p>Defines the angle of rotation about the Node's center, measured in degrees. This is used to rotate the Node.</p>
      * <p>This rotation factor is not included in layoutBounds by default, which makes it ideal for rotating the entire node after all effects and transforms have been taken into account.</p>
