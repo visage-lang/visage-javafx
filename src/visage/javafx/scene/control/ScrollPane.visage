@@ -25,18 +25,22 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package visage.javafx.scene.media;
+package visage.javafx.scene.control;
 
-/**
- *  @author William Antonio <william.a.siqueira@gmail.com>
+import visage.javafx.scene.Node;
+
+/** 
+ * 
+ * @author William Antonio <william.a.siqueira@gmail.com>
  */
-public class MediaPlayer {
-    public-read var wrappedMediaPlayer:javafx.scene.media.MediaPlayer;
+public class ScrollPane extends Control {
+    override def wrappedNode = javafx.scene.control.ScrollPane {}
+    public-read def wrappedScrollPane = bind wrappedNode as javafx.scene.control.ScrollPane;
     
-    public-init default var media:Media on replace oldValue{
-         if ((isInitialized(this) and (oldValue != media)) or (null != media)) {
-		wrappedMediaPlayer = new javafx.scene.media.MediaPlayer(media.wrappedMedia);
-	}
-    };
+    public default var content:Node on replace oldValue{
+         if (isInitialized(this) or content != null) {
+            wrappedScrollPane.setContent(content.wrappedNode);
+        }
+    }
     
-}
+ }   

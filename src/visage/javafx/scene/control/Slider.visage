@@ -26,17 +26,15 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 package visage.javafx.scene.control;
+
 /** 
  * <p> The Slider Control is used to display a continuous or discrete range of valid numeric choices and allows the user to interact with the control. It is typically represented visually as having a "track" and a "knob" or "thumb" which is dragged within the track. The Slider can optionally show tick marks and labels indicating the different slider position values.</p>
  * 
  * @author Shiv Kumar Ganesh <gshiv.sk@gmail.com>
  */
-
-
 public class Slider extends Control {
     override def wrappedNode = javafx.scene.control.Slider {}
     public-read def wrappedSlider = bind wrappedNode as javafx.scene.control.Slider;
-    
     
     
     /**
