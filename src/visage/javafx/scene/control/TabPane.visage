@@ -27,37 +27,32 @@
  */
 package visage.javafx.scene.control;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import visage.javafx.scene.Node;
 
 /** 
  * 
  * @author William Antonio <william.a.siqueira@gmail.com>
  */
-public class ComboBox extends ComboBoxBase {
-    override def wrappedNode = javafx.scene.control.ComboBox {}
-    public-read def wrappedComboBox = bind wrappedComboBoxBase as javafx.scene.control.ComboBox;
+public class TabPane extends Control {
+    override def wrappedNode = javafx.scene.control.TabPane {}
+    public-read def wrappedTabPane = bind wrappedNode as javafx.scene.control.TabPane;
     
     postinit{
          //JavaFX creates a SingleSelectionModel implementation, so we take it and register listeners to get the changes
-	selectionModel = InternalSingleSelectionModel{wrappedSelectionModel: wrappedComboBox.getSelectionModel()}
+	selectionModel = InternalSingleSelectionModel{wrappedSelectionModel: wrappedTabPane.getSelectionModel()}
     }
     
-    public default var items:Object[] on replace {
-        if (isInitialized(this) or items != []) {
-	    wrappedComboBox.getItems().removeAll();
-	    for (item in items){
-	        wrappedComboBox.getItems().add(item);
-	    }
-	    //wrappedComboBox.getItems().setAll(for (item in items) item);
+    public default var tabs:Tab[] on replace {
+        if (isInitialized(this) or tabs != []) {
+            wrappedTabPane.getTabs().setAll(for (tab in tabs) tab.wrappedTab);
         }
     }
     
     public var selectionModel:SingleSelectionModel on replace{
          if (isInitialized(this) or selectionModel != null) {
-	    wrappedComboBox.setSelectionModel(selectionModel.wrappedSingleSelectionModel);
+	    wrappedTabPane.setSelectionModel(selectionModel.wrappedSingleSelectionModel);
 	 }
-    }
+    }    
 }
 //Creating an internal class to wrap the SingleSeletionModel.
 class InternalSingleSelectionModel extends SingleSelectionModel{}
