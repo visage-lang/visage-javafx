@@ -50,7 +50,7 @@ public class TitledPane extends Labeled {
     /**
      * <p>The collapsible state of the TitledPane.</p>
      **/ 
-    public var collapsible:Boolean on replace oldValue{
+    public var collapsible:Boolean = true on replace oldValue{
         if(isInitialized(this) or not oldValue){
             wrappedTitledPane.setCollapsible(collapsible);
         }
