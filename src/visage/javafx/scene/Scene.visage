@@ -164,5 +164,14 @@ public class Scene {
                 }) 
             } 
         // } 
+    }
+    
+    /**
+      *  Stylesheets used in this scene's contents
+    */
+    public var stylesheets:String[] on replace {
+        if (isInitialized(this) or stylesheets != []) {
+            wrappedScene.getStylesheets().setAll(for (stylesheet in stylesheets) stylesheet);
+        }
     }    
 }
